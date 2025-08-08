@@ -1,0 +1,486 @@
+/* ===================== TRANSPARÊNCIA PÚBLICA - DESIGN MODERNO MELHORADO ===================== */
+
+/* Container Principal */
+.transparency-dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    padding: 1rem;
+}
+
+/* Cards Modernos com Gradientes Suaves */
+.transparency-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 50%, rgba(241, 245, 249, 0.95) 100%);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 
+        0 20px 40px rgba(59, 130, 246, 0.12),
+        0 8px 25px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+}
+
+.transparency-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899, #f59e0b);
+    border-radius: 24px 24px 0 0;
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+.transparency-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+        0 30px 60px rgba(59, 130, 246, 0.2),
+        0 12px 35px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.transparency-card.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Headers dos Cards */
+.card-header {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.15);
+    padding-bottom: 1rem;
+}
+
+.card-header h3 {
+    color: #1f2937;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header h3 i {
+    color: #fff;
+    font-size: 1.1rem;
+    padding: 10px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+}
+
+.card-header p {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* ===================== SEÇÃO CONSULTE COM IA - DESIGN APRIMORADO ===================== */
+
+.ai-chat-container {
+    padding: 0.8rem;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(241, 245, 249, 0.8) 0%, rgba(248, 250, 252, 0.9) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.chat-messages {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 0.8rem;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.chat-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-bottom: 0.8rem;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.chat-message i {
+    color: #6366f1;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.message-content {
+    flex: 1;
+    color: #374151;
+}
+
+.message-content p {
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.message-content ul {
+    margin: 0.5rem 0 0 0;
+    padding-left: 1.2rem;
+}
+
+.message-content li {
+    margin-bottom: 0.3rem;
+    color: #4b5563;
+    font-size: 0.9rem;
+}
+
+.chat-input-container {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.chat-input-container input {
+    flex: 1;
+    padding: 0.875rem 1.2rem;
+    border: 2px solid rgba(99, 102, 241, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1f2937;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.chat-input-container input:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.btn-ask {
+    padding: 0.875rem 1.2rem;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.btn-ask:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+/* ===================== PORTAIS OFICIAIS - BOTÕES MODERNOS ===================== */
+
+.portals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.portal-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.2rem 1.5rem;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    text-decoration: none;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.portal-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.portal-link:hover::before {
+    left: 100%;
+}
+
+.portal-link:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(59, 130, 246, 0.4);
+}
+
+.portal-link:nth-child(1) {
+    background: linear-gradient(135deg, #059669, #047857);
+    box-shadow: 0 6px 20px rgba(5, 150, 105, 0.3);
+}
+
+.portal-link:nth-child(2) {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3);
+}
+
+.portal-link:nth-child(3) {
+    background: linear-gradient(135deg, #7c3aed, #6d28d9);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.3);
+}
+
+.portal-link:nth-child(4) {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
+}
+
+.portal-link i {
+    font-size: 1.2rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* ===================== GASTOS POR ÁREA - CARDS TEMÁTICOS ===================== */
+
+.chart-legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.expense-item {
+    display: flex;
+    align-items: center;
+    padding: 1.2rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.8) 100%);
+    border-radius: 16px;
+    border-left: 6px solid var(--area-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.expense-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--area-color);
+    border-radius: 0 16px 16px 0;
+}
+
+.expense-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.expense-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--area-color), var(--area-color-dark));
+    color: white;
+    border-radius: 12px;
+    margin-right: 1rem;
+    font-size: 1.3rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.expense-info {
+    flex: 1;
+}
+
+.expense-name {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #1f2937;
+    margin-bottom: 0.3rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.expense-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--area-color);
+    margin-bottom: 0.2rem;
+}
+
+.expense-percentage {
+    font-size: 0.9rem;
+    color: #6b7280;
+    font-weight: 600;
+}
+
+/* Cores temáticas para cada área */
+.expense-item[data-area="saude"] {
+    --area-color: #dc2626;
+    --area-color-dark: #b91c1c;
+}
+
+.expense-item[data-area="educacao"] {
+    --area-color: #059669;
+    --area-color-dark: #047857;
+}
+
+.expense-item[data-area="infraestrutura"] {
+    --area-color: #f59e0b;
+    --area-color-dark: #d97706;
+}
+
+.expense-item[data-area="administracao"] {
+    --area-color: #8b5cf6;
+    --area-color-dark: #7c3aed;
+}
+
+.expense-item[data-area="assistencia"] {
+    --area-color: #3b82f6;
+    --area-color-dark: #2563eb;
+}
+
+.expense-item[data-area="cultura"] {
+    --area-color: #ec4899;
+    --area-color-dark: #db2777;
+}
+
+/* ===================== BOTÕES DE AÇÃO ===================== */
+
+.btn-transparency {
+    padding: 0.875rem 1.5rem;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    margin-top: 1rem;
+}
+
+.btn-transparency:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+}
+
+/* ===================== ESTADOS DE CARREGAMENTO ===================== */
+
+.loading-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    text-align: center;
+    color: #6b7280;
+}
+
+.loading-message i {
+    font-size: 2rem;
+    color: #6366f1;
+    margin-bottom: 1rem;
+}
+
+.loading-message p {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* ===================== CONTAINER DO GRÁFICO INTERATIVO ===================== */
+
+#municipal-chart-container {
+    min-height: 200px;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(241, 245, 249, 0.9) 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Esconder container de gráfico se não estiver funcionando */
+#municipal-chart-container:has(.loading-message) {
+    display: none;
+}
+
+/* ===================== RESPONSIVIDADE ===================== */
+
+@media (max-width: 768px) {
+    .transparency-dashboard {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0.5rem;
+    }
+    
+    .transparency-card {
+        padding: 1.5rem;
+    }
+    
+    .card-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .portals-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-legend {
+        grid-template-columns: 1fr;
+    }
+    
+    .expense-item {
+        padding: 1rem;
+    }
+    
+    .expense-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-input-container {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .chat-input-container input {
+        width: 100%;
+    }
+    
+    .btn-ask {
+        width: 100%;
+        justify-content: center;
+    }
+}

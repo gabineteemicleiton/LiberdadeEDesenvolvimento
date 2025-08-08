@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Integração Supabase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1e40af;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+        .test-section h3 {
+            color: #374151;
+            margin: 0 0 15px 0;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 6px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            min-height: 40px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .success {
+            background: #ecfdf5;
+            border-color: #10b981;
+            color: #065f46;
+        }
+        .error {
+            background: #fef2f2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+        .info {
+            background: #eff6ff;
+            border-color: #3b82f6;
+            color: #1e3a8a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Teste de Integração Supabase</h1>
+        <p>Use esta página para testar a conexão e funcionalidades do Supabase.</p>
+        
+        <div class="test-section">
+            <h3>1. Teste de Conexão</h3>
+            <button onclick="testConnection()">Testar Conexão Supabase</button>
+            <div id="connectionResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>2. Teste de Cadastro</h3>
+            <button onclick="testCadastro()">Cadastrar Eleitor Teste</button>
+            <div id="cadastroResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>3. Teste de Login</h3>
+            <button onclick="testLogin()">Testar Login</button>
+            <div id="loginResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>4. Listar Eleitores</h3>
+            <button onclick="testListar()">Listar Eleitores</button>
+            <div id="listarResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>5. Migrar Dados</h3>
+            <button onclick="testMigracao()">Migrar Dados Locais</button>
+            <div id="migracaoResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>6. Estatísticas</h3>
+            <button onclick="testStats()">Carregar Estatísticas</button>
+            <div id="statsResult" class="result"></div>
+        </div>
+    </div>
+
+    <!-- Scripts necessários -->
+    <script src="supabase-eleitores-client.js"></script>
+    
+    <script>
+        console.log('🔧 Página de teste carregada');
+        
+        function showResult(elementId, content, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.textContent = content;
+            element.className = `result ${type}`;
+        }
+        
+        async function testConnection() {
+            showResult('connectionResult', 'Testando conexão...', 'info');
+            
+            try {
+                if (typeof window.supabaseEleitores === 'undefined') {
+                    throw new Error('Cliente Supabase não carregado');
+                }
+                
+                // Testar uma consulta simples
+                const response = await fetch(`${window.supabaseEleitores.baseUrl}/eleitores?limit=1`, {
+                    method: 'GET',
+                    headers: window.supabaseEleitores.headers
+                });
+                
+                if (response.ok) {
+                    showResult('connectionResult', '✅ Conexão com Supabase funcionando!', 'success');
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+            } catch (error) {
+                showResult('connectionResult', `❌ Erro na conexão: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testCadastro() {
+            showResult('cadastroResult', 'Cadastrando eleitor teste...', 'info');
+            
+            try {
+                const dadosTeste = {
+                    nomeCompleto: 'Teste Supabase',
+                    email: `teste.supabase.${Date.now()}@email.com`,
+                    telefone: '75999999999',
+                    dataNascimento: '1990-01-01',
+                    bairro: 'Centro',
+                    cidade: 'Monte Santo',
+                    genero: 'Masculino'
+                };
+                
+                const resultado = await window.supabaseEleitores.cadastrarEleitor(dadosTeste);
+                
+                if (resultado.success) {
+                    showResult('cadastroResult', `✅ Cadastro realizado!\nID: ${resultado.eleitor?.id}\nEmail: ${dadosTeste.email}`, 'success');
+                } else {
+                    showResult('cadastroResult', `❌ Erro no cadastro: ${resultado.error}`, 'error');
+                }
+                
+            } catch (error) {
+                showResult('cadastroResult', `❌ Erro: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testLogin() {
+            showResult('loginResult', 'Testando login...', 'info');
+            
+            try {
+                // Tentar login com dados de teste
+                const resultado = await window.supabaseEleitores.loginEleitor('teste@email.com', 'teste@email.com');
+                
+                if (resultado.success) {
+                    showResult('loginResult', `✅ Login realizado!\nUsuário: ${resultado.user.nome}\nEmail: ${resultado.user.email}`, 'success');
+                } else {
+                    showResult('loginResult', `❌ Falha no login: ${resultado.error}`, 'error');
+                }
+                
+            } catch (error) {
+                showResult('loginResult', `❌ Erro: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testListar() {
+            showResult('listarResult', 'Carregando lista de eleitores...', 'info');
+            
+            try {
+                const resultado = await window.supabaseEleitores.listarEleitores();
+                
+                if (resultado.success) {
+                    const lista = resultado.data.slice(0, 5).map(e => 
+                        `• ${e.nome_completo} (${e.email})`
+                    ).join('\n');
+                    
+                    showResult('listarResult', `✅ ${resultado.total} eleitores encontrados\n\nPrimeiros 5:\n${lista}`, 'success');
+                } else {
+                    showResult('listarResult', `❌ Erro ao listar: ${resultado.error}`, 'error');
+                }
+                
+            } catch (error) {
+                showResult('listarResult', `❌ Erro: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testMigracao() {
+            showResult('migracaoResult', 'Iniciando migração...', 'info');
+            
+            try {
+                const resultado = await window.supabaseEleitores.migrarDadosLocais();
+                
+                showResult('migracaoResult', `✅ Migração concluída!\n${resultado.migrados} eleitores migrados`, 'success');
+                
+            } catch (error) {
+                showResult('migracaoResult', `❌ Erro na migração: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testStats() {
+            showResult('statsResult', 'Carregando estatísticas...', 'info');
+            
+            try {
+                const stats = await window.supabaseEleitores.obterEstatisticas();
+                const bairros = await window.supabaseEleitores.obterDistribuicaoBairros();
+                
+                const resultado = `✅ Estatísticas carregadas:
+                
+Total de eleitores: ${stats.total_eleitores || 0}
+Ativos: ${stats.ativos || 0}
+Cadastros hoje: ${stats.hoje || 0}
+Esta semana: ${stats.esta_semana || 0}
+Este mês: ${stats.este_mes || 0}
+Total de bairros: ${stats.total_bairros || 0}
+
+Distribuição por bairro:
+${bairros.slice(0, 3).map(b => `• ${b.bairro}: ${b.total} (${b.percentual}%)`).join('\n')}`;
+                
+                showResult('statsResult', resultado, 'success');
+                
+            } catch (error) {
+                showResult('statsResult', `❌ Erro: ${error.message}`, 'error');
+            }
+        }
+        
+        // Executar teste de conexão automaticamente
+        setTimeout(testConnection, 1000);
+    </script>
+</body>
+</html>

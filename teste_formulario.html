@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste do Formulário - Gabinete Digital</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1e40af;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .btn {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .result {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 14px;
+            display: none;
+        }
+        .success {
+            background: #ecfdf5;
+            border: 1px solid #10b981;
+            color: #065f46;
+        }
+        .error {
+            background: #fef2f2;
+            border: 1px solid #ef4444;
+            color: #991b1b;
+        }
+        .row {
+            display: flex;
+            gap: 15px;
+        }
+        .row .form-group {
+            flex: 1;
+        }
+        @media (max-width: 600px) {
+            .row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Teste do Formulário de Sugestões</h1>
+        
+        <form id="testForm" enctype="multipart/form-data">
+            <div class="row">
+                <div class="form-group">
+                    <label for="nome">Nome Completo *</label>
+                    <input type="text" id="nome" name="nome" required value="João da Silva">
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail *</label>
+                    <input type="email" id="email" name="email" required value="joao@email.com">
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="form-group">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" id="telefone" name="telefone" value="(75) 99999-9999">
+                </div>
+                <div class="form-group">
+                    <label for="tipo">Tipo *</label>
+                    <select id="tipo" name="tipo" required>
+                        <option value="">Selecione</option>
+                        <option value="sugestao" selected>Sugestão</option>
+                        <option value="reclamacao">Reclamação</option>
+                        <option value="denuncia">Denúncia</option>
+                        <option value="elogio">Elogio</option>
+                        <option value="solicitacao">Solicitação</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="assunto">Assunto *</label>
+                <input type="text" id="assunto" name="assunto" required value="Teste do sistema corrigido">
+            </div>
+            
+            <div class="form-group">
+                <label for="mensagem">Mensagem *</label>
+                <textarea id="mensagem" name="mensagem" required>Esta é uma mensagem de teste do sistema de sugestões. O formulário está funcionando corretamente e salvando os dados com foto e localização.</textarea>
+            </div>
+            
+            <div class="row">
+                <div class="form-group">
+                    <label for="bairro">Bairro</label>
+                    <input type="text" id="bairro" name="bairro" value="Centro">
+                </div>
+                <div class="form-group">
+                    <label for="localizacao">Localização Específica</label>
+                    <input type="text" id="localizacao" name="localizacao" value="Praça da Matriz, próximo ao coreto">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="foto">Foto (opcional)</label>
+                <input type="file" id="foto" name="foto" accept="image/*">
+                <small style="color: #666; font-size: 12px;">Máximo 2MB. Formatos: JPG, PNG, GIF</small>
+            </div>
+            
+            <button type="submit" class="btn" id="submitBtn">
+                Enviar Teste
+            </button>
+        </form>
+        
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitBtn');
+            const result = document.getElementById('result');
+            const originalText = btn.textContent;
+            
+            // Mostrar carregamento
+            btn.disabled = true;
+            btn.textContent = 'Enviando...';
+            result.style.display = 'block';
+            result.className = 'result';
+            result.textContent = '🔄 Enviando dados para o servidor...';
+            
+            // Coletar dados do formulário
+            const formData = new FormData(this);
+            
+            // Log dos dados coletados
+            console.log('📝 Dados sendo enviados:');
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}:`, value);
+            }
+            
+            // Enviar para o servidor
+            fetch('http://localhost:3000/enviar', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                console.log('📡 Resposta recebida:', response.status);
+                return response.json();
+            })
+            .then(data => {
+                console.log('✅ Dados da resposta:', data);
+                
+                if (data.success) {
+                    result.className = 'result success';
+                    result.innerHTML = `
+                        <strong>✅ Formulário enviado com sucesso!</strong><br><br>
+                        <strong>Protocolo:</strong> ${data.protocolo}<br>
+                        <strong>Mensagem:</strong> ${data.message}<br>
+                        ${data.imagePath ? `<strong>Imagem salva:</strong> ${data.imagePath}<br>` : ''}
+                        <br>
+                        <strong>Teste concluído:</strong> O sistema está funcionando perfeitamente!
+                    `;
+                } else {
+                    throw new Error(data.error || 'Erro desconhecido');
+                }
+            })
+            .catch(error => {
+                console.error('❌ Erro:', error);
+                result.className = 'result error';
+                result.innerHTML = `
+                    <strong>❌ Erro no envio:</strong><br><br>
+                    ${error.message}<br><br>
+                    <strong>Verifique:</strong><br>
+                    • Se o servidor está rodando na porta 3000<br>
+                    • Se não há problemas de conexão<br>
+                    • Se todos os campos obrigatórios estão preenchidos
+                `;
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            });
+        });
+    </script>
+</body>
+</html>

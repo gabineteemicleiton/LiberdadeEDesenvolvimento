@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Interação</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .botao { padding: 10px 20px; margin: 10px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .resultado { background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Teste do Sistema de Interações</h1>
+    
+    <button class="botao" onclick="criarSugestao()">Criar Sugestão</button>
+    <button class="botao" onclick="criarFoto()">Criar Foto</button>
+    <button class="botao" onclick="criarLocalizacao()">Criar Localização</button>
+    <button class="botao" onclick="verificarDados()">Verificar Dados</button>
+    <button class="botao" onclick="limparDados()">Limpar Dados</button>
+    
+    <div id="resultado" class="resultado"></div>
+    
+    <script>
+        function generateProtocol() {
+            const year = new Date().getFullYear();
+            const randomNum = Math.floor(Math.random() * 900000) + 100000;
+            return `SGT${year}${randomNum}`;
+        }
+        
+        function criarSugestao() {
+            const interacao = {
+                tipo: 'SUGESTAO',
+                titulo: 'Sugestão de Teste',
+                descricao: 'Esta é uma sugestão de teste criada automaticamente',
+                protocolo: generateProtocol(),
+                data: new Date().toISOString(),
+                nome: 'Cidadão Teste',
+                status: 'nova'
+            };
+            
+            salvarInteracao(interacao);
+            mostrarResultado('✅ Sugestão criada com sucesso!', interacao);
+        }
+        
+        function criarFoto() {
+            const interacao = {
+                tipo: 'FOTO',
+                titulo: 'Foto de Teste - Praça Central',
+                descricao: 'Foto do local: Praça Central',
+                protocolo: generateProtocol(),
+                data: new Date().toISOString(),
+                nome: 'Cidadão Teste',
+                local: 'Praça Central',
+                nomeArquivo: 'teste.jpg',
+                status: 'nova'
+            };
+            
+            salvarInteracao(interacao);
+            mostrarResultado('📷 Foto criada com sucesso!', interacao);
+        }
+        
+        function criarLocalizacao() {
+            const interacao = {
+                tipo: 'LOCALIZACAO',
+                titulo: 'Localização marcada - Rua das Flores',
+                descricao: 'Problema na via pública',
+                protocolo: generateProtocol(),
+                data: new Date().toISOString(),
+                nome: 'Cidadão Teste',
+                local: 'Rua das Flores',
+                coordenadas: '-10.4333, -39.3333',
+                status: 'nova'
+            };
+            
+            salvarInteracao(interacao);
+            mostrarResultado('📍 Localização criada com sucesso!', interacao);
+        }
+        
+        function salvarInteracao(interacao) {
+            try {
+                const interacoes = JSON.parse(localStorage.getItem('interacoesRecebidas') || '[]');
+                interacoes.push(interacao);
+                localStorage.setItem('interacoesRecebidas', JSON.stringify(interacoes));
+                console.log('✅ Interação salva:', interacao);
+            } catch (error) {
+                console.error('❌ Erro ao salvar:', error);
+            }
+        }
+        
+        function verificarDados() {
+            try {
+                const interacoes = JSON.parse(localStorage.getItem('interacoesRecebidas') || '[]');
+                const resultado = document.getElementById('resultado');
+                
+                if (interacoes.length === 0) {
+                    resultado.innerHTML = '<strong>📦 Nenhuma interação encontrada</strong>';
+                    return;
+                }
+                
+                let html = `<strong>📊 Total de interações: ${interacoes.length}</strong><br><br>`;
+                
+                const tipos = {};
+                interacoes.forEach(interacao => {
+                    tipos[interacao.tipo] = (tipos[interacao.tipo] || 0) + 1;
+                });
+                
+                html += '<strong>📋 Por tipo:</strong><br>';
+                Object.keys(tipos).forEach(tipo => {
+                    html += `• ${tipo}: ${tipos[tipo]}<br>`;
+                });
+                
+                html += '<br><strong>📝 Últimas 3 interações:</strong><br>';
+                interacoes.slice(-3).forEach(interacao => {
+                    html += `• ${interacao.protocolo} - ${interacao.tipo} - ${interacao.titulo}<br>`;
+                });
+                
+                resultado.innerHTML = html;
+                
+            } catch (error) {
+                mostrarResultado('❌ Erro ao verificar dados: ' + error.message);
+            }
+        }
+        
+        function limparDados() {
+            if (confirm('Tem certeza que deseja limpar todos os dados?')) {
+                localStorage.removeItem('interacoesRecebidas');
+                mostrarResultado('🗑️ Dados limpos com sucesso!');
+            }
+        }
+        
+        function mostrarResultado(mensagem, dados = null) {
+            const resultado = document.getElementById('resultado');
+            let html = `<strong>${mensagem}</strong>`;
+            
+            if (dados) {
+                html += `<br><br><strong>Dados:</strong><br>`;
+                html += `• Protocolo: ${dados.protocolo}<br>`;
+                html += `• Tipo: ${dados.tipo}<br>`;
+                html += `• Título: ${dados.titulo}<br>`;
+                html += `• Data: ${new Date(dados.data).toLocaleString()}<br>`;
+            }
+            
+            resultado.innerHTML = html;
+        }
+        
+        // Verificar dados ao carregar a página
+        window.addEventListener('load', verificarDados);
+    </script>
+</body>
+</html>

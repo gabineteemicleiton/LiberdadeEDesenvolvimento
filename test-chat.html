@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Chat Transparência</title>
+    <link rel="stylesheet" href="transparencia-moderno.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="transparency-section" id="transparencia">
+        <div class="transparency-container">
+            <div class="transparency-header">
+                <h2><i class="fas fa-chart-line"></i> Transparência Pública</h2>
+                <p>Dados oficiais e consulta inteligente sobre Monte Santo-BA</p>
+            </div>
+
+            <!-- Chat IA -->
+            <div class="transparency-chat-module" style="margin-top: 2rem;">
+                <div class="chat-header">
+                    <h3><i class="fas fa-robot"></i> Consulta IA sobre Transparência</h3>
+                    <p>Pergunte sobre orçamento, gastos, população e dados municipais</p>
+                </div>
+                
+                <div class="chat-container" id="transparency-chat" style="height: 300px; overflow-y: auto; background: rgba(255,255,255,0.1); border-radius: 15px; padding: 1rem; margin-bottom: 1rem;">
+                    <div class="chat-message ai-message">
+                        <i class="fas fa-robot"></i>
+                        <div class="message-content">
+                            <p><strong>🤖 Assistente IA:</strong></p>
+                            <p>Olá! Sou seu assistente de transparência municipal. Posso responder sobre:</p>
+                            <ul>
+                                <li>💰 Orçamento e gastos de Monte Santo</li>
+                                <li>🏥 Investimentos em saúde</li>
+                                <li>📚 Recursos para educação</li>
+                                <li>👥 Dados populacionais</li>
+                            </ul>
+                            <p>O que você gostaria de saber?</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-input-container" style="display: flex; gap: 0.5rem;">
+                    <input 
+                        type="text" 
+                        id="transparency-question" 
+                        placeholder="Ex: Quanto Monte Santo gasta em saúde?"
+                        style="flex: 1; padding: 1rem; border-radius: 25px; border: none; background: rgba(255,255,255,0.2); color: white; placeholder-color: rgba(255,255,255,0.7);"
+                        onkeypress="if(event.key==='Enter') askTransparencyQuestion()"
+                    >
+                    <button 
+                        onclick="askTransparencyQuestion()" 
+                        style="padding: 1rem 1.5rem; border-radius: 50%; border: none; background: linear-gradient(45deg, #4f46e5, #7c3aed); color: white; cursor: pointer;"
+                    >
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="transparencia.js"></script>
+    <script>
+        // Testar chat diretamente
+        console.log('🧪 Teste do chat iniciado');
+        
+        // Simular pergunta de teste
+        function testarChat() {
+            const input = document.getElementById('transparency-question');
+            input.value = 'quanto monte santo gasta em saude';
+            askTransparencyQuestion();
+        }
+        
+        // Botão de teste
+        setTimeout(() => {
+            const container = document.querySelector('.transparency-container');
+            container.insertAdjacentHTML('beforeend', `
+                <button onclick="testarChat()" style="margin-top: 1rem; padding: 1rem 2rem; background: #10b981; color: white; border: none; border-radius: 10px; cursor: pointer;">
+                    🧪 Testar Chat com "Quanto Monte Santo gasta em saúde?"
+                </button>
+            `);
+        }, 1000);
+    </script>
+</body>
+</html>

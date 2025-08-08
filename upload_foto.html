@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enviar Foto - Gabinete Digital</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 500px;
+      width: 100%;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    
+    .header h2 {
+      color: #1e40af;
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+    
+    .header p {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 500;
+    }
+    
+    input[type="file"], input[type="text"], textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+    
+    input[type="file"]:focus, input[type="text"]:focus, textarea:focus {
+      outline: none;
+      border-color: #1e40af;
+    }
+    
+    textarea {
+      height: 80px;
+      resize: vertical;
+    }
+    
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .back-link a {
+      color: #1e40af;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+    
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px;
+      }
+      
+      .header h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>📷 Enviar Foto</h2>
+      <p>Compartilhe fotos da sua cidade para melhorarmos juntos</p>
+    </div>
+    
+    <form id="photoForm" method="POST" action="https://formsubmit.co/gabinete.emicleiton@gmail.com" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="photo">Foto *</label>
+        <input type="file" id="photo" name="photo" accept="image/*" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="local">Local da foto *</label>
+        <input type="text" id="local" name="local" placeholder="Ex: Praça Central, Rua das Flores..." required />
+      </div>
+      
+      <div class="form-group">
+        <label for="nome">Seu nome *</label>
+        <input type="text" id="nome" name="nome" placeholder="Como podemos te identificar?" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="descricao">Descrição (opcional)</label>
+        <textarea id="descricao" name="descricao" placeholder="Conte mais sobre a foto ou situação..."></textarea>
+      </div>
+      
+      <input type="hidden" name="_subject" value="Nova Foto Enviada pelo Cidadão - Gabinete Digital">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://gabinete-digital.vercel.app/obrigado">
+      
+      <button type="submit" class="submit-btn">
+        📨 Enviar Foto
+      </button>
+    </form>
+
+    <script>
+      // Função para gerar protocolo
+      function generateProtocol() {
+        const year = new Date().getFullYear();
+        const randomNum = Math.floor(Math.random() * 900000) + 100000;
+        return `SGT${year}${randomNum}`;
+      }
+
+      // Interceptar envio do formulário para salvar no localStorage
+      document.getElementById('photoForm').addEventListener('submit', function(e) {
+        const nome = document.getElementById('nome').value;
+        const local = document.getElementById('local').value;
+        const descricao = document.getElementById('descricao').value;
+        const photo = document.getElementById('photo').files[0];
+
+        if (nome && local && photo) {
+          // Criar interação para o painel administrativo
+          const interacao = {
+            tipo: 'FOTO',
+            titulo: `Foto enviada por ${nome} - ${local}`,
+            descricao: descricao || `Foto do local: ${local}`,
+            protocolo: generateProtocol(),
+            data: new Date().toISOString(),
+            nome: nome,
+            local: local,
+            nomeArquivo: photo.name,
+            tamanhoArquivo: photo.size,
+            status: 'nova'
+          };
+
+          // Salvar no localStorage
+          try {
+            const interacoes = JSON.parse(localStorage.getItem('interacoesRecebidas') || '[]');
+            interacoes.push(interacao);
+            localStorage.setItem('interacoesRecebidas', JSON.stringify(interacoes));
+            console.log('✅ Interação de foto salva no localStorage:', interacao);
+          } catch (error) {
+            console.error('❌ Erro ao salvar no localStorage:', error);
+          }
+        }
+        
+        // Continuar com o envio normal do formulário
+        return true;
+      });
+    </script>
+    
+    <div class="back-link">
+      <a href="javascript:window.close()">← Voltar ao site</a>
+    </div>
+  </div>
+</body>
+</html>
