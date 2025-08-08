@@ -1,0 +1,164 @@
+/* CALENDÁRIO MOBILE - VERSÃO IGUAL DESKTOP */
+
+@media screen and (max-width: 768px) {
+    /* Container principal */
+    #agenda.active .modern-calendar-container {
+        display: block !important;
+        width: 100% !important;
+        max-width: 400px !important;
+        margin: 15px auto !important;
+        padding: 20px !important;
+        background: #ffffff !important;
+        border-radius: 16px !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    }
+    
+    /* Cabeçalho do calendário */
+    #agenda.active .calendar-header-modern {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-bottom: 20px !important;
+        padding: 0 5px !important;
+    }
+    
+    #agenda.active .calendar-month-title {
+        font-size: 22px !important;
+        font-weight: 700 !important;
+        color: #1f2937 !important;
+        text-align: center !important;
+        margin: 0 !important;
+        flex: 1 !important;
+    }
+    
+    #agenda.active .calendar-nav-modern {
+        width: 36px !important;
+        height: 36px !important;
+        border-radius: 8px !important;
+        background: #f8fafc !important;
+        border: 1px solid #e2e8f0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        color: #64748b !important;
+    }
+    
+    #agenda.active .calendar-nav-modern:hover {
+        background: #e2e8f0 !important;
+        color: #3b82f6 !important;
+    }
+    
+    /* Dias da semana */
+    #agenda.active .calendar-weekdays-modern {
+        display: grid !important;
+        grid-template-columns: repeat(7, 1fr) !important;
+        gap: 3px !important;
+        margin-bottom: 8px !important;
+    }
+    
+    #agenda.active .weekday-modern {
+        text-align: center !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        color: #64748b !important;
+        padding: 8px 4px !important;
+        background: #f8fafc !important;
+        border-radius: 6px !important;
+    }
+    
+    /* Grid dos dias - igual desktop */
+    #agenda.active .calendar-days-modern {
+        display: grid !important;
+        grid-template-columns: repeat(7, 1fr) !important;
+        grid-template-rows: repeat(6, 44px) !important;
+        gap: 3px !important;
+        width: 100% !important;
+    }
+    
+    /* Cada dia individual */
+    #agenda.active .calendar-day-modern {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        height: 44px !important;
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        color: #374151 !important;
+        background: #ffffff !important;
+        border: 1px solid #e5e7eb !important;
+        border-radius: 8px !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+    }
+    
+    /* Dia atual */
+    #agenda.active .calendar-day-modern.current {
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+        border-color: #2563eb !important;
+    }
+    
+    /* Dias com eventos */
+    #agenda.active .calendar-day-modern.event {
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+        border-color: #047857 !important;
+    }
+    
+    /* Indicador de evento */
+    #agenda.active .calendar-day-modern.event::after {
+        content: '•' !important;
+        position: absolute !important;
+        top: 2px !important;
+        right: 6px !important;
+        font-size: 8px !important;
+        color: #fbbf24 !important;
+        font-weight: bold !important;
+    }
+    
+    /* Dias inativos */
+    #agenda.active .calendar-day-modern.inactive {
+        background: #f9fafb !important;
+        color: #9ca3af !important;
+        border-color: #f3f4f6 !important;
+        cursor: default !important;
+        font-weight: 400 !important;
+    }
+    
+    /* Hover effects */
+    #agenda.active .calendar-day-modern:not(.inactive):not(.current):not(.event):hover {
+        background: #f1f5f9 !important;
+        border-color: #3b82f6 !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15) !important;
+    }
+    
+    /* Layout da agenda */
+    #agenda.active .agenda-modern-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+        padding: 0 15px !important;
+    }
+    
+    /* Container de eventos */
+    #agenda.active .modern-events-container {
+        order: 2 !important;
+        margin-top: 10px !important;
+    }
+    
+    /* Calendário primeiro */
+    #agenda.active .modern-calendar-container {
+        order: 1 !important;
+    }
+}

@@ -1,0 +1,78 @@
+/* CORREÇÕES ESPECÍFICAS PARA DESKTOP - AGENDA E BOTÕES */
+
+/* Correção da largura da agenda no desktop */
+@media (min-width: 769px) {
+    .agenda-modern-layout {
+        max-width: 1200px !important;
+        margin: 0 auto !important;
+        padding: 0 2rem !important;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 2rem !important;
+    }
+    
+    .modern-calendar-container,
+    .modern-events-container {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Remover botões duplicados/extras atrás dos flutuantes */
+    .floating-buttons > *:nth-child(n+4) {
+        display: none !important;
+    }
+    
+    /* Garantir que apenas 3 botões apareçam */
+    .floating-buttons {
+        max-height: 200px !important;
+        overflow: hidden !important;
+    }
+    
+    .floating-buttons .whatsapp-float,
+    .floating-buttons .assistente-float,
+    .floating-buttons .transparencia-float {
+        display: flex !important;
+        width: 60px !important;
+        height: 60px !important;
+        border-radius: 50% !important;
+        background: linear-gradient(135deg, #1e40af, #3b82f6) !important;
+        color: white !important;
+        border: none !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 24px !important;
+        box-shadow: 0 4px 15px rgba(30, 64, 175, 0.3) !important;
+    }
+    
+    .floating-buttons .whatsapp-float {
+        background: linear-gradient(135deg, #25d366, #128c7e) !important;
+    }
+    
+    .floating-buttons .whatsapp-float:hover {
+        background: linear-gradient(135deg, #128c7e, #075e54) !important;
+        transform: scale(1.1) !important;
+    }
+    
+    .floating-buttons .assistente-float:hover {
+        background: linear-gradient(135deg, #3b82f6, #1e40af) !important;
+        transform: scale(1.1) !important;
+    }
+    
+    .floating-buttons .transparencia-float {
+        background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    }
+    
+    .floating-buttons .transparencia-float:hover {
+        background: linear-gradient(135deg, #d97706, #b45309) !important;
+        transform: scale(1.1) !important;
+    }
+    
+    /* Esconder outros botões que possam estar aparecendo */
+    .floating-buttons > button:not(.assistente-float):not(.transparencia-float),
+    .floating-buttons > a:not(.whatsapp-float),
+    .floating-buttons > div:not(.whatsapp-float) {
+        display: none !important;
+    }
+}

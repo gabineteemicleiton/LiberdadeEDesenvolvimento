@@ -1,0 +1,245 @@
+<script>
+const acesso = sessionStorage.getItem("liberadoAdmin");
+if (!acesso) {
+  const senha = prompt("Área Administrativa - Digite a senha:");
+  if (senha !== "admin123") {
+    alert("Acesso negado!");
+    window.location.href = "index.html";
+  } else {
+    sessionStorage.setItem("liberadoAdmin", true);
+  }
+}
+</script>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor de Cursos - Gabinete Digital</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header class="admin-header">
+    <div class="container">
+      <div class="header-content">
+        <h1><i class="fas fa-edit"></i> Editor de Cursos</h1>
+        <div class="header-actions">
+          <a href="cursos.html" class="btn-view">
+            <i class="fas fa-eye"></i> Ver Cursos
+          </a>
+          <a href="painel.html" class="btn-admin">
+            <i class="fas fa-tachometer-alt"></i> Painel Admin
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-content">
+    <div class="container">
+      <div class="admin-grid">
+        <!-- Formulário de Adicionar Curso -->
+        <div class="admin-card">
+          <div class="card-header">
+            <h2><i class="fas fa-plus"></i> Adicionar Novo Curso</h2>
+          </div>
+          <div class="card-content">
+            <form id="formCurso" class="curso-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="titulo"><i class="fas fa-heading"></i> Título do Curso *</label>
+                  <input type="text" id="titulo" placeholder="Ex: Informática Básica" required />
+                </div>
+                <div class="form-group">
+                  <label for="categoria"><i class="fas fa-tag"></i> Categoria *</label>
+                  <select id="categoria" required>
+                    <option value="">Selecione uma categoria</option>
+                    <option value="informatica">Informática</option>
+                    <option value="empreendedorismo">Empreendedorismo</option>
+                    <option value="cidadania">Cidadania</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="descricao"><i class="fas fa-align-left"></i> Descrição *</label>
+                <textarea id="descricao" rows="3" placeholder="Descreva o conteúdo do curso..." required></textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="videoUrl"><i class="fas fa-video"></i> Link do Vídeo (YouTube Embed) *</label>
+                  <input type="url" id="videoUrl" placeholder="https://www.youtube.com/embed/..." required />
+                  <small>Use o link de incorporação do YouTube</small>
+                </div>
+                <div class="form-group">
+                  <label for="apostila"><i class="fas fa-file-pdf"></i> Link da Apostila (opcional)</label>
+                  <input type="url" id="apostila" placeholder="https://exemplo.com/apostila.pdf" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="duracao"><i class="fas fa-clock"></i> Duração *</label>
+                  <input type="text" id="duracao" placeholder="Ex: 4 horas" required />
+                </div>
+                <div class="form-group">
+                  <label for="nivel"><i class="fas fa-layer-group"></i> Nível *</label>
+                  <select id="nivel" required>
+                    <option value="">Selecione o nível</option>
+                    <option value="Básico">Básico</option>
+                    <option value="Iniciante">Iniciante</option>
+                    <option value="Intermediário">Intermediário</option>
+                    <option value="Avançado">Avançado</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="instrutor"><i class="fas fa-user-tie"></i> Instrutor *</label>
+                <input type="text" id="instrutor" placeholder="Ex: Prof. João Silva" required />
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn-primary">
+                  <i class="fas fa-plus"></i> Adicionar Curso
+                </button>
+                <button type="reset" class="btn-secondary">
+                  <i class="fas fa-undo"></i> Limpar Formulário
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Lista de Cursos Existentes -->
+        <div class="admin-card">
+          <div class="card-header">
+            <h2><i class="fas fa-list"></i> Cursos Cadastrados</h2>
+            <div class="header-stats">
+              <span id="totalCursosAdmin">0</span> cursos
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="search-bar">
+              <i class="fas fa-search"></i>
+              <input type="text" id="searchCursos" placeholder="Buscar cursos...">
+            </div>
+            
+            <div id="cursosLista" class="cursos-admin-list">
+              <!-- Cursos carregados via JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estatísticas -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <i class="fas fa-book"></i>
+          <div class="stat-info">
+            <span class="stat-number" id="statCursos">0</span>
+            <span class="stat-label">Total de Cursos</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-certificate"></i>
+          <div class="stat-info">
+            <span class="stat-number" id="statCertificados">0</span>
+            <span class="stat-label">Certificados Emitidos</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-eye"></i>
+          <div class="stat-info">
+            <span class="stat-number">1,245</span>
+            <span class="stat-label">Visualizações</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal de Edição -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fas fa-edit"></i> Editar Curso</h3>
+        <button class="close-modal" onclick="closeEditModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="editForm" class="curso-form">
+          <input type="hidden" id="editId">
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="editTitulo">Título do Curso *</label>
+              <input type="text" id="editTitulo" required />
+            </div>
+            <div class="form-group">
+              <label for="editCategoria">Categoria *</label>
+              <select id="editCategoria" required>
+                <option value="informatica">Informática</option>
+                <option value="empreendedorismo">Empreendedorismo</option>
+                <option value="cidadania">Cidadania</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="editDescricao">Descrição *</label>
+            <textarea id="editDescricao" rows="3" required></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="editVideoUrl">Link do Vídeo *</label>
+              <input type="url" id="editVideoUrl" required />
+            </div>
+            <div class="form-group">
+              <label for="editApostila">Link da Apostila</label>
+              <input type="url" id="editApostila" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="editDuracao">Duração *</label>
+              <input type="text" id="editDuracao" required />
+            </div>
+            <div class="form-group">
+              <label for="editNivel">Nível *</label>
+              <select id="editNivel" required>
+                <option value="Básico">Básico</option>
+                <option value="Iniciante">Iniciante</option>
+                <option value="Intermediário">Intermediário</option>
+                <option value="Avançado">Avançado</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="editInstrutor">Instrutor *</label>
+            <input type="text" id="editInstrutor" required />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">
+              <i class="fas fa-save"></i> Salvar Alterações
+            </button>
+            <button type="button" class="btn-secondary" onclick="closeEditModal()">
+              <i class="fas fa-times"></i> Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="editor-cursos.js"></script>
+</body>
+</html>

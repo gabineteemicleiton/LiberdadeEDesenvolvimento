@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Simples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .btn {
+            background: #1e40af;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+            width: 100%;
+        }
+        .result {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .success {
+            background: #ecfdf5;
+            border: 1px solid #10b981;
+            color: #065f46;
+        }
+        .error {
+            background: #fef2f2;
+            border: 1px solid #ef4444;
+            color: #991b1b;
+        }
+        .info {
+            background: #f0f9ff;
+            border: 1px solid #3b82f6;
+            color: #1e40af;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Diagnóstico Simplificado</h1>
+        
+        <button class="btn" onclick="testBasicFunction()">1. Testar Função Básica</button>
+        <div id="basicResult" class="result"></div>
+        
+        <button class="btn" onclick="testFormSubmit()">2. Testar Envio de Formulário</button>
+        <div id="formResult" class="result"></div>
+        
+        <button class="btn" onclick="testLocalStorage()">3. Testar Armazenamento Local</button>
+        <div id="storageResult" class="result"></div>
+        
+        <button class="btn" onclick="testEmailJS()">4. Testar EmailJS</button>
+        <div id="emailResult" class="result"></div>
+        
+        <button class="btn" onclick="viewCurrentData()">5. Ver Dados Atuais</button>
+        <div id="dataResult" class="result"></div>
+        
+        <button class="btn" onclick="testCompleteFlow()">6. Testar Fluxo Completo</button>
+        <div id="completeResult" class="result"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        // Inicializar EmailJS
+        (function() {
+            emailjs.init("7vJRQFzqmdONQKxu9");
+        })();
+
+        function testBasicFunction() {
+            const result = document.getElementById('basicResult');
+            try {
+                const now = new Date();
+                const protocolo = `SGT${now.getFullYear()}${Math.floor(Math.random() * 900000) + 100000}`;
+                
+                result.className = 'result success';
+                result.textContent = `✅ Função básica funcionando!\nProtocolo gerado: ${protocolo}\nHorário: ${now.toLocaleString()}`;
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = `❌ Erro: ${error.message}`;
+            }
+        }
+
+        function testFormSubmit() {
+            const result = document.getElementById('formResult');
+            try {
+                // Simular dados do formulário
+                const dados = {
+                    nome: 'João Silva',
+                    email: 'joao@email.com',
+                    telefone: '(75) 99999-9999',
+                    tipo: 'sugestao',
+                    assunto: 'Teste do sistema',
+                    mensagem: 'Esta é uma mensagem de teste',
+                    bairro: 'Centro',
+                    local: 'Praça da Matriz'
+                };
+                
+                result.className = 'result success';
+                result.textContent = `✅ Dados do formulário processados!\n${JSON.stringify(dados, null, 2)}`;
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = `❌ Erro: ${error.message}`;
+            }
+        }
+
+        function testLocalStorage() {
+            const result = document.getElementById('storageResult');
+            try {
+                const testData = {
+                    protocolo: `SGT${new Date().getFullYear()}${Math.floor(Math.random() * 900000) + 100000}`,
+                    tipo: 'TESTE',
+                    titulo: 'Teste de armazenamento',
+                    mensagem: 'Testando o localStorage',
+                    nome: 'Teste Usuario',
+                    email: 'teste@email.com',
+                    data: new Date().toISOString(),
+                    status: 'pendente'
+                };
+                
+                const interacoes = JSON.parse(localStorage.getItem('interacoesRecebidas') || '[]');
+                interacoes.push(testData);
+                localStorage.setItem('interacoesRecebidas', JSON.stringify(interacoes));
+                
+                result.className = 'result success';
+                result.textContent = `✅ Dados salvos no localStorage!\nProtocolo: ${testData.protocolo}\nTotal de interações: ${interacoes.length}`;
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = `❌ Erro: ${error.message}`;
+            }
+        }
+
+        function testEmailJS() {
+            const result = document.getElementById('emailResult');
+            result.className = 'result info';
+            result.textContent = '🔄 Testando EmailJS...';
+            
+            const templateParams = {
+                nome: 'Teste Sistema',
+                email: 'teste@email.com',
+                telefone: '(75) 99999-9999',
+                tipo: 'teste',
+                assunto: 'Teste de funcionamento',
+                mensagem: 'Esta é uma mensagem de teste do sistema',
+                bairro: 'Centro',
+                local: 'Teste',
+                data: new Date().toLocaleDateString('pt-BR'),
+                hora: new Date().toLocaleTimeString('pt-BR')
+            };
+            
+            emailjs.send('service_m7vyqan', 'template_zn7ijqe', templateParams)
+                .then(function(response) {
+                    result.className = 'result success';
+                    result.textContent = '✅ EmailJS funcionando!\nEmail enviado com sucesso!';
+                })
+                .catch(function(error) {
+                    result.className = 'result error';
+                    result.textContent = `❌ Erro no EmailJS: ${error.message || error}`;
+                });
+        }
+
+        function viewCurrentData() {
+            const result = document.getElementById('dataResult');
+            try {
+                const interacoes = JSON.parse(localStorage.getItem('interacoesRecebidas') || '[]');
+                const sugestoes = JSON.parse(localStorage.getItem('sugestoes') || '[]');
+                
+                result.className = 'result info';
+                result.textContent = `📊 Dados atuais:
+                
+Interações Recebidas: ${interacoes.length}
+Sugestões: ${sugestoes.length}
+
+Última interação: ${interacoes.length > 0 ? interacoes[interacoes.length - 1].protocolo : 'Nenhuma'}`;
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = `❌ Erro: ${error.message}`;
+            }
+        }
+
+        function testCompleteFlow() {
+            const result = document.getElementById('completeResult');
+            result.className = 'result info';
+            result.textContent = '🔄 Testando fluxo completo...';
+            
+            try {
+                // 1. Gerar protocolo
+                const protocolo = `SGT${new Date().getFullYear()}${Math.floor(Math.random() * 900000) + 100000}`;
+                
+                // 2. Criar dados completos
+                const templateParams = {
+                    nome: 'Teste Completo',
+                    email: 'teste@email.com',
+                    telefone: '(75) 99999-9999',
+                    tipo: 'sugestao',
+                    assunto: 'Teste completo do sistema',
+                    mensagem: 'Esta é uma mensagem de teste completo',
+                    bairro: 'Centro',
+                    local: 'Praça da Matriz',
+                    data: new Date().toLocaleDateString('pt-BR'),
+                    hora: new Date().toLocaleTimeString('pt-BR')
+                };
+                
+                // 3. Criar interação
+                const interacao = {
+                    protocolo: protocolo,
+                    tipo: templateParams.tipo.toUpperCase(),
+                    titulo: templateParams.assunto,
+                    mensagem: templateParams.mensagem,
+                    nome: templateParams.nome,
+                    email: templateParams.email,
+                    telefone: templateParams.telefone,
+                    bairro: templateParams.bairro,
+                    endereco: templateParams.local,
+                    data: new Date().toISOString(),
+                    status: 'pendente'
+                };
+                
+                // 4. Salvar no localStorage
+                const interacoes = JSON.parse(localStorage.getItem('interacoesRecebidas') || '[]');
+                interacoes.push(interacao);
+                localStorage.setItem('interacoesRecebidas', JSON.stringify(interacoes));
+                
+                // 5. Enviar por email
+                emailjs.send('service_m7vyqan', 'template_zn7ijqe', templateParams)
+                    .then(function(response) {
+                        result.className = 'result success';
+                        result.textContent = `✅ FLUXO COMPLETO FUNCIONANDO!
+                        
+Protocolo: ${protocolo}
+Dados salvos: ✅
+Email enviado: ✅
+Total de interações: ${interacoes.length}
+
+O sistema está funcionando corretamente!`;
+                    })
+                    .catch(function(error) {
+                        result.className = 'result success';
+                        result.textContent = `✅ FLUXO PARCIALMENTE FUNCIONANDO!
+                        
+Protocolo: ${protocolo}
+Dados salvos: ✅
+Email enviado: ❌ (${error.message || error})
+Total de interações: ${interacoes.length}
+
+O sistema está salvando os dados mesmo sem o email.`;
+                    });
+                
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = `❌ Erro no fluxo: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>

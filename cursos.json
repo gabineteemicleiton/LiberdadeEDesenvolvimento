@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "titulo": "Informática Básica para Iniciantes",
+    "descricao": "Aprenda o básico do computador, internet e ferramentas digitais essenciais para o dia a dia.",
+    "categoria": "informatica",
+    "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "apostila": "https://example.com/apostila-informatica.pdf",
+    "duracao": "4 horas",
+    "nivel": "Iniciante",
+    "instrutor": "Prof. Carlos Silva",
+    "certificado": true
+  },
+  {
+    "id": 2,
+    "titulo": "Empreendedorismo Local",
+    "descricao": "Descubra como começar seu negócio na sua cidade e desenvolver a economia local.",
+    "categoria": "empreendedorismo",
+    "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "apostila": "https://example.com/apostila-empreendedorismo.pdf",
+    "duracao": "6 horas",
+    "nivel": "Intermediário",
+    "instrutor": "Prof. Maria Santos",
+    "certificado": true
+  },
+  {
+    "id": 3,
+    "titulo": "Direitos do Cidadão",
+    "descricao": "Conheça seus direitos e deveres como cidadão brasileiro.",
+    "categoria": "cidadania",
+    "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "apostila": "https://example.com/apostila-cidadania.pdf",
+    "duracao": "3 horas",
+    "nivel": "Básico",
+    "instrutor": "Dr. Ana Oliveira",
+    "certificado": true
+  },
+  {
+    "id": 4,
+    "titulo": "Excel para Pequenos Negócios",
+    "descricao": "Aprenda a usar o Excel para controlar finanças e organizar seu negócio.",
+    "categoria": "informatica",
+    "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "apostila": "https://example.com/apostila-excel.pdf",
+    "duracao": "5 horas",
+    "nivel": "Intermediário",
+    "instrutor": "Prof. João Costa",
+    "certificado": true
+  },
+  {
+    "id": 5,
+    "titulo": "Marketing Digital para Pequenas Empresas",
+    "descricao": "Aprenda a promover seu negócio nas redes sociais e internet.",
+    "categoria": "empreendedorismo",
+    "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "apostila": "https://example.com/apostila-marketing.pdf",
+    "duracao": "5 horas",
+    "nivel": "Intermediário",
+    "instrutor": "Prof. Pedro Lima",
+    "certificado": true
+  },
+  {
+    "id": 6,
+    "titulo": "Participação Cidadã e Controle Social",
+    "descricao": "Como participar ativamente da vida política da sua cidade.",
+    "categoria": "cidadania",
+    "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "apostila": "https://example.com/apostila-participacao.pdf",
+    "duracao": "4 horas",
+    "nivel": "Básico",
+    "instrutor": "Dr. Luiza Mendes",
+    "certificado": true
+  }
+]

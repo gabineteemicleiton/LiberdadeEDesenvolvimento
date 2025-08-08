@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Liberdade & Desenvolvimento</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-navy: #1D3557;
+            --primary-gold: #F4A300;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --background: linear-gradient(135deg, #0057B8 0%, #87CEEB 50%, #ffffff 100%);
+            --white: #ffffff;
+            --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.15);
+            --shadow-glow: 0 0 20px rgba(0, 87, 184, 0.2);
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .login-container {
+            background: var(--white);
+            max-width: 380px;
+            width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 4px 20px rgba(0, 87, 184, 0.1);
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-navy), var(--primary-gold), var(--primary-navy));
+        }
+
+        /* Header com brasão e foto */
+        .header-images {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        /* Container especial para a foto do vereador */
+        .vereador-photo-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, 
+                rgba(244, 163, 0, 0.1) 0%, 
+                rgba(29, 53, 87, 0.05) 30%,
+                rgba(255, 255, 255, 0.8) 60%,
+                rgba(244, 163, 0, 0.08) 100%);
+            box-shadow: 
+                0 0 30px rgba(244, 163, 0, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.3);
+            animation: containerPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes containerPulse {
+            0%, 100% {
+                box-shadow: 
+                    0 0 30px rgba(244, 163, 0, 0.2),
+                    inset 0 0 20px rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                box-shadow: 
+                    0 0 40px rgba(244, 163, 0, 0.3),
+                    inset 0 0 25px rgba(255, 255, 255, 0.4);
+            }
+        }
+
+        .brasao-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .vereador-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-gold);
+            background: radial-gradient(circle at center, rgba(244, 163, 0, 0.1), rgba(29, 53, 87, 0.05));
+            box-shadow: 
+                0 0 0 8px rgba(244, 163, 0, 0.1),
+                0 0 0 16px rgba(29, 53, 87, 0.05),
+                0 8px 25px rgba(29, 53, 87, 0.2),
+                0 4px 15px rgba(244, 163, 0, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .vereador-photo::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            right: -12px;
+            bottom: -12px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-gold), var(--primary-navy), var(--primary-gold));
+            z-index: -1;
+            opacity: 0.7;
+            animation: photoGlow 3s ease-in-out infinite alternate;
+        }
+
+        .vereador-photo:hover {
+            transform: scale(1.08);
+            box-shadow: 
+                0 0 0 12px rgba(244, 163, 0, 0.15),
+                0 0 0 24px rgba(29, 53, 87, 0.08),
+                0 12px 35px rgba(29, 53, 87, 0.3),
+                0 6px 20px rgba(244, 163, 0, 0.4),
+                inset 0 2px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .vereador-photo:hover::before {
+            animation-duration: 1.5s;
+            opacity: 1;
+        }
+
+        @keyframes photoGlow {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.6;
+            }
+            50% {
+                transform: scale(1.02) rotate(180deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1.05) rotate(360deg);
+                opacity: 0.7;
+            }
+        }
+
+        /* Textos institucionales */
+        .brand-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(1.25rem, 4vw, 1.5rem);
+            font-weight: 500;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+        }
+
+        /* Informações do Vereador */
+        .vereador-info {
+            margin-bottom: 1rem;
+        }
+
+        .vereador-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(1.125rem, 3.5vw, 1.25rem);
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 1px 2px rgba(29, 53, 87, 0.1);
+        }
+
+        .location {
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+            font-weight: 400;
+        }
+
+        .location i {
+            color: var(--primary-gold);
+            font-size: 0.8em;
+        }
+
+        .institutional-phrase {
+            font-style: italic;
+            font-size: clamp(0.8rem, 2.2vw, 0.85rem);
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.4;
+            opacity: 0.9;
+        }
+
+        /* Botões de acesso */
+        .access-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .access-btn {
+            width: 100%;
+            max-width: 400px;
+            padding: 0.875rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 3vw, 0.95rem);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .access-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .access-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Classes reutilizáveis */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, #0f1d2e 100%);
+            color: var(--white);
+            box-shadow: 0 3px 12px rgba(29, 53, 87, 0.25), 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0f1d2e 0%, #051017 100%);
+            box-shadow: 0 6px 20px rgba(29, 53, 87, 0.35), 0 2px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, #d18b00 100%);
+            color: var(--white);
+            box-shadow: 0 3px 12px rgba(244, 163, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #d18b00 0%, #b8760a 100%);
+            box-shadow: 0 6px 20px rgba(244, 163, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        /* Pulse effect keyframe */
+        @keyframes buttonPulse {
+            0% { box-shadow: 0 0 0 0 rgba(29, 53, 87, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(29, 53, 87, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(29, 53, 87, 0); }
+        }
+
+        .btn-primary:active {
+            animation: buttonPulse 0.6s ease-out;
+        }
+
+        .btn-secondary:active {
+            animation: buttonPulse 0.6s ease-out;
+        }
+
+        /* Rodapé */
+        .footer {
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1.5rem;
+            text-align: center;
+        }
+
+        .security-text {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .support-link {
+            font-size: 0.8rem;
+            color: var(--primary-navy);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .support-link:hover {
+            color: var(--primary-gold);
+        }
+
+        /* Modal de Login */
+        .login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .login-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            max-width: 400px;
+            width: 100%;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-navy);
+            box-shadow: 0 0 0 3px rgba(29, 53, 87, 0.1);
+        }
+
+        .login-submit {
+            width: 100%;
+            padding: 0.875rem;
+            background: var(--primary-navy);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login-submit:hover {
+            background: #0f1d2e;
+        }
+
+        .login-submit:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .login-container {
+                max-width: 350px;
+                padding: 1.5rem;
+                margin: 0.5rem;
+            }
+
+            .header-images {
+                gap: 1rem;
+            }
+
+            .brasao-logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .vereador-photo-container {
+                width: 120px;
+                height: 120px;
+            }
+
+            .vereador-photo {
+                width: 85px;
+                height: 85px;
+            }
+
+            .access-btn {
+                padding: 0.75rem 1.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0.5rem;
+            }
+            
+            .login-container {
+                max-width: 320px;
+                padding: 1.5rem;
+                margin: 0;
+            }
+
+            .header-images {
+                flex-direction: column;
+                gap: 0.75rem;
+                margin-bottom: 1rem;
+            }
+            
+            .institutional-phrase {
+                font-size: 0.8rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .access-btn {
+                padding: 0.75rem 1rem !important;
+                font-size: 0.85rem !important;
+            }
+            
+            .vereador-photo {
+                width: 100px !important;
+                height: 100px !important;
+            }
+            
+            .brand-logo {
+                width: 45px !important;
+                height: 45px !important;
+            }
+
+            .vereador-photo-container {
+                width: 110px;
+                height: 110px;
+            }
+
+            .vereador-photo {
+                width: 75px;
+                height: 75px;
+            }
+
+            .brasao-logo {
+                width: 45px;
+                height: 45px;
+            }
+
+            .institutional-phrase {
+                font-size: 0.8rem;
+            }
+
+            .access-btn {
+                padding: 0.7rem 1rem;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .login-container {
+                padding: 0.875rem;
+            }
+
+            .header-images {
+                gap: 0.5rem;
+            }
+
+            .vereador-photo-container {
+                width: 100px;
+                height: 100px;
+            }
+
+            .vereador-photo {
+                width: 70px;
+                height: 70px;
+            }
+        }
+
+        /* Link para voltar ao site */
+        .back-to-site {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--primary-navy);
+            background: rgba(29, 53, 87, 0.05);
+            transform: translateX(-2px);
+        }
+
+        .back-link i {
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Header com imagens -->
+        <div class="header-images">
+            <img src="logo.png" alt="Brasão Monte Santo" class="brasao-logo">
+            <div class="vereador-photo-container">
+                <img src="vereador.png" alt="Vereador Emicleiton" class="vereador-photo">
+            </div>
+        </div>
+
+        <!-- Textos institucionais -->
+        <h1 class="brand-title">Liberdade & Desenvolvimento</h1>
+        
+        <!-- Informações do Vereador -->
+        <div class="vereador-info">
+            <h2 class="vereador-name">Emicleiton Rubem da Conceição</h2>
+            <div class="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Monte Santo – Bahia</span>
+            </div>
+        </div>
+
+        <p class="institutional-phrase">
+            "Transparência, Participação e Inovação no Legislativo."
+        </p>
+
+        <!-- Botões de acesso -->
+        <div class="access-buttons">
+            <button class="access-btn btn-primary" onclick="showLoginModal()">
+                <i class="fas fa-user-shield"></i>
+                Acesso do Vereador
+            </button>
+            
+            <button class="access-btn btn-secondary" onclick="showCitizenLoginModal()">
+                <i class="fas fa-users"></i>
+                Login do Cidadão
+            </button>
+            
+            <a href="cadastro.html" class="access-btn" style="background: linear-gradient(135deg, #10b981, #059669); color: white; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.75rem;">
+                <i class="fas fa-user-plus"></i>
+                Fazer Cadastro
+            </a>
+        </div>
+
+        <!-- Link para voltar ao site -->
+        <div class="back-to-site">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Voltar ao Site Público
+            </a>
+        </div>
+
+        <!-- Rodapé -->
+        <div class="footer">
+            <p class="security-text">
+                Ambiente seguro. Desenvolvido para o Gabinete Municipal.
+            </p>
+            <a href="#" class="support-link" onclick="showSupportInfo()">
+                Precisa de ajuda? Fale com a equipe técnica.
+            </a>
+        </div>
+    </div>
+
+    <!-- Modal de Login do Vereador -->
+    <div class="login-modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Login do Vereador</h2>
+                <button class="close-btn" onclick="hideLoginModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label" for="email">E-mail</label>
+                    <input type="email" id="email" class="form-input" placeholder="Digite seu e-mail" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Senha</label>
+                    <input type="password" id="password" class="form-input" placeholder="Digite sua senha" required>
+                </div>
+
+                <button type="submit" class="login-submit" id="loginBtn">
+                    Entrar no Sistema
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="user-authentication.js"></script>
+    <script>
+        function showLoginModal() {
+            document.getElementById('loginModal').classList.add('active');
+            document.getElementById('email').focus();
+        }
+
+        function hideLoginModal() {
+            document.getElementById('loginModal').classList.remove('active');
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        function showSupportInfo() {
+            alert('Suporte Técnico:\n\nWhatsApp: (75) 99999-9999\nE-mail: suporte@gabinete.com\nHorário: Segunda a Sexta, 8h às 18h\n\nCredenciais de teste:\nE-mail: admin@gabinete.com\nSenha: 123456');
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Verificando...';
+            
+            setTimeout(() => {
+                if (email === 'admin@gabinete.com' && password === '123456') {
+                    // Salvar dados do usuário logado
+                    sessionStorage.setItem('userLoggedIn', 'true');
+                    sessionStorage.setItem('userName', 'Emicleiton Rubem da Conceição');
+                    sessionStorage.setItem('userEmail', email);
+                    
+                    loginBtn.textContent = 'Login realizado!';
+                    loginBtn.style.background = '#10b981';
+                    
+                    setTimeout(() => {
+                        alert('Bem-vindo de volta, Emicleiton Rubem da Conceição! Você foi logado com sucesso.');
+                        window.location.href = 'painel.html';
+                    }, 1000);
+                } else {
+                    loginBtn.textContent = 'Dados incorretos';
+                    loginBtn.style.background = '#ef4444';
+                    
+                    setTimeout(() => {
+                        loginBtn.disabled = false;
+                        loginBtn.textContent = 'Entrar no Sistema';
+                        loginBtn.style.background = 'var(--primary-navy)';
+                    }, 2000);
+                }
+            }, 1500);
+        }
+
+        // Fechar modal clicando fora
+        document.getElementById('loginModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideLoginModal();
+            }
+        });
+
+        // Fechar modal com ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                hideLoginModal();
+            }
+        });
+
+        console.log('Sistema de Login Gabinete Digital carregado');
+        
+        // Modal de Login do Cidadão
+        function showCitizenLoginModal() {
+            const citizenModal = document.getElementById('citizenLoginModal');
+            if (citizenModal) {
+                citizenModal.classList.add('active');
+                document.getElementById('citizenEmail').focus();
+            }
+        }
+
+        function hideCitizenLoginModal() {
+            const citizenModal = document.getElementById('citizenLoginModal');
+            if (citizenModal) {
+                citizenModal.classList.remove('active');
+                document.getElementById('citizenEmail').value = '';
+                document.getElementById('citizenPassword').value = '';
+            }
+        }
+
+        function handleCitizenLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('citizenEmail').value;
+            const password = document.getElementById('citizenPassword').value;
+            const loginBtn = document.getElementById('citizenLoginBtn');
+            
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Verificando...';
+            
+            // Simular verificação no localStorage ou base de dados de usuários cadastrados
+            const users = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            setTimeout(() => {
+                if (user) {
+                    // Salvar dados do usuário logado
+                    sessionStorage.setItem('citizenLoggedIn', 'true');
+                    sessionStorage.setItem('citizenName', user.name);
+                    sessionStorage.setItem('citizenEmail', email);
+                    
+                    loginBtn.textContent = 'Login realizado!';
+                    loginBtn.style.background = '#10b981';
+                    
+                    setTimeout(() => {
+                        alert(`Bem-vindo de volta, ${user.name}! Você está logado no site.`);
+                        window.location.href = 'index.html';
+                    }, 1000);
+                } else {
+                    loginBtn.textContent = 'Dados incorretos ou usuário não cadastrado';
+                    loginBtn.style.background = '#ef4444';
+                    
+                    setTimeout(() => {
+                        loginBtn.disabled = false;
+                        loginBtn.textContent = 'Entrar';
+                        loginBtn.style.background = 'var(--primary-navy)';
+                    }, 3000);
+                }
+            }, 1500);
+        }
+    </script>
+    
+    <!-- Modal de Login do Cidadão -->
+    <div class="login-modal" id="citizenLoginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Login do Cidadão</h2>
+                <button class="close-btn" onclick="hideCitizenLoginModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form onsubmit="handleCitizenLogin(event)">
+                <div class="form-group">
+                    <label class="form-label" for="citizenEmail">E-mail</label>
+                    <input type="email" id="citizenEmail" class="form-input" placeholder="Digite seu e-mail" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="citizenPassword">Senha</label>
+                    <input type="password" id="citizenPassword" class="form-input" placeholder="Digite sua senha" required>
+                </div>
+
+                <button type="submit" class="login-submit" id="citizenLoginBtn">
+                    Entrar
+                </button>
+                
+                <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: #666;">
+                    Não tem conta? <a href="cadastro.html" style="color: #1e40af; font-weight: 500;">Faça seu cadastro</a>
+                </p>
+            </form>
+        </div>
+    </div>
+    
+    <script src="system-fix-complete.js"></script>
+    <!-- Cliente Supabase para Eleitores -->
+    <script src="supabase-eleitores-client.js"></script>
+    <!-- Login com Supabase -->
+    <script src="login-fix-supabase.js"></script>
+</body>
+</html>

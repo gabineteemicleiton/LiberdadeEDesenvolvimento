@@ -1,0 +1,166 @@
+/* CORREÇÃO DE VISIBILIDADE DA AGENDA NO MOBILE */
+/* Garante que a agenda só apareça quando estiver ativa */
+
+/* Regra global: agenda só é visível quando tem a classe 'active' */
+#agenda:not(.active),
+section#agenda:not(.active) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+    z-index: -999 !important;
+}
+
+/* No mobile, força ainda mais o ocultamento quando não ativa */
+@media screen and (max-width: 768px) {
+    #agenda:not(.active) {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        width: 0 !important;
+        overflow: hidden !important;
+        position: absolute !important;
+        left: -9999px !important;
+        z-index: -1 !important;
+    }
+    
+    /* Quando a agenda ESTÁ ativa, garante visibilidade correta */
+    #agenda.active {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        height: auto !important;
+        width: 100% !important;
+        position: relative !important;
+        left: auto !important;
+        z-index: 1 !important;
+    }
+    
+    /* Layout do calendário quando ativo */
+    #agenda.active .agenda-modern-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.5rem !important;
+        width: 100% !important;
+        max-width: calc(100vw - 20px) !important;
+        margin: 0 auto !important;
+        padding: 0 10px !important;
+    }
+    
+    /* Container do calendário quando ativo */
+    #agenda.active .modern-calendar-container {
+        width: 100% !important;
+        max-width: 350px !important;
+        margin: 0 auto !important;
+        padding: 20px !important;
+        background: white !important;
+        border-radius: 15px !important;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    }
+    
+    /* Grid do calendário quando ativo */
+    #agenda.active .calendar-grid-modern {
+        display: grid !important;
+        grid-template-columns: repeat(7, 1fr) !important;
+        gap: 8px !important;
+        margin-top: 15px !important;
+    }
+    
+    /* Dias do calendário quando ativo */
+    #agenda.active .calendar-day-modern {
+        width: 100% !important;
+        aspect-ratio: 1 !important;
+        min-height: 45px !important;
+        max-height: 45px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        border-radius: 8px !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        background: #f8fafc !important;
+        color: #475569 !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+    
+    /* Estados dos dias do calendário */
+    #agenda.active .calendar-day-modern.current {
+        background: linear-gradient(135deg, #3b82f6, #1e40af) !important;
+        color: white !important;
+        font-weight: 700 !important;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+    }
+    
+    #agenda.active .calendar-day-modern.event {
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+        color: white !important;
+        font-weight: 600 !important;
+        position: relative !important;
+    }
+    
+    #agenda.active .calendar-day-modern.event::after {
+        content: '•' !important;
+        position: absolute !important;
+        bottom: 2px !important;
+        right: 6px !important;
+        font-size: 12px !important;
+        color: #fbbf24 !important;
+    }
+    
+    #agenda.active .calendar-day-modern.inactive {
+        background: transparent !important;
+        color: #cbd5e1 !important;
+        cursor: not-allowed !important;
+    }
+    
+    /* Container de eventos quando ativo */
+    #agenda.active .modern-events-container {
+        width: 100% !important;
+        max-width: 400px !important;
+        margin: 0 auto !important;
+        padding: 20px !important;
+        background: white !important;
+        border-radius: 15px !important;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    }
+    
+    /* Cards de eventos quando ativo */
+    #agenda.active .event-card-modern {
+        display: flex !important;
+        align-items: center !important;
+        gap: 15px !important;
+        padding: 15px !important;
+        margin-bottom: 15px !important;
+        background: #f8fafc !important;
+        border-radius: 12px !important;
+        border-left: 4px solid #3b82f6 !important;
+        transition: all 0.2s ease !important;
+    }
+    
+    #agenda.active .event-card-modern:hover {
+        background: #f1f5f9 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+    }
+}
+
+/* Garantir que os botões de navegação da agenda também sejam controlados */
+@media screen and (max-width: 768px) {
+    /* Ocultar botões de agenda no menu mobile quando agenda não está ativa */
+    .mobile-nav-button[data-section="agenda"] {
+        display: flex !important; /* Sempre mostrar o botão */
+    }
+    
+    /* Mas quando a seção não está ativa, remover indicadores visuais especiais */
+    #agenda:not(.active) ~ * .mobile-nav-button[data-section="agenda"].active,
+    body:not(.agenda-active) .mobile-nav-button[data-section="agenda"].active {
+        background: rgba(59, 130, 246, 0.1) !important;
+        color: #3b82f6 !important;
+    }
+}

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Completo - Liberdade & Desenvolvimento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1e40af;
+            --primary-yellow: #fbbf24;
+            --white: #ffffff;
+            --light-gray: #f8fafc;
+            --medium-gray: #e2e8f0;
+            --dark-gray: #94a3b8;
+            --text-dark: #1e293b;
+            --text-secondary: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--light-gray);
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        .admin-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: var(--white);
+            border-right: 1px solid var(--medium-gray);
+            padding: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar-header {
+            padding: 0 2rem 2rem;
+            border-bottom: 1px solid var(--medium-gray);
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 2rem;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .sidebar-nav i {
+            margin-right: 0.75rem;
+            width: 20px;
+        }
+
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--medium-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn {
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: #1e3a8a;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--success);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+        }
+
+        .btn-warning:hover {
+            background: #d97706;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .table th {
+            background: var(--light-gray);
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .table tr:hover {
+            background: var(--light-gray);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: #dcfce7;
+            color: #15803d;
+            border: 1px solid #16a34a;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #ef4444;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .connection-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-connected {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .status-disconnected {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                order: 2;
+                border-right: none;
+                border-top: 1px solid var(--medium-gray);
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-cogs"></i> Admin Panel</h1>
+                <p>Liberdade & Desenvolvimento</p>
+                <span id="connectionStatus" class="connection-status status-disconnected">
+                    <i class="fas fa-times-circle"></i> Desconectado
+                </span>
+            </div>
+            
+            <ul class="sidebar-nav">
+                <li><a href="#dashboard" class="nav-link active" data-section="dashboard">
+                    <i class="fas fa-home"></i> Dashboard
+                </a></li>
+                <li><a href="#agenda" class="nav-link" data-section="agenda">
+                    <i class="fas fa-calendar"></i> Agenda Pública
+                </a></li>
+                <li><a href="#mandatos" class="nav-link" data-section="mandatos">
+                    <i class="fas fa-gavel"></i> Mandatos
+                </a></li>
+                <li><a href="#projetos" class="nav-link" data-section="projetos">
+                    <i class="fas fa-project-diagram"></i> Projetos
+                </a></li>
+                <li><a href="#equipe" class="nav-link" data-section="equipe">
+                    <i class="fas fa-users"></i> Equipe
+                </a></li>
+                <li><a href="#redes-sociais" class="nav-link" data-section="redes-sociais">
+                    <i class="fas fa-share-alt"></i> Redes Sociais
+                </a></li>
+                <li><a href="#site-conteudo" class="nav-link" data-section="site-conteudo">
+                    <i class="fas fa-edit"></i> Conteúdo do Site
+                </a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Alerts -->
+            <div id="alertContainer"></div>
+
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="section active">
+                <div class="section-header">
+                    <h2><i class="fas fa-home"></i> Dashboard</h2>
+                    <p>Visão geral do sistema administrativo</p>
+                </div>
+
+                <div class="card">
+                    <h3>Status do Sistema</h3>
+                    <p>Teste a conexão com o Supabase e veja o status das tabelas.</p>
+                    <button id="testConnectionBtn" class="btn">
+                        <i class="fas fa-plug"></i> Testar Conexão
+                    </button>
+                </div>
+
+                <div class="card">
+                    <h3>Estatísticas</h3>
+                    <div id="statsContainer">
+                        <p>Carregando estatísticas...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agenda Pública Section -->
+            <div id="agenda" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-calendar"></i> Agenda Pública</h2>
+                    <p>Gerencie os eventos da agenda pública</p>
+                </div>
+
+                <div class="card">
+                    <form id="agendaForm">
+                        <input type="hidden" id="agendaId" name="id">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="agendaTitulo">Título do Evento</label>
+                                <input type="text" id="agendaTitulo" name="titulo" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="agendaData">Data</label>
+                                <input type="date" id="agendaData" name="data" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="agendaDescricao">Descrição</label>
+                            <textarea id="agendaDescricao" name="descricao" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Salvar Evento
+                        </button>
+                        <button type="button" id="cancelAgenda" class="btn" style="display: none;">
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>Eventos Cadastrados</h3>
+                    <table class="table" id="agendaTable">
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Data</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="agendaTableBody">
+                            <tr><td colspan="3">Carregando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Similar sections for other tables... -->
+            <div id="mandatos" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-gavel"></i> Mandatos</h2>
+                    <p>Gerencie informações sobre mandatos</p>
+                </div>
+
+                <div class="card">
+                    <form id="mandatosForm">
+                        <input type="hidden" id="mandatosId" name="id">
+                        <div class="form-group">
+                            <label for="mandatosTitulo">Título</label>
+                            <input type="text" id="mandatosTitulo" name="titulo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mandatosDescricao">Descrição</label>
+                            <textarea id="mandatosDescricao" name="descricao" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="mandatosImagem">URL da Imagem</label>
+                            <input type="url" id="mandatosImagem" name="imagem_url">
+                        </div>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Salvar Mandato
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>Mandatos Cadastrados</h3>
+                    <table class="table" id="mandatosTable">
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Descrição</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mandatosTableBody">
+                            <tr><td colspan="3">Carregando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Continue with other sections... -->
+            <div id="projetos" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-project-diagram"></i> Projetos</h2>
+                    <p>Gerencie os projetos do mandato</p>
+                </div>
+
+                <div class="card">
+                    <form id="projetosForm">
+                        <input type="hidden" id="projetosId" name="id">
+                        <div class="form-group">
+                            <label for="projetosTitulo">Título do Projeto</label>
+                            <input type="text" id="projetosTitulo" name="titulo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="projetosDescricao">Descrição</label>
+                            <textarea id="projetosDescricao" name="descricao" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="projetosImagem">URL da Imagem</label>
+                            <input type="url" id="projetosImagem" name="imagem_url">
+                        </div>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Salvar Projeto
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>Projetos Cadastrados</h3>
+                    <table class="table" id="projetosTable">
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Descrição</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="projetosTableBody">
+                            <tr><td colspan="3">Carregando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Additional sections for equipe, redes-sociais, and site-conteudo follow the same pattern -->
+        </div>
+    </div>
+
+    <script type="module">
+        import { supabase, saveToSupabase, getFromSupabase, updateSupabase, deleteFromSupabase } from './supabaseClient.js';
+        
+        // Global variables
+        let currentEditingId = null;
+        let currentTable = null;
+
+        // DOM Elements
+        const alertContainer = document.getElementById('alertContainer');
+        const connectionStatus = document.getElementById('connectionStatus');
+        const testConnectionBtn = document.getElementById('testConnectionBtn');
+
+        // Navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.section');
+
+        // Show alert function
+        function showAlert(message, type = 'success') {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                ${message}
+            `;
+            
+            alertContainer.innerHTML = '';
+            alertContainer.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+
+        // Update connection status
+        function updateConnectionStatus(connected) {
+            if (connected) {
+                connectionStatus.className = 'connection-status status-connected';
+                connectionStatus.innerHTML = '<i class="fas fa-check-circle"></i> Conectado';
+            } else {
+                connectionStatus.className = 'connection-status status-disconnected';
+                connectionStatus.innerHTML = '<i class="fas fa-times-circle"></i> Desconectado';
+            }
+        }
+
+        // Test connection
+        async function testConnection() {
+            testConnectionBtn.disabled = true;
+            testConnectionBtn.innerHTML = '<span class="loading"></span> Testando...';
+            
+            try {
+                // Test basic Supabase connection
+                const { data, error } = await supabase.auth.getSession();
+                
+                updateConnectionStatus(true);
+                showAlert('Conexão com Supabase estabelecida com sucesso! Para usar o sistema completo, você precisa criar as tabelas no SQL Editor do Supabase.', 'success');
+                
+                // Try to load stats, but handle missing tables gracefully
+                await loadStats();
+                
+            } catch (error) {
+                updateConnectionStatus(false);
+                showAlert(`Erro de conexão: ${error.message}`, 'error');
+                console.error('Connection error:', error);
+            } finally {
+                testConnectionBtn.disabled = false;
+                testConnectionBtn.innerHTML = '<i class="fas fa-plug"></i> Testar Conexão';
+            }
+        }
+
+        // Load statistics
+        async function loadStats() {
+            try {
+                const tables = ['agenda_publica', 'mandatos', 'projetos', 'equipe', 'redes_sociais'];
+                const statsContainer = document.getElementById('statsContainer');
+                let statsHtml = '<div class="form-row">';
+                
+                for (const table of tables) {
+                    try {
+                        const { data, error } = await supabase.from(table).select('id');
+                        const count = data ? data.length : 0;
+                        
+                        statsHtml += `
+                            <div class="card" style="text-align: center; margin: 0.5rem;">
+                                <h4>${count}</h4>
+                                <p>${table.replace('_', ' ').toUpperCase()}</p>
+                                <small style="color: green;">✅ Tabela existe</small>
+                            </div>
+                        `;
+                    } catch (error) {
+                        statsHtml += `
+                            <div class="card" style="text-align: center; margin: 0.5rem;">
+                                <h4>-</h4>
+                                <p>${table.replace('_', ' ').toUpperCase()}</p>
+                                <small style="color: red;">❌ Tabela não existe</small>
+                            </div>
+                        `;
+                    }
+                }
+                
+                statsHtml += '</div>';
+                statsContainer.innerHTML = statsHtml;
+                
+            } catch (error) {
+                console.error('Error loading stats:', error);
+                document.getElementById('statsContainer').innerHTML = `
+                    <div class="alert alert-error">
+                        <strong>Tabelas não encontradas!</strong><br>
+                        Para usar o sistema completo, você precisa criar as tabelas no SQL Editor do Supabase.<br>
+                        Use o conteúdo do arquivo <code>supabase-setup.sql</code> ou acesse <a href="/setup-database.html">Setup Database</a>.
+                    </div>
+                `;
+            }
+        }
+
+        // Navigation handling
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Update active nav
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Show section
+                const sectionId = link.dataset.section;
+                sections.forEach(s => s.classList.remove('active'));
+                document.getElementById(sectionId).classList.add('active');
+                
+                // Load section data
+                loadSectionData(sectionId);
+            });
+        });
+
+        // Load section data
+        async function loadSectionData(sectionId) {
+            switch (sectionId) {
+                case 'agenda':
+                    await loadTableData('agenda_publica', 'agendaTableBody', renderAgendaRow);
+                    break;
+                case 'mandatos':
+                    await loadTableData('mandatos', 'mandatosTableBody', renderMandatosRow);
+                    break;
+                case 'projetos':
+                    await loadTableData('projetos', 'projetosTableBody', renderProjetosRow);
+                    break;
+            }
+        }
+
+        // Generic table data loader
+        async function loadTableData(tableName, tbodyId, renderFunction) {
+            try {
+                const tbody = document.getElementById(tbodyId);
+                tbody.innerHTML = '<tr><td colspan="3">Carregando...</td></tr>';
+                
+                const data = await getFromSupabase(tableName);
+                
+                if (data && data.length > 0) {
+                    tbody.innerHTML = data.map(renderFunction).join('');
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="3">Nenhum registro encontrado</td></tr>';
+                }
+                
+            } catch (error) {
+                console.error(`Error loading ${tableName}:`, error);
+                const tbody = document.getElementById(tbodyId);
+                tbody.innerHTML = `<tr><td colspan="3">Erro ao carregar dados: ${error.message}</td></tr>`;
+            }
+        }
+
+        // Render functions
+        function renderAgendaRow(item) {
+            return `
+                <tr>
+                    <td>${item.titulo}</td>
+                    <td>${new Date(item.data).toLocaleDateString('pt-BR')}</td>
+                    <td>
+                        <button class="btn btn-sm" onclick="editItem('agenda_publica', ${item.id})">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteItem('agenda_publica', ${item.id})">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }
+
+        function renderMandatosRow(item) {
+            return `
+                <tr>
+                    <td>${item.titulo}</td>
+                    <td>${item.descricao.substring(0, 50)}...</td>
+                    <td>
+                        <button class="btn btn-sm" onclick="editItem('mandatos', ${item.id})">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteItem('mandatos', ${item.id})">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }
+
+        function renderProjetosRow(item) {
+            return `
+                <tr>
+                    <td>${item.titulo}</td>
+                    <td>${item.descricao.substring(0, 50)}...</td>
+                    <td>
+                        <button class="btn btn-sm" onclick="editItem('projetos', ${item.id})">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteItem('projetos', ${item.id})">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }
+
+        // Form handlers
+        document.getElementById('agendaForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                if (data.id) {
+                    await updateSupabase('agenda_publica', data.id, data);
+                    showAlert('Evento atualizado com sucesso!');
+                } else {
+                    delete data.id;
+                    await saveToSupabase('agenda_publica', data);
+                    showAlert('Evento criado com sucesso!');
+                }
+                
+                e.target.reset();
+                await loadTableData('agenda_publica', 'agendaTableBody', renderAgendaRow);
+                
+            } catch (error) {
+                showAlert(`Erro ao salvar: ${error.message}`, 'error');
+            }
+        });
+
+        // Similar form handlers for other forms...
+
+        // Global functions for buttons
+        window.editItem = async function(table, id) {
+            // Implementation for editing items
+            console.log(`Edit ${table} item ${id}`);
+        };
+
+        window.deleteItem = async function(table, id) {
+            if (confirm('Tem certeza que deseja excluir este item?')) {
+                try {
+                    await deleteFromSupabase(table, id);
+                    showAlert('Item excluído com sucesso!');
+                    
+                    // Reload the current section
+                    const activeSection = document.querySelector('.section.active').id;
+                    await loadSectionData(activeSection);
+                    
+                } catch (error) {
+                    showAlert(`Erro ao excluir: ${error.message}`, 'error');
+                }
+            }
+        };
+
+        // Event listeners
+        testConnectionBtn.addEventListener('click', testConnection);
+
+        // Initialize
+        window.addEventListener('load', () => {
+            testConnection();
+        });
+    </script>
+</body>
+</html>

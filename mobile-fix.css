@@ -1,0 +1,78 @@
+/* Mobile Fix CSS - Solução definitiva para tela branca */
+
+/* Reset completo para mobile */
+@media (max-width: 768px) {
+    /* Remover TODOS os overlays que possam estar causando problema */
+    .mobile-menu-overlay,
+    .overlay,
+    .modal-overlay,
+    .backdrop {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+    
+    .mobile-menu-overlay.active {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+    
+    /* Garantir visibilidade total do conteúdo */
+    html, body {
+        background: #ffffff !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        overflow-x: hidden !important;
+        position: relative !important;
+    }
+    
+    .main-content,
+    .content-section,
+    .hero,
+    .section,
+    .container {
+        background: transparent !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+        z-index: 1 !important;
+    }
+    
+    /* Remover qualquer elemento que possa estar bloqueando */
+    *:not(.floating-buttons):not(.floating-buttons *):not(.mobile-menu-overlay.active):not(.mobile-menu-sidebar.active) {
+        z-index: auto !important;
+    }
+    
+    /* Resetar posicionamentos problemáticos */
+    .hero::before,
+    .hero::after,
+    .section::before,
+    .section::after {
+        display: none !important;
+    }
+    
+    /* Floating buttons - posicionamento correto */
+    .floating-buttons {
+        position: fixed !important;
+        right: 15px !important;
+        bottom: 100px !important;
+        z-index: 1000 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+    
+    /* Apenas 2 botões no mobile */
+    .floating-buttons .whatsapp-float,
+    .floating-buttons .assistente-float {
+        display: flex !important;
+        position: relative !important;
+    }
+    
+    .floating-buttons .pwa-install-btn {
+        display: none !important;
+    }
+}

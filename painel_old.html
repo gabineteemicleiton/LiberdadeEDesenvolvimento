@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Sistema de Gestão do Mandato</title>
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1e40af;
+            --light-blue: #3b82f6;
+            --dark-blue: #1e3a8a;
+            --primary-yellow: #fbbf24;
+            --light-yellow: #fde047;
+            --dark-yellow: #f59e0b;
+            --white: #ffffff;
+            --light-gray: #f8fafc;
+            --gray: #64748b;
+            --dark-gray: #334155;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --transition-fast: 0.15s ease-in-out;
+            --transition-normal: 0.3s ease-in-out;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--light-gray);
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+        }
+
+        .login-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 400px;
+            margin: 1rem;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--white);
+            margin: 0 auto 1rem;
+        }
+
+        .login-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition-fast);
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .login-button {
+            width: 100%;
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            padding: 0.875rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .login-button:hover {
+            background: var(--light-blue);
+            transform: translateY(-1px);
+        }
+
+        .login-button:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border-left: 4px solid #dc2626;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .dashboard-header {
+            background: var(--white);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dashboard-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .dashboard-title h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logout-button {
+            background: var(--primary-yellow);
+            color: var(--dark-blue);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .logout-button:hover {
+            background: var(--light-yellow);
+        }
+
+        .dashboard-content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .dashboard-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            border-top: 4px solid var(--primary-blue);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-blue);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 100px;
+            outline: none;
+            transition: var(--transition-fast);
+        }
+
+        .form-textarea:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .submit-button {
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .submit-button:hover {
+            background: var(--light-blue);
+            transform: translateY(-1px);
+        }
+
+        .success-message {
+            background: #f0fdf4;
+            color: #16a34a;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #16a34a;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .dashboard-content {
+                padding: 1rem;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .login-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h1 class="login-title">Painel do Vereador</h1>
+                <p class="login-subtitle">Acesso restrito para administração</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username" class="form-label">Usuário</label>
+                    <input type="text" id="username" class="form-input" placeholder="Digite seu usuário" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">Senha</label>
+                    <input type="password" id="password" class="form-input" placeholder="Digite sua senha" required>
+                </div>
+                
+                <button type="submit" class="login-button" id="loginButton">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Entrar
+                </button>
+                
+                <div class="error-message" id="errorMessage" style="display: none;">
+                    Usuário ou senha incorretos. Tente novamente.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <header class="dashboard-header">
+            <div class="dashboard-title">
+                <i class="fas fa-tachometer-alt"></i>
+                <h1>Painel Administrativo</h1>
+            </div>
+            <div class="user-info">
+                <span>Bem-vindo, <strong>Vereador Emicleiton</strong></span>
+                <button class="logout-button" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            </div>
+        </header>
+
+        <main class="dashboard-content">
+            <div class="dashboard-grid">
+                <!-- Add News Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <h2 class="card-title">Adicionar Notícia</h2>
+                    </div>
+                    
+                    <form id="newsForm">
+                        <div class="form-group">
+                            <label for="newsTitle" class="form-label">Título da Notícia</label>
+                            <input type="text" id="newsTitle" class="form-input" placeholder="Digite o título da notícia" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newsCategory" class="form-label">Categoria</label>
+                                <select id="newsCategory" class="form-input" required>
+                                    <option value="">Selecione</option>
+                                    <option value="Saúde">Saúde</option>
+                                    <option value="Educação">Educação</option>
+                                    <option value="Esporte">Esporte</option>
+                                    <option value="Infraestrutura">Infraestrutura</option>
+                                    <option value="Economia">Economia</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="newsDate" class="form-label">Data</label>
+                                <input type="date" id="newsDate" class="form-input" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newsContent" class="form-label">Conteúdo</label>
+                            <textarea id="newsContent" class="form-textarea" placeholder="Digite o conteúdo da notícia..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-button">
+                            <i class="fas fa-plus"></i>
+                            Publicar Notícia
+                        </button>
+                        
+                        <div class="success-message" id="newsSuccess">
+                            Notícia adicionada com sucesso!
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Add Event Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-calendar-plus"></i>
+                        </div>
+                        <h2 class="card-title">Adicionar Evento</h2>
+                    </div>
+                    
+                    <form id="eventForm">
+                        <div class="form-group">
+                            <label for="eventTitle" class="form-label">Título do Evento</label>
+                            <input type="text" id="eventTitle" class="form-input" placeholder="Digite o título do evento" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="eventDate" class="form-label">Data</label>
+                                <input type="date" id="eventDate" class="form-input" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="eventTime" class="form-label">Horário</label>
+                                <input type="time" id="eventTime" class="form-input" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventLocation" class="form-label">Local</label>
+                            <input type="text" id="eventLocation" class="form-input" placeholder="Local do evento" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventDescription" class="form-label">Descrição</label>
+                            <textarea id="eventDescription" class="form-textarea" placeholder="Descrição do evento..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-button">
+                            <i class="fas fa-calendar-check"></i>
+                            Agendar Evento
+                        </button>
+                        
+                        <div class="success-message" id="eventSuccess">
+                            Evento adicionado com sucesso!
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Add Message Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <h2 class="card-title">Enviar Mensagem</h2>
+                    </div>
+                    
+                    <form id="messageForm">
+                        <div class="form-group">
+                            <label for="messageTitle" class="form-label">Título da Mensagem</label>
+                            <input type="text" id="messageTitle" class="form-input" placeholder="Digite o título da mensagem" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="messageType" class="form-label">Tipo de Mensagem</label>
+                            <select id="messageType" class="form-input" required>
+                                <option value="">Selecione</option>
+                                <option value="Comunicado">Comunicado Oficial</option>
+                                <option value="Prestação">Prestação de Contas</option>
+                                <option value="Convite">Convite para Evento</option>
+                                <option value="Agradecimento">Agradecimento</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="messageContent" class="form-label">Conteúdo da Mensagem</label>
+                            <textarea id="messageContent" class="form-textarea" placeholder="Digite a mensagem..." required style="min-height: 120px;"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-button">
+                            <i class="fas fa-paper-plane"></i>
+                            Enviar Mensagem
+                        </button>
+                        
+                        <div class="success-message" id="messageSuccess">
+                            Mensagem enviada com sucesso!
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h2 class="card-title">Ações Rápidas</h2>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <button class="submit-button" onclick="window.open('/', '_blank')">
+                        <i class="fas fa-eye"></i>
+                        Ver Site Público
+                    </button>
+                    
+                    <button class="submit-button" onclick="exportData()">
+                        <i class="fas fa-download"></i>
+                        Exportar Dados
+                    </button>
+                    
+                    <button class="submit-button" onclick="showStatistics()">
+                        <i class="fas fa-chart-bar"></i>
+                        Ver Estatísticas
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Login functionality
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const loginButton = document.getElementById('loginButton');
+            
+            // Simple authentication (admin/1234)
+            if (username === 'admin' && password === '1234') {
+                loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
+                loginButton.disabled = true;
+                
+                setTimeout(() => {
+                    document.getElementById('loginContainer').style.display = 'none';
+                    document.getElementById('dashboard').classList.add('active');
+                    
+                    // Set current date for forms
+                    const today = new Date().toISOString().split('T')[0];
+                    document.getElementById('newsDate').value = today;
+                    document.getElementById('eventDate').value = today;
+                }, 1000);
+            } else {
+                errorMessage.style.display = 'block';
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+            }
+        });
+
+        // Logout functionality
+        function logout() {
+            if (confirm('Tem certeza que deseja sair?')) {
+                document.getElementById('dashboard').classList.remove('active');
+                document.getElementById('loginContainer').style.display = 'flex';
+                document.getElementById('loginForm').reset();
+                document.getElementById('loginButton').innerHTML = '<i class="fas fa-sign-in-alt"></i> Entrar';
+                document.getElementById('loginButton').disabled = false;
+            }
+        }
+
+        // Form submissions
+        document.getElementById('newsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showSuccessMessage('newsSuccess');
+            this.reset();
+            document.getElementById('newsDate').value = new Date().toISOString().split('T')[0];
+        });
+
+        document.getElementById('eventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showSuccessMessage('eventSuccess');
+            this.reset();
+            document.getElementById('eventDate').value = new Date().toISOString().split('T')[0];
+        });
+
+        document.getElementById('messageForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showSuccessMessage('messageSuccess');
+            this.reset();
+        });
+
+        function showSuccessMessage(elementId) {
+            const element = document.getElementById(elementId);
+            element.style.display = 'block';
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 3000);
+        }
+
+        // Quick actions
+        function exportData() {
+            alert('Função de exportação em desenvolvimento. Os dados serão exportados em formato CSV.');
+        }
+
+        function showStatistics() {
+            alert('Estatísticas:\n• Visitantes únicos: 1,247\n• Formulários preenchidos: 89\n• Downloads: 156\n• Mensagens WhatsApp: 234');
+        }
+
+        // Auto-logout after 30 minutes of inactivity
+        let inactivityTimer;
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(() => {
+                if (document.getElementById('dashboard').classList.contains('active')) {
+                    alert('Sessão expirada por inatividade. Você será redirecionado para a tela de login.');
+                    logout();
+                }
+            }, 30 * 60 * 1000); // 30 minutes
+        }
+
+        // Reset timer on user activity
+        document.addEventListener('click', resetInactivityTimer);
+        document.addEventListener('keypress', resetInactivityTimer);
+        resetInactivityTimer();
+    </script>
+</body>
+</html>

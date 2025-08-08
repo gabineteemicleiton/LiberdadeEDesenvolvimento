@@ -1,0 +1,106 @@
+/* CALENDÁRIO LIMPO - APENAS O ESSENCIAL PARA MOBILE */
+
+@media screen and (max-width: 768px) {
+    /* LIMPAR E RECOMEÇAR */
+    #agenda.active .modern-calendar-container,
+    #agenda.active .calendar-days-modern,
+    #agenda.active .calendar-day-modern {
+        all: unset !important;
+    }
+    
+    /* CONTAINER BASE */
+    #agenda.active .modern-calendar-container {
+        display: block;
+        width: 100%;
+        max-width: 350px;
+        margin: 20px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        font-family: 'Inter', sans-serif;
+    }
+    
+    /* CABEÇALHO */
+    #agenda.active .calendar-header-modern {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    
+    #agenda.active .calendar-month-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1f2937;
+        margin: 0;
+    }
+    
+    /* DIAS DA SEMANA */
+    #agenda.active .calendar-weekdays-modern {
+        display: flex;
+        margin-bottom: 10px;
+    }
+    
+    #agenda.active .weekday-modern {
+        flex: 1;
+        text-align: center;
+        font-size: 12px;
+        font-weight: 600;
+        color: #6b7280;
+        padding: 8px 4px;
+    }
+    
+    /* GRID PRINCIPAL - CSS GRID COMO DESKTOP */
+    #agenda.active .calendar-days-modern {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: repeat(6, 42px);
+        gap: 3px;
+        margin-top: 5px;
+    }
+    
+    /* CADA DIA - IGUAL DESKTOP */
+    #agenda.active .calendar-day-modern {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 42px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #374151;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-sizing: border-box;
+    }
+    
+    /* HOJE */
+    #agenda.active .calendar-day-modern.current {
+        background: #3b82f6;
+        color: white;
+        font-weight: 700;
+    }
+    
+    /* EVENTOS */
+    #agenda.active .calendar-day-modern.event {
+        background: #10b981;
+        color: white;
+        font-weight: 700;
+    }
+    
+    /* INATIVOS */
+    #agenda.active .calendar-day-modern.inactive {
+        background: #f3f4f6;
+        color: #9ca3af;
+        cursor: default;
+    }
+    
+    /* HOVER */
+    #agenda.active .calendar-day-modern:not(.inactive):hover {
+        background: #e5e7eb;
+        transform: scale(1.05);
+    }
+}

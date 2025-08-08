@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Liberdade & Desenvolvimento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1e40af;
+            --primary-yellow: #fbbf24;
+            --white: #ffffff;
+            --light-gray: #f8fafc;
+            --medium-gray: #e2e8f0;
+            --dark-gray: #94a3b8;
+            --text-dark: #1e293b;
+            --text-secondary: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--light-gray) 0%, #e8f2ff 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        .admin-header {
+            background: var(--white);
+            padding: 1.5rem 2rem;
+            box-shadow: var(--shadow);
+            border-bottom: 3px solid var(--primary-blue);
+        }
+
+        .admin-header h1 {
+            color: var(--primary-blue);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-header p {
+            color: var(--text-secondary);
+        }
+
+        .connection-status {
+            float: right;
+            margin-top: -3rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .status-connected {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .status-disconnected {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-nav {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            background: var(--light-gray);
+            border: 2px solid var(--medium-gray);
+            color: var(--text-dark);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-btn:hover,
+        .nav-btn.active {
+            background: var(--primary-blue);
+            color: var(--white);
+            border-color: var(--primary-blue);
+        }
+
+        .section {
+            display: none;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--medium-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn {
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: #1e3a8a;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--success);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+        }
+
+        .btn-warning:hover {
+            background: #d97706;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .alert-success {
+            background: #dcfce7;
+            color: #15803d;
+            border: 1px solid #16a34a;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #ef4444;
+        }
+
+        .alert-info {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #3b82f6;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .content-preview {
+            background: var(--light-gray);
+            border: 1px solid var(--medium-gray);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .content-preview h4 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .toolbar button {
+            background: var(--light-gray);
+            border: 1px solid var(--medium-gray);
+            color: var(--text-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .toolbar button:hover {
+            background: var(--medium-gray);
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-buttons {
+                justify-content: center;
+            }
+            
+            .main-container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-header">
+        <h1><i class="fas fa-cogs"></i> Painel Administrativo</h1>
+        <p>Liberdade & Desenvolvimento - Gestão Completa de Conteúdo</p>
+        <div id="connectionStatus" class="connection-status status-disconnected">
+            <i class="fas fa-times-circle"></i> Desconectado
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- Alerts -->
+        <div id="alertContainer"></div>
+
+        <!-- Navigation -->
+        <div class="section-nav">
+            <div class="nav-buttons">
+                <button class="nav-btn active" data-section="cabecalho">
+                    <i class="fas fa-heading"></i> Cabeçalho
+                </button>
+                <button class="nav-btn" data-section="apresentacao">
+                    <i class="fas fa-user-circle"></i> Apresentação
+                </button>
+                <button class="nav-btn" data-section="projetos">
+                    <i class="fas fa-project-diagram"></i> Projetos
+                </button>
+                <button class="nav-btn" data-section="agenda">
+                    <i class="fas fa-calendar"></i> Agenda
+                </button>
+                <button class="nav-btn" data-section="mandatos">
+                    <i class="fas fa-gavel"></i> Mandatos
+                </button>
+                <button class="nav-btn" data-section="mensagens">
+                    <i class="fas fa-comments"></i> Mensagens
+                </button>
+                <button class="nav-btn" data-section="rodape">
+                    <i class="fas fa-info-circle"></i> Rodapé
+                </button>
+            </div>
+        </div>
+
+        <!-- Cabeçalho Section -->
+        <div id="cabecalho" class="section active">
+            <h2 class="section-title">
+                <i class="fas fa-heading"></i> Editar Cabeçalho
+            </h2>
+            
+            <form id="cabecalhoForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="siteTitulo">Título do Site</label>
+                        <input type="text" id="siteTitulo" name="titulo" placeholder="Liberdade & Desenvolvimento">
+                    </div>
+                    <div class="form-group">
+                        <label for="siteSubtitulo">Subtítulo</label>
+                        <input type="text" id="siteSubtitulo" name="subtitulo" placeholder="Vereador Emicleiton Rubem da Conceição">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="siteCidade">Cidade</label>
+                    <input type="text" id="siteCidade" name="cidade" placeholder="Monte Santo - BA">
+                </div>
+                
+                <div class="form-group">
+                    <label for="siteSlogan">Slogan</label>
+                    <input type="text" id="siteSlogan" name="slogan" placeholder="Transparência, Participação e Inovação">
+                </div>
+                
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> Salvar Cabeçalho
+                </button>
+            </form>
+        </div>
+
+        <!-- Apresentação Section -->
+        <div id="apresentacao" class="section">
+            <h2 class="section-title">
+                <i class="fas fa-user-circle"></i> Editar Apresentação
+            </h2>
+            
+            <form id="apresentacaoForm">
+                <div class="form-group">
+                    <label for="nomeVereador">Nome do Vereador</label>
+                    <input type="text" id="nomeVereador" name="nome" placeholder="Emicleiton Rubem da Conceição">
+                </div>
+                
+                <div class="form-group">
+                    <label for="biografiaVereador">Biografia</label>
+                    <div class="toolbar">
+                        <button type="button" onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
+                        <button type="button" onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
+                        <button type="button" onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
+                    </div>
+                    <textarea id="biografiaVereador" name="biografia" placeholder="Biografia do vereador..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fotoVereador">URL da Foto</label>
+                    <input type="url" id="fotoVereador" name="foto" placeholder="https://exemplo.com/foto.jpg">
+                </div>
+                
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> Salvar Apresentação
+                </button>
+            </form>
+        </div>
+
+        <!-- Projetos Section -->
+        <div id="projetos" class="section">
+            <h2 class="section-title">
+                <i class="fas fa-project-diagram"></i> Gerenciar Projetos
+            </h2>
+            
+            <form id="projetosForm">
+                <input type="hidden" id="projetoId" name="id">
+                
+                <div class="form-group">
+                    <label for="projetoTitulo">Título do Projeto</label>
+                    <input type="text" id="projetoTitulo" name="titulo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="projetoDescricao">Descrição</label>
+                    <textarea id="projetoDescricao" name="descricao" required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="projetoImagem">URL da Imagem</label>
+                        <input type="url" id="projetoImagem" name="imagem_url">
+                    </div>
+                    <div class="form-group">
+                        <label for="projetoStatus">Status</label>
+                        <select id="projetoStatus" name="status">
+                            <option value="planejado">Planejado</option>
+                            <option value="andamento">Em Andamento</option>
+                            <option value="concluido">Concluído</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> Salvar Projeto
+                </button>
+                <button type="button" id="cancelProjeto" class="btn" style="display: none;">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </form>
+            
+            <div id="projetosList" style="margin-top: 2rem;">
+                <h3>Projetos Cadastrados</h3>
+                <div id="projetosContainer">Carregando projetos...</div>
+            </div>
+        </div>
+
+        <!-- Agenda Section -->
+        <div id="agenda" class="section">
+            <h2 class="section-title">
+                <i class="fas fa-calendar"></i> Gerenciar Agenda Pública
+            </h2>
+            
+            <form id="agendaForm">
+                <input type="hidden" id="agendaId" name="id">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="agendaTitulo">Título do Evento</label>
+                        <input type="text" id="agendaTitulo" name="titulo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="agendaData">Data</label>
+                        <input type="date" id="agendaData" name="data" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="agendaDescricao">Descrição</label>
+                    <textarea id="agendaDescricao" name="descricao" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> Salvar Evento
+                </button>
+                <button type="button" id="cancelAgenda" class="btn" style="display: none;">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </form>
+            
+            <div id="agendaList" style="margin-top: 2rem;">
+                <h3>Eventos Cadastrados</h3>
+                <div id="agendaContainer">Carregando eventos...</div>
+            </div>
+        </div>
+
+        <!-- Mandatos Section -->
+        <div id="mandatos" class="section">
+            <h2 class="section-title">
+                <i class="fas fa-gavel"></i> Gerenciar Mandatos
+            </h2>
+            
+            <form id="mandatosForm">
+                <input type="hidden" id="mandatosId" name="id">
+                
+                <div class="form-group">
+                    <label for="mandatosTitulo">Título do Mandato</label>
+                    <input type="text" id="mandatosTitulo" name="titulo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mandatosDescricao">Descrição</label>
+                    <textarea id="mandatosDescricao" name="descricao" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mandatosImagem">URL da Imagem</label>
+                    <input type="url" id="mandatosImagem" name="imagem_url">
+                </div>
+                
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> Salvar Mandato
+                </button>
+            </form>
+            
+            <div id="mandatosList" style="margin-top: 2rem;">
+                <h3>Mandatos Cadastrados</h3>
+                <div id="mandatosContainer">Carregando mandatos...</div>
+            </div>
+        </div>
+
+        <!-- Mensagens Section -->
+        <div id="mensagens" class="section">
+            <h2 class="section-title">
+                <i class="fas fa-comments"></i> Mensagens aos Cidadãos
+            </h2>
+            
+            <form id="mensagensForm">
+                <div class="form-group">
+                    <label for="mensagemTitulo">Título da Mensagem</label>
+                    <input type="text" id="mensagemTitulo" name="titulo" placeholder="Ex: Mensagem de Fim de Ano">
+                </div>
+                
+                <div class="form-group">
+                    <label for="mensagemTexto">Texto da Mensagem</label>
+                    <div class="toolbar">
+                        <button type="button" onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
+                        <button type="button" onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
+                        <button type="button" onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
+                    </div>
+                    <textarea id="mensagemTexto" name="texto" rows="6" placeholder="Digite sua mensagem aos cidadãos..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> Salvar Mensagem
+                </button>
+            </form>
+            
+            <div class="content-preview">
+                <h4>Prévia da Mensagem</h4>
+                <div id="mensagemPreview">A mensagem aparecerá aqui...</div>
+            </div>
+        </div>
+
+        <!-- Rodapé Section -->
+        <div id="rodape" class="section">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i> Editar Rodapé
+            </h2>
+            
+            <form id="rodapeForm">
+                <div class="form-group">
+                    <label for="rodapeTexto">Texto do Rodapé</label>
+                    <textarea id="rodapeTexto" name="texto" placeholder="Ex: Gabinete Digital - Transparência e Proximidade com o Cidadão"></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="rodapeCopyright">Copyright</label>
+                        <input type="text" id="rodapeCopyright" name="copyright" placeholder="© 2025 Emicleiton Rubem da Conceição">
+                    </div>
+                    <div class="form-group">
+                        <label for="rodapeContato">Contato Principal</label>
+                        <input type="text" id="rodapeContato" name="contato" placeholder="(74) 99999-9999">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="rodapeEndereco">Endereço</label>
+                    <input type="text" id="rodapeEndereco" name="endereco" placeholder="Câmara Municipal de Monte Santo - BA">
+                </div>
+                
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> Salvar Rodapé
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <script type="module">
+        import { supabase, saveToSupabase, getFromSupabase, updateSupabase, deleteFromSupabase } from './supabaseClient.js';
+        
+        // Global variables
+        let currentEditingId = null;
+        let connectionStatus = false;
+
+        // DOM Elements
+        const alertContainer = document.getElementById('alertContainer');
+        const statusElement = document.getElementById('connectionStatus');
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('.section');
+
+        // Show alert function
+        function showAlert(message, type = 'success') {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                ${message}
+            `;
+            
+            alertContainer.innerHTML = '';
+            alertContainer.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+
+        // Update connection status
+        function updateConnectionStatus(connected) {
+            connectionStatus = connected;
+            if (connected) {
+                statusElement.className = 'connection-status status-connected';
+                statusElement.innerHTML = '<i class="fas fa-check-circle"></i> Conectado';
+            } else {
+                statusElement.className = 'connection-status status-disconnected';
+                statusElement.innerHTML = '<i class="fas fa-times-circle"></i> Desconectado';
+            }
+        }
+
+        // Test connection
+        async function testConnection() {
+            try {
+                const { data, error } = await supabase.auth.getSession();
+                updateConnectionStatus(true);
+                loadAllContent();
+            } catch (error) {
+                updateConnectionStatus(false);
+                console.error('Connection error:', error);
+            }
+        }
+
+        // Navigation handling
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active nav
+                navButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Show section
+                const sectionId = btn.dataset.section;
+                sections.forEach(s => s.classList.remove('active'));
+                document.getElementById(sectionId).classList.add('active');
+                
+                // Load section content
+                loadSectionContent(sectionId);
+            });
+        });
+
+        // Load section content
+        async function loadSectionContent(sectionId) {
+            switch (sectionId) {
+                case 'cabecalho':
+                    await loadCabecalho();
+                    break;
+                case 'apresentacao':
+                    await loadApresentacao();
+                    break;
+                case 'projetos':
+                    await loadProjetos();
+                    break;
+                case 'agenda':
+                    await loadAgenda();
+                    break;
+                case 'mandatos':
+                    await loadMandatos();
+                    break;
+                case 'mensagens':
+                    await loadMensagens();
+                    break;
+                case 'rodape':
+                    await loadRodape();
+                    break;
+            }
+        }
+
+        // Load all content on startup
+        async function loadAllContent() {
+            await loadCabecalho();
+            await loadApresentacao();
+            await loadProjetos();
+            await loadAgenda();
+            await loadMandatos();
+            await loadMensagens();
+            await loadRodape();
+        }
+
+        // Load cabeçalho content
+        async function loadCabecalho() {
+            try {
+                const data = await getFromSupabase('site_conteudo', { secao: 'cabecalho' });
+                if (data && data.length > 0) {
+                    const conteudo = data[0];
+                    if (conteudo.dados) {
+                        const dados = JSON.parse(conteudo.dados);
+                        document.getElementById('siteTitulo').value = dados.titulo || '';
+                        document.getElementById('siteSubtitulo').value = dados.subtitulo || '';
+                        document.getElementById('siteCidade').value = dados.cidade || '';
+                        document.getElementById('siteSlogan').value = dados.slogan || '';
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading cabeçalho:', error);
+            }
+        }
+
+        // Load apresentação content
+        async function loadApresentacao() {
+            try {
+                const data = await getFromSupabase('site_conteudo', { secao: 'apresentacao' });
+                if (data && data.length > 0) {
+                    const conteudo = data[0];
+                    if (conteudo.dados) {
+                        const dados = JSON.parse(conteudo.dados);
+                        document.getElementById('nomeVereador').value = dados.nome || '';
+                        document.getElementById('biografiaVereador').value = dados.biografia || '';
+                        document.getElementById('fotoVereador').value = dados.foto || '';
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading apresentação:', error);
+            }
+        }
+
+        // Load projetos
+        async function loadProjetos() {
+            try {
+                const data = await getFromSupabase('projetos');
+                const container = document.getElementById('projetosContainer');
+                
+                if (data && data.length > 0) {
+                    container.innerHTML = data.map(projeto => `
+                        <div class="content-preview">
+                            <h4>${projeto.titulo}</h4>
+                            <p>${projeto.descricao}</p>
+                            <p><strong>Status:</strong> ${projeto.status}</p>
+                            <button class="btn btn-sm" onclick="editProjeto(${projeto.id})">
+                                <i class="fas fa-edit"></i> Editar
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteProjeto(${projeto.id})">
+                                <i class="fas fa-trash"></i> Excluir
+                            </button>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<p>Nenhum projeto cadastrado.</p>';
+                }
+            } catch (error) {
+                console.error('Error loading projetos:', error);
+                document.getElementById('projetosContainer').innerHTML = '<p>Erro ao carregar projetos. Verifique se as tabelas estão criadas no Supabase.</p>';
+            }
+        }
+
+        // Form handlers
+        document.getElementById('cabecalhoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const dados = Object.fromEntries(formData);
+            
+            try {
+                const conteudo = {
+                    secao: 'cabecalho',
+                    dados: JSON.stringify(dados),
+                    conteudo_html: `<h1>${dados.titulo}</h1><h2>${dados.subtitulo}</h2><p>${dados.cidade}</p><span>${dados.slogan}</span>`
+                };
+                
+                // Try to update first, then insert if not exists
+                const existing = await getFromSupabase('site_conteudo', { secao: 'cabecalho' });
+                
+                if (existing && existing.length > 0) {
+                    await updateSupabase('site_conteudo', existing[0].id, conteudo);
+                } else {
+                    await saveToSupabase('site_conteudo', conteudo);
+                }
+                
+                showAlert('Cabeçalho salvo com sucesso!', 'success');
+                
+            } catch (error) {
+                showAlert(`Erro ao salvar: ${error.message}`, 'error');
+            }
+        });
+
+        document.getElementById('apresentacaoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const dados = Object.fromEntries(formData);
+            
+            try {
+                const conteudo = {
+                    secao: 'apresentacao',
+                    dados: JSON.stringify(dados),
+                    conteudo_html: `<h3>${dados.nome}</h3><p>${dados.biografia}</p><img src="${dados.foto}" alt="${dados.nome}">`
+                };
+                
+                const existing = await getFromSupabase('site_conteudo', { secao: 'apresentacao' });
+                
+                if (existing && existing.length > 0) {
+                    await updateSupabase('site_conteudo', existing[0].id, conteudo);
+                } else {
+                    await saveToSupabase('site_conteudo', conteudo);
+                }
+                
+                showAlert('Apresentação salva com sucesso!', 'success');
+                
+            } catch (error) {
+                showAlert(`Erro ao salvar: ${error.message}`, 'error');
+            }
+        });
+
+        document.getElementById('projetosForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const dados = Object.fromEntries(formData);
+            
+            try {
+                if (dados.id) {
+                    await updateSupabase('projetos', dados.id, dados);
+                    showAlert('Projeto atualizado com sucesso!', 'success');
+                } else {
+                    delete dados.id;
+                    await saveToSupabase('projetos', dados);
+                    showAlert('Projeto criado com sucesso!', 'success');
+                }
+                
+                e.target.reset();
+                document.getElementById('projetoId').value = '';
+                await loadProjetos();
+                
+            } catch (error) {
+                showAlert(`Erro ao salvar projeto: ${error.message}`, 'error');
+            }
+        });
+
+        // Agenda form handler
+        document.getElementById('agendaForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const dados = Object.fromEntries(formData);
+            
+            try {
+                if (dados.id) {
+                    await updateSupabase('agenda_publica', dados.id, dados);
+                    showAlert('Evento atualizado com sucesso!', 'success');
+                } else {
+                    delete dados.id;
+                    await saveToSupabase('agenda_publica', dados);
+                    showAlert('Evento criado com sucesso!', 'success');
+                }
+                
+                e.target.reset();
+                document.getElementById('agendaId').value = '';
+                await loadAgenda();
+                
+            } catch (error) {
+                showAlert(`Erro ao salvar evento: ${error.message}`, 'error');
+            }
+        });
+
+        // Mandatos form handler
+        document.getElementById('mandatosForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const dados = Object.fromEntries(formData);
+            
+            try {
+                if (dados.id) {
+                    await updateSupabase('mandatos', dados.id, dados);
+                    showAlert('Mandato atualizado com sucesso!', 'success');
+                } else {
+                    delete dados.id;
+                    await saveToSupabase('mandatos', dados);
+                    showAlert('Mandato criado com sucesso!', 'success');
+                }
+                
+                e.target.reset();
+                document.getElementById('mandatosId').value = '';
+                await loadMandatos();
+                
+            } catch (error) {
+                showAlert(`Erro ao salvar mandato: ${error.message}`, 'error');
+            }
+        });
+
+        // Mensagens form handler
+        document.getElementById('mensagensForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const dados = Object.fromEntries(formData);
+            
+            try {
+                const conteudo = {
+                    secao: 'mensagens',
+                    dados: JSON.stringify(dados),
+                    conteudo_html: `<h3>${dados.titulo}</h3><p>${dados.texto}</p>`
+                };
+                
+                const existing = await getFromSupabase('site_conteudo', { secao: 'mensagens' });
+                
+                if (existing && existing.length > 0) {
+                    await updateSupabase('site_conteudo', existing[0].id, conteudo);
+                } else {
+                    await saveToSupabase('site_conteudo', conteudo);
+                }
+                
+                showAlert('Mensagem salva com sucesso!', 'success');
+                
+                // Update preview
+                const preview = document.getElementById('mensagemPreview');
+                preview.innerHTML = conteudo.conteudo_html;
+                
+            } catch (error) {
+                showAlert(`Erro ao salvar mensagem: ${error.message}`, 'error');
+            }
+        });
+
+        // Rodapé form handler
+        document.getElementById('rodapeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const dados = Object.fromEntries(formData);
+            
+            try {
+                const conteudo = {
+                    secao: 'rodape',
+                    dados: JSON.stringify(dados),
+                    conteudo_html: `<div class="footer-content"><p>${dados.texto}</p><p>${dados.copyright}</p><p>Contato: ${dados.contato}</p><p>${dados.endereco}</p></div>`
+                };
+                
+                const existing = await getFromSupabase('site_conteudo', { secao: 'rodape' });
+                
+                if (existing && existing.length > 0) {
+                    await updateSupabase('site_conteudo', existing[0].id, conteudo);
+                } else {
+                    await saveToSupabase('site_conteudo', conteudo);
+                }
+                
+                showAlert('Rodapé salvo com sucesso!', 'success');
+                
+            } catch (error) {
+                showAlert(`Erro ao salvar rodapé: ${error.message}`, 'error');
+            }
+        });
+
+        // Load agenda
+        async function loadAgenda() {
+            try {
+                const data = await getFromSupabase('agenda_publica');
+                const container = document.getElementById('agendaContainer');
+                
+                if (data && data.length > 0) {
+                    container.innerHTML = data.map(evento => `
+                        <div class="content-preview">
+                            <h4>${evento.titulo}</h4>
+                            <p><strong>Data:</strong> ${new Date(evento.data).toLocaleDateString('pt-BR')}</p>
+                            <p>${evento.descricao}</p>
+                            <button class="btn btn-sm" onclick="editAgenda(${evento.id})">
+                                <i class="fas fa-edit"></i> Editar
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteAgenda(${evento.id})">
+                                <i class="fas fa-trash"></i> Excluir
+                            </button>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<p>Nenhum evento cadastrado.</p>';
+                }
+            } catch (error) {
+                console.error('Error loading agenda:', error);
+                document.getElementById('agendaContainer').innerHTML = '<p>Erro ao carregar agenda. Verifique se as tabelas estão criadas no Supabase.</p>';
+            }
+        }
+
+        // Load mandatos
+        async function loadMandatos() {
+            try {
+                const data = await getFromSupabase('mandatos');
+                const container = document.getElementById('mandatosContainer');
+                
+                if (data && data.length > 0) {
+                    container.innerHTML = data.map(mandato => `
+                        <div class="content-preview">
+                            <h4>${mandato.titulo}</h4>
+                            <p>${mandato.descricao}</p>
+                            ${mandato.imagem_url ? `<img src="${mandato.imagem_url}" alt="${mandato.titulo}" style="max-width: 100px; height: auto;">` : ''}
+                            <button class="btn btn-sm" onclick="editMandato(${mandato.id})">
+                                <i class="fas fa-edit"></i> Editar
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteMandato(${mandato.id})">
+                                <i class="fas fa-trash"></i> Excluir
+                            </button>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<p>Nenhum mandato cadastrado.</p>';
+                }
+            } catch (error) {
+                console.error('Error loading mandatos:', error);
+                document.getElementById('mandatosContainer').innerHTML = '<p>Erro ao carregar mandatos. Verifique se as tabelas estão criadas no Supabase.</p>';
+            }
+        }
+
+        // Load mensagens
+        async function loadMensagens() {
+            try {
+                const data = await getFromSupabase('site_conteudo', { secao: 'mensagens' });
+                if (data && data.length > 0) {
+                    const conteudo = data[0];
+                    if (conteudo.dados) {
+                        const dados = JSON.parse(conteudo.dados);
+                        document.getElementById('mensagemTitulo').value = dados.titulo || '';
+                        document.getElementById('mensagemTexto').value = dados.texto || '';
+                        
+                        // Update preview
+                        const preview = document.getElementById('mensagemPreview');
+                        preview.innerHTML = conteudo.conteudo_html || 'Nenhuma mensagem configurada.';
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading mensagens:', error);
+            }
+        }
+
+        // Load rodapé
+        async function loadRodape() {
+            try {
+                const data = await getFromSupabase('site_conteudo', { secao: 'rodape' });
+                if (data && data.length > 0) {
+                    const conteudo = data[0];
+                    if (conteudo.dados) {
+                        const dados = JSON.parse(conteudo.dados);
+                        document.getElementById('rodapeTexto').value = dados.texto || '';
+                        document.getElementById('rodapeCopyright').value = dados.copyright || '';
+                        document.getElementById('rodapeContato').value = dados.contato || '';
+                        document.getElementById('rodapeEndereco').value = dados.endereco || '';
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading rodapé:', error);
+            }
+        }
+
+        // Global functions for project management
+        window.editProjeto = async function(id) {
+            try {
+                const data = await getFromSupabase('projetos', { id });
+                if (data && data.length > 0) {
+                    const projeto = data[0];
+                    document.getElementById('projetoId').value = projeto.id;
+                    document.getElementById('projetoTitulo').value = projeto.titulo;
+                    document.getElementById('projetoDescricao').value = projeto.descricao;
+                    document.getElementById('projetoImagem').value = projeto.imagem_url;
+                    document.getElementById('projetoStatus').value = projeto.status;
+                    document.getElementById('cancelProjeto').style.display = 'inline-flex';
+                }
+            } catch (error) {
+                showAlert(`Erro ao carregar projeto: ${error.message}`, 'error');
+            }
+        };
+
+        window.deleteProjeto = async function(id) {
+            if (confirm('Tem certeza que deseja excluir este projeto?')) {
+                try {
+                    await deleteFromSupabase('projetos', id);
+                    showAlert('Projeto excluído com sucesso!', 'success');
+                    await loadProjetos();
+                } catch (error) {
+                    showAlert(`Erro ao excluir projeto: ${error.message}`, 'error');
+                }
+            }
+        };
+
+        // Text formatting function
+        window.formatText = function(command) {
+            document.execCommand(command, false, null);
+        };
+
+        // Global functions for agenda management
+        window.editAgenda = async function(id) {
+            try {
+                const eventos = await getFromSupabase('agenda_publica', { id });
+                if (eventos && eventos.length > 0) {
+                    const evento = eventos[0];
+                    document.getElementById('agendaId').value = evento.id;
+                    document.getElementById('agendaTitulo').value = evento.titulo;
+                    document.getElementById('agendaData').value = evento.data;
+                    document.getElementById('agendaDescricao').value = evento.descricao;
+                    document.getElementById('cancelAgenda').style.display = 'inline-block';
+                }
+            } catch (error) {
+                showAlert(`Erro ao carregar evento: ${error.message}`, 'error');
+            }
+        };
+
+        window.deleteAgenda = async function(id) {
+            if (confirm('Tem certeza que deseja excluir este evento?')) {
+                try {
+                    await deleteFromSupabase('agenda_publica', id);
+                    showAlert('Evento excluído com sucesso!', 'success');
+                    await loadAgenda();
+                } catch (error) {
+                    showAlert(`Erro ao excluir evento: ${error.message}`, 'error');
+                }
+            }
+        };
+
+        // Global functions for mandatos management
+        window.editMandato = async function(id) {
+            try {
+                const mandatos = await getFromSupabase('mandatos', { id });
+                if (mandatos && mandatos.length > 0) {
+                    const mandato = mandatos[0];
+                    document.getElementById('mandatosId').value = mandato.id;
+                    document.getElementById('mandatosTitulo').value = mandato.titulo;
+                    document.getElementById('mandatosDescricao').value = mandato.descricao;
+                    document.getElementById('mandatosImagem').value = mandato.imagem_url || '';
+                }
+            } catch (error) {
+                showAlert(`Erro ao carregar mandato: ${error.message}`, 'error');
+            }
+        };
+
+        window.deleteMandato = async function(id) {
+            if (confirm('Tem certeza que deseja excluir este mandato?')) {
+                try {
+                    await deleteFromSupabase('mandatos', id);
+                    showAlert('Mandato excluído com sucesso!', 'success');
+                    await loadMandatos();
+                } catch (error) {
+                    showAlert(`Erro ao excluir mandato: ${error.message}`, 'error');
+                }
+            }
+        };
+
+        // Initialize
+        window.addEventListener('load', () => {
+            testConnection();
+            
+            // Add navigation for new sections
+            const existingMenu = document.querySelector('.sidebar ul');
+            if (existingMenu) {
+                existingMenu.innerHTML += `
+                    <li><a href="#agenda" data-section="agenda"><i class="fas fa-calendar"></i> Agenda Pública</a></li>
+                    <li><a href="#mandatos" data-section="mandatos"><i class="fas fa-gavel"></i> Mandatos</a></li>
+                    <li><a href="#mensagens" data-section="mensagens"><i class="fas fa-comments"></i> Mensagens</a></li>
+                    <li><a href="#rodape" data-section="rodape"><i class="fas fa-info-circle"></i> Rodapé</a></li>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

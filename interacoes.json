@@ -1,0 +1,51 @@
+[
+  {
+    "tipo": "SUGESTAO",
+    "titulo": "Teste API",
+    "descricao": "Testando API",
+    "protocolo": "SGT2025123456",
+    "data": "2025-07-03T08:00:00.000Z",
+    "nome": "Teste",
+    "bairro": "Centro",
+    "status": "nova"
+  },
+  {
+    "tipo": "SUGESTAO",
+    "titulo": "Teste de Sugestão",
+    "descricao": "Esta é uma sugestão de teste",
+    "protocolo": "SGT2025123456",
+    "data": "2025-07-05T22:56:00.000Z",
+    "nome": "Cidadão Teste",
+    "status": "nova"
+  },
+  {
+    "tipo": "teste",
+    "mensagem": "Testando conexão API"
+  },
+  {
+    "protocolo": "SGT2025393743",
+    "tipo": "SUGESTAO",
+    "titulo": "Sem assunto",
+    "mensagem": "Sem mensagem",
+    "nome": "João Teste",
+    "email": "joao@teste.com",
+    "telefone": "--------------------------dXmto84HDepUvbpKjUsYLN\r\nContent-Disposition: attachment; name=\"tipo\"\r\n\r\nsugestao\r\n--------------------------dXmto84HDepUvbpKjUsYLN\r\nContent-Disposition: attachment; name=\"assunto\"\r\n\r\nTeste do sistema\r\n--------------------------dXmto84HDepUvbpKjUsYLN\r\nContent-Disposition: attachment; name=\"mensagem\"\r\n\r\nEsta é uma mensagem de teste do sistema corrigido\r\n--------------------------dXmto84HDepUvbpKjUsYLN\r\nContent-Disposition: attachment; name=\"bairro\"\r\n\r\nCentro\r\n--------------------------dXmto84HDepUvbpKjUsYLN\r\nContent-Disposition: attachment; name=\"localizacao\"\r\n\r\nPraça da Matriz\r\n--------------------------dXmto84HDepUvbpKjUsYLN--\r\n",
+    "bairro": "Não informado",
+    "endereco": "Não informado",
+    "data": "2025-07-06T16:11:59.592Z",
+    "status": "pendente"
+  },
+  {
+    "protocolo": "SGT2025225995",
+    "tipo": "SUGESTAO",
+    "titulo": "Sem assunto",
+    "mensagem": "Sem mensagem",
+    "nome": "Maria Silva",
+    "email": "maria@email.com",
+    "telefone": "--------------------------O8ObvVMZP39BtkR5PWcde2\r\nContent-Disposition: attachment; name=\"tipo\"\r\n\r\nreclamacao\r\n--------------------------O8ObvVMZP39BtkR5PWcde2\r\nContent-Disposition: attachment; name=\"assunto\"\r\n\r\nIluminação pública\r\n--------------------------O8ObvVMZP39BtkR5PWcde2\r\nContent-Disposition: attachment; name=\"mensagem\"\r\n\r\nA rua está sem iluminação há 3 semanas\r\n--------------------------O8ObvVMZP39BtkR5PWcde2\r\nContent-Disposition: attachment; name=\"bairro\"\r\n\r\nSão José\r\n--------------------------O8ObvVMZP39BtkR5PWcde2\r\nContent-Disposition: attachment; name=\"localizacao\"\r\n\r\nRua das Flores, 123\r\n--------------------------O8ObvVMZP39BtkR5PWcde2--\r\n",
+    "bairro": "Não informado",
+    "endereco": "Não informado",
+    "data": "2025-07-06T16:12:29.197Z",
+    "status": "pendente"
+  }
+]

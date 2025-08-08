@@ -1,0 +1,544 @@
+/* ========================================
+   SISTEMA DE RESPONSIVIDADE COMPLETA
+   Para telas pequenas e grandes (Mobile e Desktop)
+======================================== */
+
+/* Reset para garantir comportamento consistente */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
+/* Container principal responsivo */
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* ========================================
+   BREAKPOINTS RESPONSIVOS
+======================================== */
+
+/* Extra Small Devices (Celulares pequenos) */
+@media (max-width: 375px) {
+    .container { 
+        padding: 0 0.75rem; 
+        text-align: center;
+    }
+    
+    .hero-content {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+        text-align: center !important;
+        justify-items: center !important;
+        align-items: center !important;
+    }
+    
+    .hero-text {
+        text-align: center !important;
+        width: 100% !important;
+    }
+    
+    .hero-text h1 {
+        font-size: 1.75rem !important;
+        line-height: 1.2 !important;
+        text-align: center !important;
+    }
+    
+    .hero-text p {
+        font-size: 0.9rem !important;
+        text-align: center !important;
+    }
+    
+    .hero-buttons {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+        width: 100% !important;
+        max-width: 280px !important;
+        margin: 0 auto !important;
+    }
+    
+    .hero-button {
+        padding: 0.75rem 1rem !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+}
+
+/* Small Devices (Celulares) */
+@media (min-width: 376px) and (max-width: 576px) {
+    .container { 
+        padding: 0 1rem; 
+        text-align: center;
+    }
+    
+    .hero-content {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+        text-align: center !important;
+        justify-items: center !important;
+        align-items: center !important;
+    }
+    
+    .hero-text {
+        text-align: center !important;
+    }
+    
+    .hero-text h1 {
+        font-size: 2rem !important;
+        text-align: center !important;
+    }
+    
+    .hero-buttons {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+        width: 100% !important;
+        max-width: 300px !important;
+        margin: 0 auto !important;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .news-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+}
+
+/* Medium Devices (Tablets e Celulares grandes) */
+@media (min-width: 577px) and (max-width: 768px) {
+    .container { padding: 0 1.5rem; }
+    
+    .hero-content {
+        grid-template-columns: 1fr 350px !important;
+        gap: 2rem !important;
+    }
+    
+    .hero-buttons {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.5rem !important;
+    }
+    
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .news-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* Large Devices (Notebooks pequenos) */
+@media (min-width: 769px) and (max-width: 992px) {
+    .container { padding: 0 2rem; }
+    
+    .hero-content {
+        grid-template-columns: 1fr 400px !important;
+        gap: 2.5rem !important;
+    }
+    
+    .hero-buttons {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 1.5rem !important;
+    }
+    
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .news-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr 350px !important;
+        gap: 2.5rem !important;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+/* Extra Large Devices (Desktops) */
+@media (min-width: 993px) and (max-width: 1200px) {
+    .container { padding: 0 2rem; }
+    
+    .hero-content {
+        grid-template-columns: 1fr 450px !important;
+        gap: 3rem !important;
+    }
+    
+    .hero-buttons {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.25rem !important;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 2rem !important;
+    }
+    
+    .projects-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    
+    .news-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr 400px !important;
+        gap: 3rem !important;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+/* XXL Devices (Desktops grandes e TVs) */
+@media (min-width: 1201px) {
+    .container { 
+        padding: 0 3rem;
+        max-width: 1400px;
+    }
+    
+    .hero-content {
+        grid-template-columns: 1fr 500px !important;
+        gap: 4rem !important;
+    }
+    
+    .hero-buttons {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.5rem !important;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 2rem !important;
+    }
+    
+    .projects-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    
+    .news-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr 400px !important;
+        gap: 3rem !important;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+/* ========================================
+   COMPONENTES ESPECÍFICOS RESPONSIVOS
+======================================== */
+
+/* Navegação Mobile */
+@media (max-width: 768px) {
+    .navigation {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(30, 64, 175, 0.1);
+        z-index: 100;
+    }
+    
+    .nav-menu {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0.5rem 0;
+        overflow-x: auto;
+    }
+    
+    .nav-button {
+        flex-direction: column;
+        padding: 0.5rem 0.25rem;
+        font-size: 0.75rem;
+        min-width: auto;
+        white-space: nowrap;
+    }
+    
+    .nav-button i {
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    /* Compensar altura da navegação fixa */
+    body {
+        padding-bottom: 80px !important;
+        overflow-x: hidden !important;
+        position: relative !important;
+    }
+    
+    /* Garantir que nenhum overlay interfira */
+    .mobile-menu-overlay:not(.active) {
+        display: none !important;
+    }
+}
+
+/* Cards e elementos flexíveis */
+@media (max-width: 576px) {
+    .card, .project-card, .news-card, .stat-card {
+        margin-bottom: 1rem;
+    }
+    
+    .card-content {
+        padding: 1rem !important;
+    }
+    
+    .card h3, .project-card h3, .news-card h3 {
+        font-size: 1.1rem !important;
+    }
+    
+    .card p, .project-card p, .news-card p {
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
+    }
+}
+
+/* Modals responsivos */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95vw !important;
+        max-height: 90vh !important;
+        margin: 5vh auto !important;
+        padding: 1rem !important;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.5rem !important;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 16px !important; /* Previne zoom no iOS */
+    }
+}
+
+/* Botões responsivos */
+@media (max-width: 576px) {
+    .hero-button, .primary-button, .secondary-button {
+        width: 100% !important;
+        text-align: center !important;
+        justify-content: center !important;
+    }
+    
+    .button-group {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+    }
+}
+
+/* Ajustes de tipografia responsiva */
+@media (max-width: 576px) {
+    h1 { font-size: 1.75rem !important; }
+    h2 { font-size: 1.5rem !important; }
+    h3 { font-size: 1.25rem !important; }
+    h4 { font-size: 1.1rem !important; }
+    
+    .section-title {
+        font-size: 1.5rem !important;
+        text-align: center !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem !important;
+        text-align: center !important;
+    }
+}
+
+/* Espaçamentos responsivos */
+@media (max-width: 576px) {
+    .section {
+        padding: 2rem 0 !important;
+    }
+    
+    .content-section {
+        padding: 1.5rem 0 !important;
+    }
+    
+    .hero-section {
+        padding: 3rem 0 !important;
+    }
+}
+
+/* Galeria responsiva */
+@media (max-width: 576px) {
+    .gallery-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    .gallery-item {
+        width: 100% !important;
+        height: 250px !important;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+    }
+}
+
+/* Transparência responsiva */
+@media (max-width: 768px) {
+    .transparency-dashboard {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    .chart-container {
+        width: 100% !important;
+        overflow-x: auto !important;
+    }
+    
+    .transparency-card {
+        padding: 1rem !important;
+    }
+}
+
+/* Agenda responsiva */
+@media (max-width: 768px) {
+    .calendar-grid {
+        grid-template-columns: repeat(7, 1fr) !important;
+        font-size: 0.8rem !important;
+    }
+    
+    .agenda-list {
+        padding: 0 !important;
+    }
+    
+    .agenda-item {
+        padding: 1rem !important;
+        margin-bottom: 1rem !important;
+    }
+}
+
+/* Correções específicas para elementos que podem quebrar o layout */
+img, video, iframe, canvas, svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Prevenção de overflow horizontal */
+.overflow-hidden {
+    overflow-x: hidden;
+}
+
+/* Textos que não devem quebrar */
+.nowrap {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Utilidades para diferentes tamanhos de tela */
+.hide-mobile { display: block; }
+.show-mobile { display: none; }
+
+@media (max-width: 768px) {
+    .hide-mobile { display: none !important; }
+    .show-mobile { display: block !important; }
+    
+    /* Controle rigoroso dos botões flutuantes no mobile */
+    .floating-buttons {
+        position: fixed !important;
+        right: 15px !important;
+        bottom: 100px !important;
+        z-index: 1000 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        align-items: center !important;
+    }
+    
+    /* Garantir que apenas estes 3 botões apareçam no mobile */
+    .floating-buttons .whatsapp-float,
+    .floating-buttons .assistente-float {
+        display: flex !important;
+    }
+    
+    .floating-buttons .pwa-install-btn {
+        display: none !important; /* Ocultar no mobile por padrão */
+    }
+    
+    /* Mostrar PWA button apenas quando disponível */
+    .floating-buttons .pwa-install-btn[style*="block"],
+    .floating-buttons .pwa-install-btn.show {
+        display: flex !important;
+    }
+}
+
+.hide-desktop { display: none; }
+.show-desktop { display: block; }
+
+@media (min-width: 769px) {
+    .hide-desktop { display: none !important; }
+    .show-desktop { display: block !important; }
+}

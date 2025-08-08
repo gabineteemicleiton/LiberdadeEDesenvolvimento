@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo - Integração Supabase | Liberdade & Desenvolvimento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .header h1 {
+            color: #1e40af;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        .demo-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 4px solid #1e40af;
+        }
+
+        .demo-section h2 {
+            color: #1e40af;
+            margin-bottom: 1rem;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .demo-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .demo-card h3 {
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            background: #1e40af;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+
+        .btn:hover {
+            background: #1e3a8a;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #10b981;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-warning {
+            background: #f59e0b;
+        }
+
+        .btn-warning:hover {
+            background: #d97706;
+        }
+
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            background: #f1f5f9;
+            font-family: monospace;
+            font-size: 0.9rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .result.success {
+            background: #dcfce7;
+            border: 1px solid #16a34a;
+            color: #15803d;
+        }
+
+        .result.error {
+            background: #fef2f2;
+            border: 1px solid #ef4444;
+            color: #dc2626;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-left: 1rem;
+        }
+
+        .status.connected {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .status.disconnected {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .instructions {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .instructions h3 {
+            color: #92400e;
+            margin-bottom: 1rem;
+        }
+
+        .instructions ol {
+            color: #78350f;
+            padding-left: 1.5rem;
+        }
+
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Demo - Integração Supabase</h1>
+            <p>Demonstração da conexão e funcionalidades do banco de dados em nuvem</p>
+            <span id="connectionStatus" class="status disconnected">Desconectado</span>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 Instruções para Setup</h3>
+            <ol>
+                <li>Execute o script SQL <code>supabase-setup.sql</code> no Supabase Dashboard</li>
+                <li>Verifique se as credenciais estão corretas no <code>supabaseClient.js</code></li>
+                <li>Teste a conexão clicando no botão "Testar Conexão"</li>
+                <li>Explore as funcionalidades CRUD usando os botões abaixo</li>
+            </ol>
+        </div>
+
+        <div class="demo-section">
+            <h2>1. Teste de Conexão</h2>
+            <p>Verificar se a conexão com Supabase está funcionando</p>
+            <button class="btn" onclick="testConnection()">Testar Conexão</button>
+            <div id="connectionResult" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="demo-section">
+            <h2>2. Operações CRUD - Notícias</h2>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>📝 Criar Notícia</h3>
+                    <p>Adicionar nova notícia ao banco</p>
+                    <button class="btn btn-success" onclick="createNews()">Criar Notícia de Teste</button>
+                    <div id="createResult" class="result" style="display: none;"></div>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>📖 Listar Notícias</h3>
+                    <p>Buscar todas as notícias</p>
+                    <button class="btn" onclick="listNews()">Listar Notícias</button>
+                    <div id="listResult" class="result" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>3. Operações CRUD - Agenda</h2>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>📅 Criar Evento</h3>
+                    <p>Adicionar evento à agenda</p>
+                    <button class="btn btn-success" onclick="createEvent()">Criar Evento de Teste</button>
+                    <div id="eventCreateResult" class="result" style="display: none;"></div>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>📋 Listar Eventos</h3>
+                    <p>Buscar eventos da agenda</p>
+                    <button class="btn" onclick="listEvents()">Listar Eventos</button>
+                    <div id="eventListResult" class="result" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>4. Operações CRUD - Interações</h2>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>💬 Criar Interação</h3>
+                    <p>Salvar interação de cidadão</p>
+                    <button class="btn btn-success" onclick="createInteraction()">Criar Interação de Teste</button>
+                    <div id="interactionCreateResult" class="result" style="display: none;"></div>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>📊 Listar Interações</h3>
+                    <p>Buscar interações recebidas</p>
+                    <button class="btn" onclick="listInteractions()">Listar Interações</button>
+                    <button class="btn btn-warning" onclick="clearTestData()">Limpar Dados de Teste</button>
+                    <div id="interactionListResult" class="result" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Importar o cliente Supabase -->
+    <script type="module">
+        import { supabase, saveToSupabase, getFromSupabase, updateSupabase, deleteFromSupabase } from './supabaseClient.js';
+        
+        // Tornar disponível globalmente para os botões
+        window.supabase = supabase;
+        window.saveToSupabase = saveToSupabase;
+        window.getFromSupabase = getFromSupabase;
+        window.updateSupabase = updateSupabase;
+        window.deleteFromSupabase = deleteFromSupabase;
+
+        // Testar conexão automaticamente
+        window.addEventListener('load', () => {
+            testConnection();
+        });
+
+        // Função para testar conexão
+        window.testConnection = async function() {
+            const statusEl = document.getElementById('connectionStatus');
+            const resultEl = document.getElementById('connectionResult');
+            
+            try {
+                // Tentar buscar dados simples para testar conexão
+                const { data, error } = await supabase.from('cabecalho').select('*').limit(1);
+                
+                if (error) throw error;
+                
+                statusEl.textContent = 'Conectado';
+                statusEl.className = 'status connected';
+                
+                resultEl.className = 'result success';
+                resultEl.innerHTML = `✅ Conexão estabelecida com sucesso!<br>Dados encontrados: ${data.length} registro(s)`;
+                resultEl.style.display = 'block';
+                
+            } catch (error) {
+                statusEl.textContent = 'Erro de Conexão';
+                statusEl.className = 'status disconnected';
+                
+                resultEl.className = 'result error';
+                resultEl.innerHTML = `❌ Erro de conexão: ${error.message}`;
+                resultEl.style.display = 'block';
+            }
+        };
+
+        // Função para criar notícia de teste
+        window.createNews = async function() {
+            const resultEl = document.getElementById('createResult');
+            
+            try {
+                const newsData = {
+                    titulo: `Notícia de Teste - ${new Date().toLocaleString()}`,
+                    conteudo: 'Esta é uma notícia de teste criada para demonstrar a integração com Supabase.',
+                    resumo: 'Notícia de teste para demonstração',
+                    autor: 'Vereador Emicleiton',
+                    categoria: 'Teste',
+                    publicado: true
+                };
+                
+                const result = await saveToSupabase('noticias', newsData);
+                
+                resultEl.className = 'result success';
+                resultEl.innerHTML = `✅ Notícia criada com sucesso!<br>ID: ${result[0].id}<br>Título: ${result[0].titulo}`;
+                resultEl.style.display = 'block';
+                
+            } catch (error) {
+                resultEl.className = 'result error';
+                resultEl.innerHTML = `❌ Erro ao criar notícia: ${error.message}`;
+                resultEl.style.display = 'block';
+            }
+        };
+
+        // Função para listar notícias
+        window.listNews = async function() {
+            const resultEl = document.getElementById('listResult');
+            
+            try {
+                const news = await getFromSupabase('noticias');
+                
+                resultEl.className = 'result success';
+                resultEl.innerHTML = `✅ ${news.length} notícia(s) encontrada(s):<br><br>` + 
+                    news.map(item => `• ${item.titulo} (${item.categoria || 'Sem categoria'})`).join('<br>');
+                resultEl.style.display = 'block';
+                
+            } catch (error) {
+                resultEl.className = 'result error';
+                resultEl.innerHTML = `❌ Erro ao listar notícias: ${error.message}`;
+                resultEl.style.display = 'block';
+            }
+        };
+
+        // Função para criar evento de teste
+        window.createEvent = async function() {
+            const resultEl = document.getElementById('eventCreateResult');
+            
+            try {
+                const eventData = {
+                    titulo: `Evento de Teste - ${new Date().toLocaleDateString()}`,
+                    descricao: 'Este é um evento de teste para demonstrar a funcionalidade da agenda.',
+                    data_evento: new Date().toISOString().split('T')[0],
+                    hora_evento: '14:00',
+                    local_evento: 'Câmara Municipal de Monte Santo',
+                    categoria: 'Teste',
+                    status: 'Agendado'
+                };
+                
+                const result = await saveToSupabase('agenda', eventData);
+                
+                resultEl.className = 'result success';
+                resultEl.innerHTML = `✅ Evento criado com sucesso!<br>ID: ${result[0].id}<br>Título: ${result[0].titulo}`;
+                resultEl.style.display = 'block';
+                
+            } catch (error) {
+                resultEl.className = 'result error';
+                resultEl.innerHTML = `❌ Erro ao criar evento: ${error.message}`;
+                resultEl.style.display = 'block';
+            }
+        };
+
+        // Função para listar eventos
+        window.listEvents = async function() {
+            const resultEl = document.getElementById('eventListResult');
+            
+            try {
+                const events = await getFromSupabase('agenda');
+                
+                resultEl.className = 'result success';
+                resultEl.innerHTML = `✅ ${events.length} evento(s) encontrado(s):<br><br>` + 
+                    events.map(item => `• ${item.titulo} - ${item.data_evento} (${item.status})`).join('<br>');
+                resultEl.style.display = 'block';
+                
+            } catch (error) {
+                resultEl.className = 'result error';
+                resultEl.innerHTML = `❌ Erro ao listar eventos: ${error.message}`;
+                resultEl.style.display = 'block';
+            }
+        };
+
+        // Função para criar interação de teste
+        window.createInteraction = async function() {
+            const resultEl = document.getElementById('interactionCreateResult');
+            
+            try {
+                const interactionData = {
+                    nome: 'Cidadão Teste',
+                    email: 'teste@exemplo.com',
+                    telefone: '(74) 99999-9999',
+                    tipo: 'SUGESTAO',
+                    titulo: `Sugestão de Teste - ${new Date().toLocaleString()}`,
+                    descricao: 'Esta é uma sugestão de teste para demonstrar o sistema de interações.',
+                    protocolo: `SGT${new Date().getFullYear()}${Math.floor(Math.random() * 900000) + 100000}`,
+                    status: 'Pendente',
+                    bairro: 'Centro'
+                };
+                
+                const result = await saveToSupabase('interacoes', interactionData);
+                
+                resultEl.className = 'result success';
+                resultEl.innerHTML = `✅ Interação criada com sucesso!<br>ID: ${result[0].id}<br>Protocolo: ${result[0].protocolo}`;
+                resultEl.style.display = 'block';
+                
+            } catch (error) {
+                resultEl.className = 'result error';
+                resultEl.innerHTML = `❌ Erro ao criar interação: ${error.message}`;
+                resultEl.style.display = 'block';
+            }
+        };
+
+        // Função para listar interações
+        window.listInteractions = async function() {
+            const resultEl = document.getElementById('interactionListResult');
+            
+            try {
+                const interactions = await getFromSupabase('interacoes');
+                
+                resultEl.className = 'result success';
+                resultEl.innerHTML = `✅ ${interactions.length} interação(ões) encontrada(s):<br><br>` + 
+                    interactions.map(item => `• ${item.titulo} - ${item.nome} (${item.status})`).join('<br>');
+                resultEl.style.display = 'block';
+                
+            } catch (error) {
+                resultEl.className = 'result error';
+                resultEl.innerHTML = `❌ Erro ao listar interações: ${error.message}`;
+                resultEl.style.display = 'block';
+            }
+        };
+
+        // Função para limpar dados de teste
+        window.clearTestData = async function() {
+            const resultEl = document.getElementById('interactionListResult');
+            
+            try {
+                // Buscar e deletar dados de teste
+                const { data: testNews, error: newsError } = await supabase
+                    .from('noticias')
+                    .delete()
+                    .like('titulo', '%Teste%');
+
+                const { data: testEvents, error: eventError } = await supabase
+                    .from('agenda')
+                    .delete()
+                    .like('titulo', '%Teste%');
+
+                const { data: testInteractions, error: intError } = await supabase
+                    .from('interacoes')
+                    .delete()
+                    .like('titulo', '%Teste%');
+                
+                resultEl.className = 'result success';
+                resultEl.innerHTML = `✅ Dados de teste removidos com sucesso!`;
+                resultEl.style.display = 'block';
+                
+            } catch (error) {
+                resultEl.className = 'result error';
+                resultEl.innerHTML = `❌ Erro ao limpar dados: ${error.message}`;
+                resultEl.style.display = 'block';
+            }
+        };
+    </script>
+</body>
+</html>

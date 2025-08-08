@@ -1,0 +1,172 @@
+{
+  "header": {
+    "logo": "logo.png",
+    "siteTitle": "Gabinete Digital",
+    "vereadorName": "Emicleiton Rubem",
+    "city": "Monte Santo - Bahia",
+    "slogan": "Transparência, Participação e Inovação",
+    "whatsapp": "(74) 9 9999-9999"
+  },
+  "hero": {
+    "backgroundImage": "",
+    "vereadorPhoto": "vereador.png",
+    "title": "Bem-vindo ao Gabinete Digital",
+    "subtitle": "Conectando você ao poder público de Monte Santo",
+    "description": "Aqui você encontra informações sobre nosso trabalho, pode enviar sugestões, acompanhar projetos e participar ativamente da vida política do nosso município.",
+    "actionButtons": [
+      {
+        "text": "Fale Conosco",
+        "link": "#contato",
+        "icon": "fas fa-comments"
+      },
+      {
+        "text": "Projetos",
+        "link": "#projetos", 
+        "icon": "fas fa-tasks"
+      }
+    ]
+  },
+  "about": {
+    "title": "Sobre o Vereador",
+    "biography": "Emicleiton Rubem da Conceição é vereador em Monte Santo, Bahia, dedicado a servir a comunidade com transparência e inovação. Seu mandato é pautado pela participação cidadã e pelo desenvolvimento sustentável do município.",
+    "commitments": [
+      "Transparência na gestão pública",
+      "Participação cidadã ativa",
+      "Desenvolvimento sustentável",
+      "Inovação no serviço público"
+    ],
+    "achievements": [
+      "Projetos de infraestrutura urbana",
+      "Melhorias na saúde pública",
+      "Programas sociais implementados",
+      "Digitalização de serviços"
+    ]
+  },
+  "projects": [
+    {
+      "id": 1,
+      "title": "Pavimentação da Rua Principal",
+      "description": "Projeto de pavimentação asfáltica da rua principal do centro da cidade",
+      "status": "em-andamento",
+      "category": "infraestrutura",
+      "startDate": "2024-01-15",
+      "endDate": "2024-12-31",
+      "budget": "R$ 2.500.000",
+      "image": "",
+      "details": "Projeto abrangente de pavimentação que beneficiará toda a comunidade do centro urbano."
+    }
+  ],
+  "news": [
+    {
+      "id": 1,
+      "title": "Nova Lei de Transparência Aprovada",
+      "content": "Foi aprovada na Câmara Municipal a nova lei que garante maior transparência nos gastos públicos.",
+      "category": "legislacao",
+      "publishDate": "2024-07-01",
+      "image": "",
+      "author": "Emicleiton Rubem",
+      "featured": true
+    }
+  ],
+  "gallery": {
+    "photos": [
+      {
+        "id": 1,
+        "url": "vereador.png",
+        "caption": "Vereador Emicleiton em sessão da Câmara",
+        "category": "sessoes"
+      }
+    ],
+    "videos": [
+      {
+        "id": 1,
+        "title": "Discurso sobre Transparência",
+        "youtubeId": "",
+        "description": "Discurso do vereador sobre a importância da transparência pública"
+      }
+    ]
+  },
+  "agenda": [
+    {
+      "id": 1,
+      "title": "Sessão Ordinária da Câmara",
+      "date": "2024-07-10",
+      "time": "14:00",
+      "location": "Plenário da Câmara Municipal",
+      "description": "Sessão ordinária com discussão de projetos de lei",
+      "type": "sessao"
+    }
+  ],
+  "contact": {
+    "email": "emicleiton@camara.montesanto.ba.gov.br",
+    "phone": "(74) 3275-1234",
+    "whatsapp": "(74) 9 9999-9999",
+    "address": "Rua da Câmara, 123 - Centro - Monte Santo/BA",
+    "socialMedia": {
+      "facebook": "https://facebook.com/emicleitonrubem",
+      "instagram": "https://instagram.com/emicleitonrubem",
+      "youtube": "https://youtube.com/@emicleitonrubem"
+    }
+  },
+  "footer": {
+    "institutionalText": "Gabinete Digital do Vereador Emicleiton Rubem da Conceição - Transparência e participação cidadã em Monte Santo, Bahia.",
+    "copyright": "© 2024 Gabinete Digital - Emicleiton Rubem. Todos os direitos reservados.",
+    "quickLinks": [
+      {
+        "text": "Transparência",
+        "link": "#transparencia"
+      },
+      {
+        "text": "Projetos",
+        "link": "#projetos"
+      },
+      {
+        "text": "Contato",
+        "link": "#contato"
+      }
+    ]
+  },
+  "mandate": {
+    "period": "2021-2024",
+    "status": "Ativo",
+    "statistics": {
+      "yearsOfService": 8,
+      "projectsCompleted": 45,
+      "citizensHelped": 2840,
+      "satisfaction": 92
+    },
+    "actions": [
+      {
+        "text": "Projetos de Lei Aprovados",
+        "link": "#projetos",
+        "icon": "fas fa-gavel"
+      },
+      {
+        "text": "Audiências Públicas",
+        "link": "#audiencias",
+        "icon": "fas fa-users"
+      },
+      {
+        "text": "Famílias Beneficiadas",
+        "link": "#familias",
+        "icon": "fas fa-home"
+      },
+      {
+        "text": "Taxa de Aprovação",
+        "link": "#aprovacao",
+        "icon": "fas fa-chart-line"
+      }
+    ]
+  },
+  "styling": {
+    "primaryColor": "#1e40af",
+    "secondaryColor": "#fbbf24",
+    "textColor": "#1e293b",
+    "backgroundColor": "#ffffff",
+    "primaryFont": "Inter",
+    "headingFont": "Poppins",
+    "fontSize": "16px",
+    "borderRadius": "8px",
+    "shadowIntensity": "normal"
+  }
+}

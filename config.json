@@ -1,0 +1,39 @@
+{
+  "vereador": {
+    "nome": "Emicleiton Rubem da Conceição",
+    "cargo": "Vereador de Monte Santo - BA",
+    "imagem": "vereador.png"
+  },
+  "mandato": {
+    "periodo": "2021 - 2024",
+    "status": "Em Exercício",
+    "statusClass": "ativo"
+  },
+  "estatisticas": {
+    "anosMandato": "3",
+    "projetosAtivos": "42",
+    "cidadaosAtendidos": "1,247",
+    "satisfacao": "95%"
+  },
+  "site": {
+    "titulo": "Liberdade & Desenvolvimento",
+    "nomeVereador": "Emicleiton Rubem da Conceição",
+    "cidade": "Monte Santo - BA",
+    "slogan": "Trabalhando com transparência e dedicação pelo futuro da nossa cidade",
+    "whatsapp": "75999999999",
+    "textoInstitucional": "Compromisso com liberdade, transparência e desenvolvimento de Monte Santo - BA",
+    "telefone": "(75) 99999-9999",
+    "email": "contato@gabinete.com"
+  },
+  "painel": {
+    "titulo": "Painel Administrativo",
+    "subtitulo": "Sistema completo de gestão do gabinete digital • Bem-vindo, vereador Emicleiton!",
+    "boasVindas": "Bem-vindo, vereador Emicleiton!"
+  },
+  "cardsInformativos": {
+    "eleitoresCadastrados": "1,247",
+    "projetosAndamento": "42",
+    "eventosPrevistos": "8",
+    "mensagensRecebidas": "89"
+  }
+}

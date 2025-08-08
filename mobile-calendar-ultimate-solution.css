@@ -1,0 +1,249 @@
+/* SOLUÇÃO DEFINITIVA PARA CALENDÁRIO MOBILE - 2025-08-08 */
+/* Esta é a correção final e absoluta para os números do calendário mobile */
+
+@media screen and (max-width: 768px) {
+    /* FORÇAR VISIBILIDADE DA SEÇÃO AGENDA APENAS QUANDO ATIVA */
+    #agenda:not(.active) {
+        display: none !important;
+    }
+    
+    #agenda.active {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    /* CONTAINER PRINCIPAL DO CALENDÁRIO */
+    #agenda.active .modern-calendar-container {
+        width: 100% !important;
+        max-width: 380px !important;
+        margin: 0 auto 20px auto !important;
+        padding: 20px !important;
+        background: #ffffff !important;
+        border-radius: 16px !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+        border: 1px solid rgba(59, 130, 246, 0.1) !important;
+    }
+    
+    /* CABEÇALHO DO CALENDÁRIO */
+    #agenda.active .calendar-header-modern {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-bottom: 20px !important;
+        padding: 0 10px !important;
+    }
+    
+    #agenda.active .calendar-month-title {
+        font-size: 20px !important;
+        font-weight: 700 !important;
+        color: #1e40af !important;
+        margin: 0 !important;
+    }
+    
+    /* GRID DOS DIAS DA SEMANA */
+    #agenda.active .calendar-weekdays-modern {
+        display: grid !important;
+        grid-template-columns: repeat(7, 1fr) !important;
+        gap: 3px !important;
+        margin-bottom: 12px !important;
+        width: 100% !important;
+    }
+    
+    #agenda.active .weekday-modern {
+        text-align: center !important;
+        font-weight: 700 !important;
+        color: #374151 !important;
+        font-size: 12px !important;
+        padding: 8px 4px !important;
+        background: #f8fafc !important;
+        border-radius: 6px !important;
+        text-transform: uppercase !important;
+    }
+    
+    /* GRID DOS DIAS - ESTRUTURA PRINCIPAL */
+    #agenda.active .calendar-days-modern {
+        display: grid !important;
+        grid-template-columns: repeat(7, 1fr) !important;
+        grid-template-rows: repeat(6, 50px) !important;
+        gap: 4px !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* CÉLULAS DOS DIAS - FORÇAR EXIBIÇÃO DOS NÚMEROS */
+    #agenda.active .calendar-day-modern {
+        /* Dimensões e estrutura */
+        width: 100% !important;
+        height: 50px !important;
+        min-height: 50px !important;
+        max-height: 50px !important;
+        
+        /* Layout flexível centralizado */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        
+        /* Tipografia forçada e visível */
+        font-family: 'Inter', sans-serif !important;
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        line-height: 1 !important;
+        text-align: center !important;
+        color: #1f2937 !important;
+        
+        /* Fundo e bordas */
+        background: #ffffff !important;
+        border: 2px solid #e5e7eb !important;
+        border-radius: 10px !important;
+        
+        /* Sombras e efeitos */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+        
+        /* Comportamento */
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        
+        /* FORÇAR VISIBILIDADE ABSOLUTA */
+        opacity: 1 !important;
+        visibility: visible !important;
+        z-index: 1 !important;
+        
+        /* Garantir que o texto apareça */
+        text-indent: 0 !important;
+        text-shadow: none !important;
+        white-space: nowrap !important;
+        overflow: visible !important;
+        
+        /* Box model */
+        box-sizing: border-box !important;
+        position: relative !important;
+    }
+    
+    /* ESTADOS ESPECIAIS - DIA ATUAL */
+    #agenda.active .calendar-day-modern.current {
+        background: linear-gradient(135deg, #3b82f6, #1e40af) !important;
+        color: #ffffff !important;
+        border-color: #1e40af !important;
+        font-weight: 800 !important;
+        font-size: 18px !important;
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4) !important;
+        transform: scale(1.05) !important;
+        z-index: 3 !important;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+    }
+    
+    /* ESTADOS ESPECIAIS - DIAS COM EVENTOS */
+    #agenda.active .calendar-day-modern.event {
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+        color: #ffffff !important;
+        border-color: #059669 !important;
+        font-weight: 800 !important;
+        font-size: 16px !important;
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3) !important;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+    }
+    
+    /* Indicador de evento */
+    #agenda.active .calendar-day-modern.event::after {
+        content: '●' !important;
+        position: absolute !important;
+        bottom: 4px !important;
+        right: 6px !important;
+        font-size: 8px !important;
+        color: #fbbf24 !important;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    /* ESTADOS ESPECIAIS - DIAS INATIVOS */
+    #agenda.active .calendar-day-modern.inactive {
+        color: #9ca3af !important;
+        background: #f9fafb !important;
+        border-color: #f3f4f6 !important;
+        cursor: default !important;
+        opacity: 0.7 !important;
+        font-weight: 400 !important;
+    }
+    
+    /* HOVER EFFECTS */
+    #agenda.active .calendar-day-modern:not(.inactive):hover {
+        background: #f8fafc !important;
+        border-color: #3b82f6 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    #agenda.active .calendar-day-modern.current:hover {
+        transform: scale(1.08) translateY(-1px) !important;
+    }
+    
+    #agenda.active .calendar-day-modern.event:hover {
+        transform: translateY(-2px) scale(1.02) !important;
+    }
+    
+    /* CONTAINER DE EVENTOS */
+    #agenda.active .modern-events-container {
+        width: 100% !important;
+        max-width: 380px !important;
+        margin: 0 auto !important;
+        padding: 20px !important;
+        background: #ffffff !important;
+        border-radius: 16px !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+        border: 1px solid rgba(16, 185, 129, 0.1) !important;
+    }
+    
+    /* TÍTULOS E CABEÇALHOS */
+    #agenda.active .events-header-modern h3 {
+        color: #1f2937 !important;
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        margin: 0 0 15px 0 !important;
+    }
+    
+    /* LAYOUT GERAL DA AGENDA */
+    #agenda.active .agenda-modern-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 25px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 15px !important;
+        margin: 0 auto !important;
+    }
+    
+    /* GARANTIR QUE NADA INTERFIRA NOS NÚMEROS */
+    #agenda.active .calendar-day-modern * {
+        pointer-events: none !important;
+        color: inherit !important;
+        font-size: inherit !important;
+        font-weight: inherit !important;
+        text-shadow: inherit !important;
+    }
+    
+    /* CORREÇÃO DE QUALQUER CONFLITO DE CSS */
+    #agenda.active .calendar-day-modern::before,
+    #agenda.active .calendar-day-modern span:not(.event-indicator),
+    #agenda.active .calendar-day-modern div:not(.event-indicator) {
+        display: inline !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        color: inherit !important;
+        background: transparent !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        position: static !important;
+        transform: none !important;
+    }
+}
+
+/* FORÇA EXIBIÇÃO EM QUALQUER CONDIÇÃO */
+@media screen and (max-width: 768px) {
+    #agenda.active .calendar-day-modern {
+        text-rendering: optimizeLegibility !important;
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+    }
+}

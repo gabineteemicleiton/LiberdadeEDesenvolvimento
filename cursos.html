@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cursos Comunitários - Gabinete Digital</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header class="cursos-header">
+    <div class="container">
+      <div class="header-content">
+        <div class="header-info">
+          <h1><i class="fas fa-graduation-cap"></i> Cursos Comunitários</h1>
+          <p>Aprenda no seu ritmo, com acesso a vídeos, apostilas e certificado oficial</p>
+        </div>
+        <div class="header-actions">
+          <a href="painel_editor.html" class="btn-admin">
+            <i class="fas fa-edit"></i> Editar Cursos
+          </a>
+          <a href="index.html" class="btn-home">
+            <i class="fas fa-home"></i> Voltar ao Site
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+      <div class="stats-section">
+        <div class="stat-card">
+          <i class="fas fa-book"></i>
+          <div class="stat-info">
+            <span class="stat-number" id="totalCursos">0</span>
+            <span class="stat-label">Cursos Disponíveis</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-users"></i>
+          <div class="stat-info">
+            <span class="stat-number" id="totalAlunos">248</span>
+            <span class="stat-label">Alunos Inscritos</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-certificate"></i>
+          <div class="stat-info">
+            <span class="stat-number" id="totalCertificados">156</span>
+            <span class="stat-label">Certificados Emitidos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h2>Explore os Cursos</h2>
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all">
+            <i class="fas fa-th"></i> Todos
+          </button>
+          <button class="filter-btn" data-filter="informatica">
+            <i class="fas fa-computer"></i> Informática
+          </button>
+          <button class="filter-btn" data-filter="empreendedorismo">
+            <i class="fas fa-briefcase"></i> Empreendedorismo
+          </button>
+          <button class="filter-btn" data-filter="cidadania">
+            <i class="fas fa-users"></i> Cidadania
+          </button>
+        </div>
+      </div>
+
+      <div id="cursos-container" class="cursos-grid">
+        <!-- Cursos carregados via JavaScript -->
+      </div>
+    </div>
+  </main>
+
+  <footer class="cursos-footer">
+    <div class="container">
+      <p>&copy; 2025 Gabinete Digital - Emicleiton Rubem da Conceição</p>
+      <p>Educação gratuita e de qualidade para nossa comunidade</p>
+    </div>
+  </footer>
+
+  <script src="cursos.js"></script>
+</body>
+</html>

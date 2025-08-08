@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Sistema - Gabinete Digital</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(-45deg, #1E3C72, #2A5298, #1E3C72);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        .btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+        .btn-success {
+            background: #28a745;
+        }
+        .btn-success:hover {
+            background: #218838;
+        }
+        .status {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Reset Sistema</h1>
+        <p>Use esta página para resetar e corrigir o sistema de interações.</p>
+        
+        <div class="status" id="status">
+            <strong>Status Atual:</strong> Carregando...
+        </div>
+        
+        <button class="btn" onclick="limparTodosOsDados()">🗑️ Limpar Todos os Dados</button>
+        <button class="btn btn-success" onclick="criarDadosTeste()">🧪 Criar Dados de Teste</button>
+        <button class="btn btn-success" onclick="verificarSistema()">🔍 Verificar Sistema</button>
+        
+        <div style="margin-top: 30px;">
+            <a href="index.html" style="color: #1E3C72; text-decoration: none;">← Voltar para o Site</a> |
+            <a href="painel_interacoes.html" style="color: #1E3C72; text-decoration: none;">Painel Administrativo →</a>
+        </div>
+    </div>
+
+    <script>
+        function generateProtocol() {
+            const year = new Date().getFullYear();
+            const randomNum = Math.floor(Math.random() * 900000) + 100000;
+            return `SGT${year}${randomNum}`;
+        }
+
+        function updateStatus() {
+            try {
+                const interacoes = JSON.parse(localStorage.getItem('interacoesRecebidas') || '[]');
+                const status = document.getElementById('status');
+                
+                if (interacoes.length === 0) {
+                    status.innerHTML = '<strong>Status:</strong> ❌ Nenhuma interação encontrada';
+                    return;
+                }
+                
+                const tipos = {};
+                interacoes.forEach(interacao => {
+                    tipos[interacao.tipo] = (tipos[interacao.tipo] || 0) + 1;
+                });
+                
+                let html = `<strong>Status:</strong> ✅ ${interacoes.length} interações encontradas<br><br>`;
+                html += '<strong>Por tipo:</strong><br>';
+                Object.keys(tipos).forEach(tipo => {
+                    html += `• ${tipo}: ${tipos[tipo]}<br>`;
+                });
+                
+                status.innerHTML = html;
+                
+            } catch (error) {
+                document.getElementById('status').innerHTML = `<strong>Status:</strong> ❌ Erro: ${error.message}`;
+            }
+        }
+
+        function limparTodosOsDados() {
+            if (confirm('⚠️ ATENÇÃO: Isso vai apagar TODOS os dados do sistema!\n\nTem certeza que deseja continuar?')) {
+                try {
+                    // Limpar todas as chaves relacionadas
+                    const keysToRemove = [
+                        'interacoesRecebidas',
+                        'sugestoesCidadaos',
+                        'sugestoes',
+                        'interactions',
+                        'photoReports',
+                        'locationReports'
+                    ];
+                    
+                    keysToRemove.forEach(key => {
+                        localStorage.removeItem(key);
+                    });
+                    
+                    alert('✅ Todos os dados foram limpos com sucesso!');
+                    updateStatus();
+                } catch (error) {
+                    alert('❌ Erro ao limpar dados: ' + error.message);
+                }
+            }
+        }
+
+        function criarDadosTeste() {
+            try {
+                const interacoesTeste = [
+                    {
+                        tipo: 'SUGESTAO',
+                        titulo: 'Sugestão para melhorar a iluminação da praça',
+                        descricao: 'Sugiro melhorar a iluminação da Praça Central para aumentar a segurança no período noturno.',
+                        protocolo: generateProtocol(),
+                        data: new Date().toISOString(),
+                        nome: 'Maria Silva',
+                        status: 'nova'
+                    },
+                    {
+                        tipo: 'FOTO',
+                        titulo: 'Foto enviada por João Santos - Centro',
+                        descricao: 'Buraco na rua causando problemas para os motoristas',
+                        protocolo: generateProtocol(),
+                        data: new Date().toISOString(),
+                        nome: 'João Santos',
+                        local: 'Rua Principal, Centro',
+                        nomeArquivo: 'buraco_rua.jpg',
+                        status: 'nova'
+                    },
+                    {
+                        tipo: 'LOCALIZACAO',
+                        titulo: 'Localização marcada - Bairro Novo',
+                        descricao: 'Falta de sinalização na esquina',
+                        protocolo: generateProtocol(),
+                        data: new Date().toISOString(),
+                        nome: 'Ana Costa',
+                        local: 'Esquina da Rua A com Rua B',
+                        coordenadas: '-10.4333, -39.3333',
+                        status: 'nova'
+                    }
+                ];
+
+                localStorage.setItem('interacoesRecebidas', JSON.stringify(interacoesTeste));
+                alert('✅ Dados de teste criados com sucesso!');
+                updateStatus();
+                
+            } catch (error) {
+                alert('❌ Erro ao criar dados de teste: ' + error.message);
+            }
+        }
+
+        function verificarSistema() {
+            try {
+                const interacoes = JSON.parse(localStorage.getItem('interacoesRecebidas') || '[]');
+                
+                let relatorio = '📊 RELATÓRIO DO SISTEMA:\n\n';
+                relatorio += `Total de interações: ${interacoes.length}\n\n`;
+                
+                const tipos = {};
+                const protocolos = [];
+                
+                interacoes.forEach(interacao => {
+                    tipos[interacao.tipo] = (tipos[interacao.tipo] || 0) + 1;
+                    protocolos.push(interacao.protocolo);
+                });
+                
+                relatorio += 'Distribuição por tipo:\n';
+                Object.keys(tipos).forEach(tipo => {
+                    relatorio += `• ${tipo}: ${tipos[tipo]}\n`;
+                });
+                
+                relatorio += '\nProtocolos:\n';
+                protocolos.forEach(protocolo => {
+                    relatorio += `• ${protocolo}\n`;
+                });
+                
+                relatorio += '\n✅ Sistema funcionando corretamente!';
+                
+                alert(relatorio);
+                
+            } catch (error) {
+                alert('❌ Erro no sistema: ' + error.message);
+            }
+        }
+
+        // Atualizar status ao carregar
+        window.addEventListener('load', updateStatus);
+    </script>
+</body>
+</html>

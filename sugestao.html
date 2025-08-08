@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang='pt-BR'>
+<head>
+  <meta charset='UTF-8'>
+  <title>Enviar Sugestão</title>
+</head>
+<body>
+  <h2>Envie sua Sugestão</h2>
+  <form id='formSugestao'>
+    <input type='text' id='descricao' placeholder='Digite sua sugestão' required />
+    <button type='submit'>Enviar</button>
+  </form>
+  <p id='msg'></p>
+  <script>
+    document.getElementById('formSugestao').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const descricao = document.getElementById('descricao').value;
+      const dados = {
+        tipo: 'Sugestão',
+        descricao,
+        protocolo: 'PROTO-' + Math.floor(Math.random() * 10000),
+        data: new Date().toISOString()
+      };
+      const res = await fetch('/api/interacoes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados)
+      });
+      document.getElementById('msg').innerText = res.ok ? 'Sugestão enviada!' : 'Erro ao enviar.';
+    });
+  </script>
+</body>
+</html>

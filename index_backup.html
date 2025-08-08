@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabinete Digital - Emicleiton Rubem da Conceição</title>
+    <meta name="description" content="Gabinete Digital do Vereador Emicleiton Rubem da Conceição - Monte Santo, BA. Acompanhe projetos, agenda pública e entre em contato com nosso mandato.">
+    <meta name="keywords" content="vereador, Monte Santo, Bahia, política, gabinete digital, Emicleiton, câmara municipal, projetos sociais, saúde, educação, infraestrutura">
+    <meta name="author" content="Gabinete Digital - Emicleiton">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Portuguese">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="global">
+    <meta name="rating" content="general">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Gabinete Digital - Vereador Emicleiton Rubem da Conceição">
+    <meta property="og:description" content="Acompanhe o trabalho do Vereador Emicleiton Rubem da Conceição em Monte Santo, BA. Projetos, agenda pública e canal direto de comunicação com a população.">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630/1e40af/ffffff?text=Gabinete+Digital+Emicleiton">
+    <meta property="og:url" content="https://gabinete-digital-emicleiton.replit.app">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Gabinete Digital - Emicleiton">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gabinete Digital - Vereador Emicleiton">
+    <meta name="twitter:description" content="Acompanhe o trabalho do Vereador Emicleiton Rubem da Conceição em Monte Santo, BA">
+    <meta name="twitter:image" content="https://via.placeholder.com/1200x630/1e40af/ffffff?text=Gabinete+Digital+Emicleiton">
+    <meta name="twitter:site" content="@emicleiton_vereador">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="geo.region" content="BR-BA">
+    <meta name="geo.placename" content="Monte Santo, Bahia">
+    <meta name="geo.position" content="-10.4372;-39.3339">
+    <meta name="ICBM" content="-10.4372, -39.3339">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="assets/logo.svg" alt="Logo Gabinete Digital" class="logo">
+                    <div class="brand-text">
+                        <h1>Gabinete Digital</h1>
+                        <p>Emicleiton Rubem da Conceição</p>
+                        <span class="subtitle">Vereador de Monte Santo - BA</span>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-image">
+                    <img src="https://via.placeholder.com/300x300/1e40af/ffffff?text=Emicleiton" alt="Vereador Emicleiton Rubem da Conceição" class="vereador-photo">
+                    <div class="hero-badge">
+                        <i class="fas fa-medal"></i>
+                        <span>Mandato 2021-2024</span>
+                    </div>
+                </div>
+                <div class="hero-text">
+                    <h1 class="hero-title">Emicleiton Rubem da Conceição</h1>
+                    <p class="hero-position">Vereador de Monte Santo - Bahia</p>
+                    <p class="hero-slogan">"Trabalhando com transparência e dedicação pelo futuro da nossa cidade"</p>
+                    <div class="hero-actions">
+                        <a href="https://wa.me/5574999999999" class="hero-button primary" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            Fale Comigo
+                        </a>
+                        <button class="hero-button secondary" onclick="showSection('projetos')">
+                            <i class="fas fa-lightbulb"></i>
+                            Ver Projetos
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation -->
+    <nav class="navigation" id="navigation">
+        <div class="container">
+            <ul class="nav-menu" id="navMenu">
+                <li><button class="nav-button active" data-section="mandato"><i class="fas fa-trophy"></i> Mandato</button></li>
+                <li><button class="nav-button" data-section="biografia"><i class="fas fa-user"></i> Biografia</button></li>
+                <li><button class="nav-button" data-section="projetos"><i class="fas fa-lightbulb"></i> Projetos</button></li>
+                <li><button class="nav-button" data-section="agenda"><i class="fas fa-calendar-alt"></i> Agenda Pública</button></li>
+                <li><button class="nav-button" data-section="news"><i class="fas fa-newspaper"></i> Notícias</button></li>
+                <li><button class="nav-button" data-section="galeria"><i class="fas fa-images"></i> Galeria</button></li>
+                <li><button class="nav-button" data-section="contato"><i class="fas fa-comments"></i> Contato</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Mandato Section -->
+            <section id="mandato" class="content-section active">
+                <div class="section-header">
+                    <h2><i class="fas fa-comments"></i> Fale com o Vereador</h2>
+                    <p>Entre em contato direto com o gabinete para sugestões, dúvidas ou solicitações</p>
+                </div>
+                
+                <div class="contact-grid">
+                    <div class="contact-card whatsapp-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h3>WhatsApp Oficial</h3>
+                        <p>Atendimento direto e rápido via WhatsApp</p>
+                        <a href="https://wa.me/5574999999999" target="_blank" class="whatsapp-button">
+                            <i class="fab fa-whatsapp"></i> Enviar Mensagem
+                        </a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>E-mail Institucional</h3>
+                        <p>gabinete.emicleiton@montesanto.ba.gov.br</p>
+                        <a href="mailto:gabinete.emicleiton@montesanto.ba.gov.br" class="contact-button">
+                            <i class="fas fa-envelope"></i> Enviar E-mail
+                        </a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3>Telefone do Gabinete</h3>
+                        <p>(74) 3275-0000</p>
+                        <a href="tel:+557432750000" class="contact-button">
+                            <i class="fas fa-phone"></i> Ligar Agora
+                        </a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Endereço do Gabinete</h3>
+                        <p>Câmara Municipal de Monte Santo<br>Praça da Matriz, s/n - Centro<br>Monte Santo - BA, 48800-000</p>
+                        <div class="office-hours">
+                            <h4>Horário de Atendimento:</h4>
+                            <p>Segunda a Sexta: 8h às 17h</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- News Section -->
+            <section id="news" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-newspaper"></i> Notícias e Ações</h2>
+                    <p>Acompanhe as principais ações e conquistas do mandato</p>
+                </div>
+                
+                <div class="news-grid">
+                    <article class="news-card">
+                        <div class="news-header">
+                            <div class="news-category">Saúde</div>
+                            <div class="news-date">25 de Junho, 2025</div>
+                        </div>
+                        <h3>Aprovação de Projeto para Nova UBS no Bairro São José</h3>
+                        <p>O vereador Emicleiton conseguiu a aprovação unânime do projeto que destina recursos para construção de uma nova Unidade Básica de Saúde no bairro São José, beneficiando mais de 3.000 famílias da região.</p>
+                        <div class="news-tags">
+                            <span class="tag">Saúde Pública</span>
+                            <span class="tag">Infraestrutura</span>
+                        </div>
+                    </article>
+                    
+                    <article class="news-card">
+                        <div class="news-header">
+                            <div class="news-category">Esporte</div>
+                            <div class="news-date">20 de Junho, 2025</div>
+                        </div>
+                        <h3>Inauguração da Quadra Poliesportiva da Escola Municipal</h3>
+                        <p>Foi inaugurada a nova quadra poliesportiva da Escola Municipal João Silva, fruto da indicação do vereador Emicleiton. A obra beneficia cerca de 800 estudantes e a comunidade local com atividades esportivas e culturais.</p>
+                        <div class="news-tags">
+                            <span class="tag">Educação</span>
+                            <span class="tag">Esporte</span>
+                        </div>
+                    </article>
+                    
+                    <article class="news-card">
+                        <div class="news-header">
+                            <div class="news-category">Desenvolvimento</div>
+                            <div class="news-date">15 de Junho, 2025</div>
+                        </div>
+                        <h3>Criação do Programa de Microcrédito para Pequenos Empresários</h3>
+                        <p>O vereador Emicleiton apresentou e aprovou projeto que cria programa de microcrédito municipal, oferecendo empréstimos com juros subsidiados para pequenos empresários locais, fortalecendo a economia da cidade.</p>
+                        <div class="news-tags">
+                            <span class="tag">Economia</span>
+                            <span class="tag">Empreendedorismo</span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-lightbulb"></i> Projetos e Propostas</h2>
+                    <p>Conheça os projetos em andamento e as propostas para o desenvolvimento de Monte Santo</p>
+                </div>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Centro de Referência em Saúde Mental</h3>
+                        <div class="project-status status-progress">Em Tramitação</div>
+                        <p>Projeto de lei para criação de um Centro de Referência em Saúde Mental, oferecendo atendimento psicológico e psiquiátrico gratuito para a população, com foco especial em jovens e idosos.</p>
+                        <div class="project-details">
+                            <div class="detail-item">
+                                <strong>Investimento:</strong> R$ 850.000
+                            </div>
+                            <div class="detail-item">
+                                <strong>Beneficiários:</strong> Toda a população
+                            </div>
+                            <div class="detail-item">
+                                <strong>Prazo:</strong> 18 meses
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-icon">
+                            <i class="fas fa-running"></i>
+                        </div>
+                        <h3>Complexo Esportivo Municipal</h3>
+                        <div class="project-status status-approved">Aprovado</div>
+                        <p>Construção de um complexo esportivo com piscina olímpica, quadras de tênis, campo de futebol society e academia ao ar livre, promovendo o esporte e a qualidade de vida dos munícipes.</p>
+                        <div class="project-details">
+                            <div class="detail-item">
+                                <strong>Investimento:</strong> R$ 2.5 milhões
+                            </div>
+                            <div class="detail-item">
+                                <strong>Beneficiários:</strong> 15.000 pessoas
+                            </div>
+                            <div class="detail-item">
+                                <strong>Prazo:</strong> 24 meses
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Programa Futuro Digital</h3>
+                        <div class="project-status status-study">Em Estudo</div>
+                        <p>Programa de inclusão digital que prevê a instalação de laboratórios de informática em todas as escolas municipais, além de cursos gratuitos de programação e empreendedorismo digital para jovens.</p>
+                        <div class="project-details">
+                            <div class="detail-item">
+                                <strong>Investimento:</strong> R$ 1.2 milhões
+                            </div>
+                            <div class="detail-item">
+                                <strong>Beneficiários:</strong> 2.500 estudantes
+                            </div>
+                            <div class="detail-item">
+                                <strong>Prazo:</strong> 12 meses
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Agenda Section -->
+            <section id="agenda" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-calendar-alt"></i> Agenda Pública</h2>
+                    <p>Acompanhe a agenda de atividades e eventos públicos do gabinete</p>
+                </div>
+                
+                <div class="agenda-container">
+                    <div class="calendar-header">
+                        <button class="calendar-nav" id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                        <h3 id="currentMonth">Junho 2025</h3>
+                        <button class="calendar-nav" id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Calendar will be generated by JavaScript -->
+                    </div>
+                    
+                    <div class="upcoming-events">
+                        <h4>Próximos Eventos</h4>
+                        <div class="event-list" id="eventList">
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <span class="day">02</span>
+                                    <span class="month">JUL</span>
+                                </div>
+                                <div class="event-details">
+                                    <h5>Sessão Ordinária da Câmara</h5>
+                                    <p><i class="fas fa-clock"></i> 14:00 - 18:00</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Plenário da Câmara Municipal</p>
+                                </div>
+                            </div>
+                            
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <span class="day">05</span>
+                                    <span class="month">JUL</span>
+                                </div>
+                                <div class="event-details">
+                                    <h5>Audiência Pública - Saúde</h5>
+                                    <p><i class="fas fa-clock"></i> 19:00 - 21:00</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Auditório Municipal</p>
+                                </div>
+                            </div>
+                            
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <span class="day">08</span>
+                                    <span class="month">JUL</span>
+                                </div>
+                                <div class="event-details">
+                                    <h5>Reunião com Comerciantes</h5>
+                                    <p><i class="fas fa-clock"></i> 16:00 - 17:30</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> CDL Monte Santo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gallery Section -->
+            <section id="gallery" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-images"></i> Galeria de Ações e Eventos</h2>
+                    <p>Registros fotográficos e vídeos das principais ações e eventos do mandato</p>
+                </div>
+                
+                <div class="gallery-container">
+                    <!-- Photo Gallery -->
+                    <div class="gallery-section">
+                        <h3><i class="fas fa-camera"></i> Fotografias</h3>
+                        <div class="photo-grid">
+                            <div class="photo-item">
+                                <div class="photo-container">
+                                    <svg class="placeholder-image" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="400" height="300" fill="#f8fafc"/>
+                                        <g transform="translate(150, 100)">
+                                            <circle cx="50" cy="50" r="30" fill="#1e40af"/>
+                                            <rect x="20" y="80" width="60" height="40" fill="#fbbf24" rx="4"/>
+                                            <text x="50" y="140" text-anchor="middle" fill="#64748b" font-size="12">Inauguração UBS</text>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="photo-info">
+                                    <h4>Inauguração da UBS São José</h4>
+                                    <p>25 de Junho, 2025 - Cerimônia de inauguração da nova Unidade Básica de Saúde</p>
+                                    <div class="photo-tags">
+                                        <span class="tag">Saúde</span>
+                                        <span class="tag">Inauguração</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="photo-item">
+                                <div class="photo-container">
+                                    <svg class="placeholder-image" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="400" height="300" fill="#f8fafc"/>
+                                        <g transform="translate(100, 80)">
+                                            <rect x="0" y="40" width="200" height="120" fill="#22c55e" rx="8"/>
+                                            <circle cx="50" cy="60" r="15" fill="#ffffff"/>
+                                            <circle cx="100" cy="60" r="15" fill="#ffffff"/>
+                                            <circle cx="150" cy="60" r="15" fill="#ffffff"/>
+                                            <text x="100" y="180" text-anchor="middle" fill="#64748b" font-size="12">Quadra Poliesportiva</text>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="photo-info">
+                                    <h4>Entrega da Quadra Poliesportiva</h4>
+                                    <p>20 de Junho, 2025 - Entrega oficial da quadra da Escola Municipal João Silva</p>
+                                    <div class="photo-tags">
+                                        <span class="tag">Esporte</span>
+                                        <span class="tag">Educação</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="photo-item">
+                                <div class="photo-container">
+                                    <svg class="placeholder-image" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="400" height="300" fill="#f8fafc"/>
+                                        <g transform="translate(120, 90)">
+                                            <rect x="0" y="20" width="160" height="100" fill="#1e40af" rx="8"/>
+                                            <rect x="10" y="30" width="30" height="80" fill="#fbbf24"/>
+                                            <rect x="50" y="30" width="30" height="80" fill="#fbbf24"/>
+                                            <rect x="90" y="30" width="30" height="80" fill="#fbbf24"/>
+                                            <rect x="130" y="30" width="20" height="80" fill="#fbbf24"/>
+                                            <text x="80" y="140" text-anchor="middle" fill="#64748b" font-size="12">Reunião Comerciantes</text>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="photo-info">
+                                    <h4>Reunião com Comerciantes Locais</h4>
+                                    <p>15 de Junho, 2025 - Encontro para discussão do programa de microcrédito</p>
+                                    <div class="photo-tags">
+                                        <span class="tag">Economia</span>
+                                        <span class="tag">Reunião</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Video Gallery -->
+                    <div class="gallery-section">
+                        <h3><i class="fas fa-video"></i> Vídeos</h3>
+                        <div class="video-grid">
+                            <div class="video-item">
+                                <div class="video-container">
+                                    <iframe 
+                                        src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                                        title="Prestação de Contas - Vereador Emicleiton"
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <div class="video-info">
+                                    <h4>Prestação de Contas do Mandato</h4>
+                                    <p>Relatório completo das ações realizadas no primeiro semestre de 2025, incluindo projetos aprovados, recursos destinados e próximos objetivos.</p>
+                                    <div class="video-meta">
+                                        <span><i class="fas fa-calendar"></i> 28 de Junho, 2025</span>
+                                        <span><i class="fas fa-clock"></i> 15:30</span>
+                                        <span><i class="fas fa-eye"></i> 1.2k visualizações</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Participate Section -->
+            <section id="participate" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-users"></i> Participe da Gestão</h2>
+                    <p>Sua opinião é importante! Responda à enquete abaixo:</p>
+                </div>
+                
+                <div class="participate-container">
+                    <div class="form-intro">
+                        <div class="intro-card">
+                            <div class="intro-icon">
+                                <i class="fas fa-poll"></i>
+                            </div>
+                            <h3>Consulta Pública - Prioridades 2025</h3>
+                            <p>Ajude-nos a definir as prioridades para o segundo semestre de 2025. Sua participação é fundamental para que possamos direcionar nossos esforços para as áreas que mais necessitam de atenção em Monte Santo.</p>
+                            <div class="participation-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number">245</span>
+                                    <span class="stat-label">Participações</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">7</span>
+                                    <span class="stat-label">Dias restantes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-container">
+                        <div class="form-wrapper">
+                            <div class="form-header">
+                                <h4><i class="fas fa-clipboard-list"></i> Formulário de Consulta</h4>
+                                <p>Preencha o formulário abaixo. Suas respostas são anônimas e seguras.</p>
+                            </div>
+                            
+                            <div class="iframe-container">
+                                <iframe 
+                                    src="https://docs.google.com/forms/d/e/1FAIpQLSf5d8TZJHJzBjH1dV8HWJZaKHp2Lk3mZ1XxYyQzPqA7cR9E3w/viewform?embedded=true" 
+                                    width="100%" 
+                                    height="800" 
+                                    frameborder="0" 
+                                    marginheight="0" 
+                                    marginwidth="0"
+                                    title="Consulta Pública - Prioridades 2025">
+                                    Carregando formulário...
+                                </iframe>
+                            </div>
+                            
+                            <div class="form-footer">
+                                <div class="privacy-notice">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Suas respostas são confidenciais e utilizadas apenas para fins de planejamento público.</span>
+                                </div>
+                                <div class="contact-support">
+                                    <p>Dificuldades para responder? <a href="#contact" class="support-link">Entre em contato conosco</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-user"></i> Sobre o Vereador</h2>
+                    <p>Conheça a trajetória e os compromissos do vereador Emicleiton</p>
+                </div>
+                
+                <div class="about-container">
+                    <div class="about-profile">
+                        <div class="profile-image">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h3>Emicleiton Rubem da Conceição</h3>
+                            <p class="title">Vereador de Monte Santo - BA</p>
+                            <p class="mandate">Mandato 2021-2024 | Reeleito 2025-2028</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-content">
+                        <div class="biography">
+                            <h4>Biografia</h4>
+                            <p>Empresário e Vereador de Monte Santo - BA. Comprometido com o esporte, saúde e desenvolvimento da cidade. Natural de Monte Santo, Emicleiton construiu sua carreira empresarial na região antes de ingressar na vida pública, sempre mantendo forte ligação com as necessidades da comunidade.</p>
+                            
+                            <p>Desde o início de seu primeiro mandato, tem se destacado pela proximidade com a população e pela apresentação de projetos focados no desenvolvimento econômico, melhoria da saúde pública e promoção do esporte como ferramenta de inclusão social.</p>
+                        </div>
+                        
+                        <div class="commitments">
+                            <h4>Compromissos do Mandato</h4>
+                            <div class="commitment-grid">
+                                <div class="commitment-item">
+                                    <i class="fas fa-heartbeat"></i>
+                                    <h5>Saúde</h5>
+                                    <p>Ampliação do atendimento médico e criação de novos postos de saúde</p>
+                                </div>
+                                
+                                <div class="commitment-item">
+                                    <i class="fas fa-dumbbell"></i>
+                                    <h5>Esporte</h5>
+                                    <p>Promoção do esporte como ferramenta de inclusão e desenvolvimento social</p>
+                                </div>
+                                
+                                <div class="commitment-item">
+                                    <i class="fas fa-chart-line"></i>
+                                    <h5>Desenvolvimento</h5>
+                                    <p>Fomento ao empreendedorismo e geração de emprego e renda</p>
+                                </div>
+                                
+                                <div class="commitment-item">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    <h5>Educação</h5>
+                                    <p>Melhoria da infraestrutura educacional e programas de capacitação</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="achievements">
+                            <h4>Principais Conquistas</h4>
+                            <ul class="achievement-list">
+                                <li><i class="fas fa-check"></i> Aprovação de 15 projetos de lei de interesse público</li>
+                                <li><i class="fas fa-check"></i> Construção de 3 quadras poliesportivas em bairros periféricos</li>
+                                <li><i class="fas fa-check"></i> Criação do programa municipal de microcrédito</li>
+                                <li><i class="fas fa-check"></i> Implantação de 2 novas Unidades Básicas de Saúde</li>
+                                <li><i class="fas fa-check"></i> Realização de mais de 100 audiências públicas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Gabinete Digital</h4>
+                    <p>Transparência e proximidade com o cidadão</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <p><i class="fas fa-phone"></i> (74) 3275-0000</p>
+                    <p><i class="fas fa-envelope"></i> gabinete.emicleiton@montesanto.ba.gov.br</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Redes Sociais</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://wa.me/5574999999999" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Gabinete Digital - Vereador Emicleiton. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <div class="whatsapp-float" id="whatsappFloat">
+        <a href="https://wa.me/5574999999999" target="_blank" rel="noopener noreferrer" aria-label="Entrar em contato via WhatsApp">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+            </svg>
+        </a>
+    </div>
+
+    <!-- AI Assistant Chat Button -->
+    <div class="ai-assistant-float" id="aiAssistantFloat">
+        <button onclick="toggleAIAssistant()" aria-label="Abrir assistente inteligente">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                <circle cx="9" cy="9" r="1.5"/>
+                <circle cx="15" cy="9" r="1.5"/>
+                <path d="M8.5 14.5c1.5 1.5 4 1.5 5.5 0"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- AI Assistant Modal -->
+    <div class="ai-assistant-modal" id="aiAssistantModal">
+        <div class="ai-assistant-content">
+            <div class="ai-assistant-header">
+                <h3><i class="fas fa-robot"></i> Assistente Digital</h3>
+                <button class="close-assistant" onclick="toggleAIAssistant()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="ai-assistant-body">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="bot-message">
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <p>Olá! Sou o assistente digital do Gabinete do Vereador Emicleiton. Como posso ajudá-lo hoje?</p>
+                            <div class="quick-actions">
+                                <button onclick="sendQuickMessage('Como entrar em contato?')">📞 Contato</button>
+                                <button onclick="sendQuickMessage('Próximos eventos')">📅 Agenda</button>
+                                <button onclick="sendQuickMessage('Projetos em andamento')">💡 Projetos</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="chatInput" placeholder="Digite sua pergunta..." maxlength="500">
+                    <button onclick="sendMessage()" id="sendButton">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,337 @@
+/* CORREÇÃO ESPECÍFICA PARA CALENDÁRIO DA AGENDA PÚBLICA NO MOBILE */
+/* Arquivo: mobile-calendar-fix.css */
+
+@media screen and (max-width: 768px) {
+    /* Containers principais da agenda */
+    .agenda-modern-layout {
+        width: 100% !important;
+        max-width: calc(100vw - 20px) !important;
+        margin: 0 10px !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    .modern-calendar-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 15px !important;
+        box-sizing: border-box !important;
+        background: white !important;
+        border-radius: 15px !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+        overflow: hidden !important;
+    }
+    
+    /* Cabeçalho do calendário */
+    .calendar-header-modern {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-bottom: 15px !important;
+        padding: 0 5px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .calendar-header-modern h3 {
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        color: #1e40af !important;
+        margin: 0 !important;
+        text-align: center !important;
+        flex: 1 !important;
+    }
+    
+    .calendar-nav-btn {
+        background: #1e40af !important;
+        color: white !important;
+        border: none !important;
+        width: 35px !important;
+        height: 35px !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 16px !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 2px 8px rgba(30, 64, 175, 0.3) !important;
+    }
+    
+    .calendar-nav-btn:hover {
+        background: #3b82f6 !important;
+        transform: scale(1.1) !important;
+    }
+    
+    /* Dias da semana */
+    .calendar-weekdays-modern {
+        display: grid !important;
+        grid-template-columns: repeat(7, 1fr) !important;
+        gap: 2px !important;
+        margin-bottom: 8px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .weekday-modern {
+        text-align: center !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        color: #1e40af !important;
+        padding: 8px 2px !important;
+        background: #f8fafc !important;
+        border-radius: 6px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+    }
+    
+    /* Grid principal do calendário */
+    .calendar-grid-modern {
+        display: grid !important;
+        grid-template-columns: repeat(7, 1fr) !important;
+        gap: 3px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    /* Dias do calendário */
+    .calendar-day-modern {
+        width: 100% !important;
+        aspect-ratio: 1 !important;
+        min-height: 42px !important;
+        max-height: 42px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        border-radius: 8px !important;
+        text-align: center !important;
+        box-sizing: border-box !important;
+        color: #374151 !important;
+        background: #ffffff !important;
+        border: 2px solid #e5e7eb !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        position: relative !important;
+        overflow: hidden !important;
+    }
+    
+    .calendar-day-modern:hover {
+        background: #f3f4f6 !important;
+        border-color: #d1d5db !important;
+        transform: scale(1.05) !important;
+        z-index: 2 !important;
+    }
+    
+    /* Dia atual */
+    .calendar-day-modern.current {
+        background: linear-gradient(135deg, #3b82f6, #1e40af) !important;
+        color: white !important;
+        border-color: #1e40af !important;
+        font-weight: 700 !important;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+    }
+    
+    /* Dia com evento */
+    .calendar-day-modern.event {
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+        color: white !important;
+        border-color: #059669 !important;
+        font-weight: 700 !important;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4) !important;
+    }
+    
+    .calendar-day-modern.event::after {
+        content: '●' !important;
+        position: absolute !important;
+        top: 3px !important;
+        right: 3px !important;
+        font-size: 8px !important;
+        color: #fbbf24 !important;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
+    }
+    
+    /* Dias inativos */
+    .calendar-day-modern.inactive {
+        color: #d1d5db !important;
+        background: #f9fafb !important;
+        border-color: #f3f4f6 !important;
+        cursor: not-allowed !important;
+    }
+    
+    .calendar-day-modern.inactive:hover {
+        transform: none !important;
+        background: #f9fafb !important;
+    }
+    
+    /* Seção de eventos */
+    .events-section-modern {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 20px 0 0 0 !important;
+        padding: 15px !important;
+        background: white !important;
+        border-radius: 15px !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+        box-sizing: border-box !important;
+    }
+    
+    .events-section-modern h4 {
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        color: #1e40af !important;
+        margin: 0 0 15px 0 !important;
+        text-align: center !important;
+    }
+    
+    .events-list-modern {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .event-item-modern {
+        background: linear-gradient(135deg, #f8fafc, #e2e8f0) !important;
+        border: 2px solid #1e40af !important;
+        border-radius: 12px !important;
+        padding: 12px !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .event-item-modern:hover {
+        background: linear-gradient(135deg, #eff6ff, #dbeafe) !important;
+        border-color: #3b82f6 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(30, 64, 175, 0.2) !important;
+    }
+    
+    .event-date-modern {
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        color: #1e40af !important;
+        margin-bottom: 4px !important;
+    }
+    
+    .event-title-modern {
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        color: #1e293b !important;
+        margin-bottom: 4px !important;
+        line-height: 1.3 !important;
+    }
+    
+    .event-description-modern {
+        font-size: 12px !important;
+        color: #64748b !important;
+        line-height: 1.4 !important;
+    }
+    
+    .event-status-modern {
+        display: inline-block !important;
+        padding: 3px 8px !important;
+        border-radius: 12px !important;
+        font-size: 10px !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        margin-top: 6px !important;
+    }
+    
+    .event-status-modern.confirmado {
+        background: #dcfce7 !important;
+        color: #166534 !important;
+    }
+    
+    .event-status-modern.agendado {
+        background: #fef3c7 !important;
+        color: #92400e !important;
+    }
+    
+    /* Ajustes gerais para evitar scroll horizontal */
+    .agenda-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        padding: 0 10px !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Forçar que nenhum elemento saia da tela */
+    * {
+        max-width: 100% !important;
+    }
+    
+    .container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 15px !important;
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* Ajustes para telas muito pequenas (menos de 400px) */
+@media screen and (max-width: 400px) {
+    .calendar-day-modern {
+        min-height: 38px !important;
+        max-height: 38px !important;
+        font-size: 13px !important;
+    }
+    
+    .calendar-header-modern h3 {
+        font-size: 16px !important;
+    }
+    
+    .calendar-nav-btn {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 14px !important;
+    }
+    
+    .weekday-modern {
+        font-size: 11px !important;
+        padding: 6px 1px !important;
+    }
+    
+    .modern-calendar-container,
+    .events-section-modern {
+        padding: 12px !important;
+    }
+    
+    .agenda-modern-layout {
+        margin: 0 5px !important;
+    }
+}
+
+/* Correção específica para evitar que o calendário corte à direita */
+@media screen and (max-width: 768px) {
+    body {
+        overflow-x: hidden !important;
+    }
+    
+    .agenda-publica,
+    #agenda {
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    .section {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        padding: 0 15px !important;
+        box-sizing: border-box !important;
+    }
+}

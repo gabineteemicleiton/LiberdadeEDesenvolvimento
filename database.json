@@ -1,0 +1,97 @@
+{
+  "eleitores": [
+    {
+      "id": 1,
+      "nomeCompleto": "Maria Silva Santos",
+      "telefone": "(74) 99123-4567",
+      "dataNascimento": "1985-03-15",
+      "bairro": "Centro",
+      "cidade": "Monte Santo",
+      "genero": "Feminino",
+      "cpf": "123.456.789-01",
+      "zonaEleitoral": "050",
+      "secao": "0123",
+      "dataCadastro": "2025-06-25T10:30:00.000Z",
+      "status": "ativo"
+    },
+    {
+      "id": 2,
+      "nomeCompleto": "João Carlos Oliveira",
+      "telefone": "(74) 99234-5678",
+      "dataNascimento": "1978-11-22",
+      "bairro": "São José",
+      "cidade": "Monte Santo",
+      "genero": "Masculino",
+      "cpf": "234.567.890-12",
+      "zonaEleitoral": "050",
+      "secao": "0124",
+      "dataCadastro": "2025-06-26T14:15:00.000Z",
+      "status": "ativo"
+    },
+    {
+      "id": 3,
+      "nomeCompleto": "Ana Paula Ferreira",
+      "telefone": "(74) 99345-6789",
+      "dataNascimento": "1992-07-08",
+      "bairro": "Nossa Senhora de Fátima",
+      "cidade": "Monte Santo",
+      "genero": "Feminino",
+      "cpf": null,
+      "zonaEleitoral": null,
+      "secao": null,
+      "dataCadastro": "2025-06-27T16:45:00.000Z",
+      "status": "ativo"
+    },
+    {
+      "id": 4,
+      "nomeCompleto": "Carlos Eduardo Pereira",
+      "telefone": "(74) 99456-7890",
+      "dataNascimento": "1980-12-30",
+      "bairro": "Centro",
+      "cidade": "Monte Santo",
+      "genero": "Masculino",
+      "cpf": "345.678.901-23",
+      "zonaEleitoral": "050",
+      "secao": "0123",
+      "dataCadastro": "2025-06-28T09:20:00.000Z",
+      "status": "ativo"
+    },
+    {
+      "id": 5,
+      "nomeCompleto": "Fernanda Costa Lima",
+      "telefone": "(74) 99567-8901",
+      "dataNascimento": "1995-05-18",
+      "bairro": "Santo Antônio",
+      "cidade": "Monte Santo",
+      "genero": "Feminino",
+      "cpf": "456.789.012-34",
+      "zonaEleitoral": "050",
+      "secao": "0125",
+      "dataCadastro": "2025-06-29T11:10:00.000Z",
+      "status": "ativo"
+    }
+  ],
+  "configuracoes": {
+    "sistema": {
+      "nome": "Sistema de Gestão do Mandato",
+      "versao": "1.0.0",
+      "ultimaAtualizacao": "2025-06-30"
+    },
+    "admin": {
+      "email": "admin@gabinete.com",
+      "senha": "123456"
+    }
+  },
+  "comunicacao": {
+    "campanhas": [],
+    "mensagens": [],
+    "templates": []
+  },
+  "relatorios": {
+    "estatisticas": {
+      "totalEleitores": 5,
+      "crescimentoMensal": 12,
+      "bairroMaisAtivo": "Centro"
+    }
+  }
+}

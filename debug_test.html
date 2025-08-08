@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Sistema - Gabinete Digital</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1e40af;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .test-section h3 {
+            color: #374151;
+            margin-top: 0;
+        }
+        .btn {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .result {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+        .success {
+            background: #ecfdf5;
+            border: 1px solid #10b981;
+            color: #065f46;
+        }
+        .error {
+            background: #fef2f2;
+            border: 1px solid #ef4444;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Debug do Sistema</h1>
+        
+        <div class="test-section">
+            <h3>1. Teste de LocalStorage</h3>
+            <button class="btn" onclick="testLocalStorage()">Testar LocalStorage</button>
+            <div id="localStorageResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>2. Teste de Salvamento de Interação</h3>
+            <button class="btn" onclick="testSaveInteraction()">Salvar Interação de Teste</button>
+            <div id="saveResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>3. Teste de API</h3>
+            <button class="btn" onclick="testAPI()">Testar API</button>
+            <div id="apiResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>4. Teste de Upload de Foto</h3>
+            <input type="file" id="testPhoto" accept="image/*" style="margin-bottom: 10px;">
+            <button class="btn" onclick="testPhotoUpload()">Testar Upload</button>
+            <div id="photoResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>5. Verificar Dados Existentes</h3>
+            <button class="btn" onclick="checkExistingData()">Ver Dados Salvos</button>
+            <div id="existingDataResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>6. Limpar Dados</h3>
+            <button class="btn" onclick="clearData()" style="background: #dc2626;">Limpar Tudo</button>
+            <div id="clearResult" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        function testLocalStorage() {
+            try {
+                // Testar se localStorage funciona
+                const testKey = 'test_' + Date.now();
+                const testValue = 'teste_valor';
+                
+                localStorage.setItem(testKey, testValue);
+                const retrieved = localStorage.getItem(testKey);
+                localStorage.removeItem(testKey);
+                
+                const result = document.getElementById('localStorageResult');
+                if (retrieved === testValue) {
+                    result.className = 'result success';
+                    result.textContent = '✅ LocalStorage funciona perfeitamente!';
+                } else {
+                    result.className = 'result error';
+                    result.textContent = '❌ LocalStorage não está funcionando';
+                }
+            } catch (error) {
+                document.getElementById('localStorageResult').className = 'result error';
+                document.getElementById('localStorageResult').textContent = '❌ Erro: ' + error.message;
+            }
+        }
+        
+        function testSaveInteraction() {
+            try {
+                const protocolo = `SGT${new Date().getFullYear()}${Math.floor(Math.random() * 900000) + 100000}`;
+                const interacao = {
+                    protocolo: protocolo,
+                    tipo: 'TESTE',
+                    titulo: 'Teste de Sistema',
+                    mensagem: 'Esta é uma mensagem de teste',
+                    nome: 'João Teste',
+                    email: 'teste@email.com',
+                    telefone: '(75) 99999-9999',
+                    bairro: 'Centro',
+                    endereco: 'Rua de Teste',
+                    data: new Date().toISOString(),
+                    status: 'pendente'
+                };
+                
+                const interacoes = JSON.parse(localStorage.getItem('interacoesRecebidas') || '[]');
+                interacoes.push(interacao);
+                localStorage.setItem('interacoesRecebidas', JSON.stringify(interacoes));
+                
+                const result = document.getElementById('saveResult');
+                result.className = 'result success';
+                result.textContent = `✅ Interação salva com sucesso!\nProtocolo: ${protocolo}\nTotal de interações: ${interacoes.length}`;
+                
+                console.log('✅ Interação salva:', interacao);
+            } catch (error) {
+                document.getElementById('saveResult').className = 'result error';
+                document.getElementById('saveResult').textContent = '❌ Erro: ' + error.message;
+            }
+        }
+        
+        function testAPI() {
+            const result = document.getElementById('apiResult');
+            result.textContent = '🔄 Testando API...';
+            
+            fetch('http://localhost:3003/api/interacoes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    tipo: 'teste_api',
+                    mensagem: 'Teste de conexão API'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                result.className = 'result success';
+                result.textContent = `✅ API funcionando!\nResposta: ${JSON.stringify(data, null, 2)}`;
+            })
+            .catch(error => {
+                result.className = 'result error';
+                result.textContent = `❌ Erro na API: ${error.message}`;
+            });
+        }
+        
+        function testPhotoUpload() {
+            const fileInput = document.getElementById('testPhoto');
+            const result = document.getElementById('photoResult');
+            
+            if (!fileInput.files || fileInput.files.length === 0) {
+                result.className = 'result error';
+                result.textContent = '❌ Selecione uma foto primeiro!';
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('foto', file);
+            formData.append('nome', 'Teste Upload');
+            formData.append('bairro', 'Centro');
+            formData.append('endereco', 'Rua Teste');
+            formData.append('descricao', 'Teste de upload de foto');
+            
+            result.textContent = '🔄 Enviando foto...';
+            
+            fetch('http://localhost:3003/api/upload-foto', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    result.className = 'result success';
+                    result.textContent = `✅ Foto enviada com sucesso!\nProtocolo: ${data.protocolo}\nCaminho: ${data.imagePath}`;
+                } else {
+                    result.className = 'result error';
+                    result.textContent = `❌ Erro no upload: ${data.error}`;
+                }
+            })
+            .catch(error => {
+                result.className = 'result error';
+                result.textContent = `❌ Erro no upload: ${error.message}`;
+            });
+        }
+        
+        function checkExistingData() {
+            try {
+                const interacoes = JSON.parse(localStorage.getItem('interacoesRecebidas') || '[]');
+                const sugestoes = JSON.parse(localStorage.getItem('sugestoes') || '[]');
+                
+                const result = document.getElementById('existingDataResult');
+                result.className = 'result';
+                result.textContent = `📊 Dados encontrados:
+                
+Interações Recebidas (${interacoes.length}):
+${JSON.stringify(interacoes, null, 2)}
+
+Sugestões (${sugestoes.length}):
+${JSON.stringify(sugestoes, null, 2)}`;
+                
+            } catch (error) {
+                document.getElementById('existingDataResult').className = 'result error';
+                document.getElementById('existingDataResult').textContent = '❌ Erro: ' + error.message;
+            }
+        }
+        
+        function clearData() {
+            try {
+                localStorage.removeItem('interacoesRecebidas');
+                localStorage.removeItem('sugestoes');
+                localStorage.removeItem('sugestoesCidadaos');
+                
+                const result = document.getElementById('clearResult');
+                result.className = 'result success';
+                result.textContent = '✅ Todos os dados foram limpos!';
+            } catch (error) {
+                document.getElementById('clearResult').className = 'result error';
+                document.getElementById('clearResult').textContent = '❌ Erro: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
